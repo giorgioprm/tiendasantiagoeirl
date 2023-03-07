@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+           <ext:UBLExtensions>
+              <ext:UBLExtension>
+                 <ext:ExtensionContent/>
+              </ext:UBLExtension>
+           </ext:UBLExtensions>
+           <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+           <cbc:CustomizationID>2.0</cbc:CustomizationID>
+           <cbc:ID>B001-3</cbc:ID>
+           <cbc:IssueDate>2023-02-06</cbc:IssueDate>
+           <cbc:IssueTime>00:00:00</cbc:IssueTime>
+           <cbc:DueDate>2023-02-06</cbc:DueDate>
+           <cbc:InvoiceTypeCode listID="0101">03</cbc:InvoiceTypeCode>
+
+           <cbc:Note languageLocaleID="1000"><![CDATA[CUARENTA Y CUATRO  CON 2/100 SOLES]]></cbc:Note><cbc:DocumentCurrencyCode>PEN</cbc:DocumentCurrencyCode>
+           <cac:Signature>
+              <cbc:ID>20430573018</cbc:ID>
+              <cbc:Note><![CDATA[Tienda Santiago EIRL]]></cbc:Note>
+              <cac:SignatoryParty>
+                 <cac:PartyIdentification>
+                    <cbc:ID>20430573018</cbc:ID>
+                 </cac:PartyIdentification>
+                 <cac:PartyName>
+                    <cbc:Name><![CDATA[Tienda Santiago EIRL]]></cbc:Name>
+                 </cac:PartyName>
+              </cac:SignatoryParty>
+              <cac:DigitalSignatureAttachment>
+                 <cac:ExternalReference>
+                    <cbc:URI>#SIGN-EMPRESA</cbc:URI>
+                 </cac:ExternalReference>
+              </cac:DigitalSignatureAttachment>
+           </cac:Signature>
+           <cac:AccountingSupplierParty>
+              <cac:Party>
+                 <cac:PartyIdentification>
+                    <cbc:ID schemeID="6">20430573018</cbc:ID>
+                 </cac:PartyIdentification>
+                 <cac:PartyName>
+                    <cbc:Name><![CDATA[Tienda Santiago EIRL]]></cbc:Name>
+                 </cac:PartyName>
+                 <cac:PartyLegalEntity>
+                    <cbc:RegistrationName><![CDATA[Tienda Santiago EIRL]]></cbc:RegistrationName>
+                    <cac:RegistrationAddress>
+                       <cbc:ID>150136</cbc:ID>
+                       <cbc:AddressTypeCode>0000</cbc:AddressTypeCode>
+                       <cbc:CitySubdivisionName>NONE</cbc:CitySubdivisionName>
+                       <cbc:CityName>Lima</cbc:CityName>
+                       <cbc:CountrySubentity>Lima</cbc:CountrySubentity>
+                       <cbc:District>El Agustino</cbc:District>
+                       <cac:AddressLine>
+                          <cbc:Line><![CDATA[Avenida Ucayali, Mza. E, Lote 14]]></cbc:Line>
+                       </cac:AddressLine>
+                       <cac:Country>
+                          <cbc:IdentificationCode>Perú</cbc:IdentificationCode>
+                       </cac:Country>
+                    </cac:RegistrationAddress>
+                 </cac:PartyLegalEntity>
+              </cac:Party>
+           </cac:AccountingSupplierParty>
+           <cac:AccountingCustomerParty>
+              <cac:Party>
+                 <cac:PartyIdentification>
+                    <cbc:ID schemeID="1">25531554</cbc:ID>
+                 </cac:PartyIdentification>
+                 <cac:PartyLegalEntity>
+                    <cbc:RegistrationName><![CDATA[JUAN CARLOS RUITON REYES]]></cbc:RegistrationName>
+                    <cac:RegistrationAddress>
+                       <cac:AddressLine>
+                          <cbc:Line><![CDATA[av arequipa 1234]]></cbc:Line>
+                       </cac:AddressLine>
+                       <cac:Country>
+                          <cbc:IdentificationCode>PE</cbc:IdentificationCode>
+                       </cac:Country>
+                    </cac:RegistrationAddress>
+                 </cac:PartyLegalEntity>
+              </cac:Party>
+           </cac:AccountingCustomerParty><cac:PaymentTerms>
+               <cbc:ID>FormaPago</cbc:ID>
+               <cbc:PaymentMeansID>Contado</cbc:PaymentMeansID>
+           </cac:PaymentTerms><cac:TaxTotal>
+              <cbc:TaxAmount currencyID="PEN">6.74</cbc:TaxAmount><cac:TaxSubtotal>
+                 <cbc:TaxableAmount currencyID="PEN">37.46</cbc:TaxableAmount>
+                 <cbc:TaxAmount currencyID="PEN">6.74</cbc:TaxAmount>
+                 <cac:TaxCategory>
+                    <cac:TaxScheme>
+                       <cbc:ID>1000</cbc:ID>
+                       <cbc:Name>IGV</cbc:Name>
+                       <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+                    </cac:TaxScheme>
+                 </cac:TaxCategory>
+              </cac:TaxSubtotal></cac:TaxTotal>
+           <cac:LegalMonetaryTotal>
+              <cbc:LineExtensionAmount currencyID="PEN">37.46</cbc:LineExtensionAmount>
+              <cbc:TaxInclusiveAmount currencyID="PEN">44.2</cbc:TaxInclusiveAmount>
+              <cbc:PayableAmount currencyID="PEN">44.2</cbc:PayableAmount>
+           </cac:LegalMonetaryTotal><cac:InvoiceLine>
+                  <cbc:ID>1</cbc:ID>
+                  <cbc:InvoicedQuantity unitCode="BG">1</cbc:InvoicedQuantity>
+                  <cbc:LineExtensionAmount currencyID="PEN">16.95</cbc:LineExtensionAmount>
+                  <cac:PricingReference>
+                     <cac:AlternativeConditionPrice>
+                        <cbc:PriceAmount currencyID="PEN">20</cbc:PriceAmount>
+                        <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+                     </cac:AlternativeConditionPrice>
+                  </cac:PricingReference><cac:TaxTotal>
+                     <cbc:TaxAmount currencyID="PEN">3.05</cbc:TaxAmount>
+                     <cac:TaxSubtotal>
+                        <cbc:TaxableAmount currencyID="PEN">16.95</cbc:TaxableAmount>
+                        <cbc:TaxAmount currencyID="PEN">3.05</cbc:TaxAmount>
+                        <cac:TaxCategory>
+                           <cbc:Percent>18</cbc:Percent>
+                           <cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+                           <cac:TaxScheme>
+                              <cbc:ID>1000</cbc:ID>
+                              <cbc:Name>IGV</cbc:Name>
+                              <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+                           </cac:TaxScheme>
+                        </cac:TaxCategory>
+                     </cac:TaxSubtotal></cac:TaxTotal>
+                  <cac:Item>
+                     <cbc:Description><![CDATA[BOLSA DE AZUCAR PEDRITO]]></cbc:Description>
+                     <cac:SellersItemIdentification>
+                        <cbc:ID>101</cbc:ID>
+                     </cac:SellersItemIdentification>
+                  </cac:Item>
+                  <cac:Price>
+                     <cbc:PriceAmount currencyID="PEN">16.95</cbc:PriceAmount>
+                  </cac:Price>
+               </cac:InvoiceLine><cac:InvoiceLine>
+                  <cbc:ID>2</cbc:ID>
+                  <cbc:InvoicedQuantity unitCode="BO">2</cbc:InvoicedQuantity>
+                  <cbc:LineExtensionAmount currencyID="PEN">20.51</cbc:LineExtensionAmount>
+                  <cac:PricingReference>
+                     <cac:AlternativeConditionPrice>
+                        <cbc:PriceAmount currencyID="PEN">12.1</cbc:PriceAmount>
+                        <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+                     </cac:AlternativeConditionPrice>
+                  </cac:PricingReference><cac:TaxTotal>
+                     <cbc:TaxAmount currencyID="PEN">3.69</cbc:TaxAmount>
+                     <cac:TaxSubtotal>
+                        <cbc:TaxableAmount currencyID="PEN">20.51</cbc:TaxableAmount>
+                        <cbc:TaxAmount currencyID="PEN">3.69</cbc:TaxAmount>
+                        <cac:TaxCategory>
+                           <cbc:Percent>18</cbc:Percent>
+                           <cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+                           <cac:TaxScheme>
+                              <cbc:ID>1000</cbc:ID>
+                              <cbc:Name>IGV</cbc:Name>
+                              <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+                           </cac:TaxScheme>
+                        </cac:TaxCategory>
+                     </cac:TaxSubtotal></cac:TaxTotal>
+                  <cac:Item>
+                     <cbc:Description><![CDATA[Aceite Vegetal Chimu 900ml]]></cbc:Description>
+                     <cac:SellersItemIdentification>
+                        <cbc:ID>102</cbc:ID>
+                     </cac:SellersItemIdentification>
+                  </cac:Item>
+                  <cac:Price>
+                     <cbc:PriceAmount currencyID="PEN">10.25</cbc:PriceAmount>
+                  </cac:Price>
+               </cac:InvoiceLine></Invoice>
