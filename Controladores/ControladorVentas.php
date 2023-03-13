@@ -44,10 +44,6 @@ class ControladorVentas
 		return $respuesta;
 	}
 
-
-
-
-
 	// LLENAR CARRITO DE COMPRAS
 
 	public static function ctrLlenarCarrito($item, $valor, $datosCarrito)
@@ -198,8 +194,6 @@ class ControladorVentas
 		}
 		// $igv = round($igv,2);
 
-
-
 		$sub_total = $op_gravadas + $op_exoneradas + $op_inafectas + $igv;
 		$sub_to = $op_gravadas + $op_exoneradas + $op_inafectas;
 		$op_gr = $op_gravadas;
@@ -207,6 +201,32 @@ class ControladorVentas
 		// ALGORITMO DESCUENTO
 		$descuentoGlobal = $datosCarrito['descuentoG'];
 		$descuentoGlobalP = $datosCarrito['descuentoGP'];
+
+		//LOGICA IMPLEMENTADA------------- INICIO
+		if (is_numeric($descuentoGlobal) && $descuentoGlobal > 0) {
+			$descuento = number_format($descuentoGlobal, 2);
+		} else {
+			$descuentoGlobal = 0;
+		}
+
+		if ($descuentoGlobal > $sub_total) {
+			// Establecer el descuento como el valor del subtotal
+			$descuentoGlobal = $sub_total;
+		
+			// Mostrar un mensaje de error al usuario con SweetAlert
+			?>
+			<script>
+			Swal.fire({
+				icon: 'error',
+				title: 'Error',
+				text: 'El descuento no puede ser mayor que el subtotal'
+			})
+			</script>
+			<?php
+			return;
+		}
+		
+		//LOGICA IMPLEMENTADA------------- FIN
 
 		if ($datosCarrito['tipo_desc'] == 'S/' && $descuentoGlobal > 0 && $op_gravadas > 0) {
 			@$desc_porcentaje = ($descuentoGlobal / $op_gravadas);
@@ -992,7 +1012,4 @@ class ControladorVentas
 		$respuesta = ModeloVentas::mdlActualizarRechazadoDetalles($idventa, $detalles);
 		return $respuesta;
 	}
-
-
-	
 }
