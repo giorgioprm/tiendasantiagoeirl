@@ -172,7 +172,7 @@ $(".formCompra").on("click", ".btnGuardarCompra", function (e) {
                 },
                 success: function (respuesta) {
                     Swal.fire({
-                        title: '',
+                        title: 'La compra ha sido registrada corréctamente',
                         text: '¡Gracias!',
                         icon: 'success',
                         html:
@@ -220,8 +220,8 @@ $(".tabla-reportes").on('click', ".btn-anular-compra", function () {
                 success: function (respuesta) {
                     if (respuesta == 'ok') {
                         Swal.fire({
-                            title: '',
-                            text: '¡Comproante anulado corrréctamete!',
+                            title: 'Comproante anulado corrréctamete',
+                            text: '¡Gracias!',
                             icon: 'success',
                             showCancelButton: true,
                             showConfirmButton: false,

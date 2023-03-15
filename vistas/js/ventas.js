@@ -312,7 +312,7 @@ $('.btnGuardarVenta').on('click', function () {
                 success: function (respuesta) {
                     // loadCarrito();
                     Swal.fire({
-                        title: '',
+                        title: 'La venta ha sido registrada corréctamente',
                         text: '¡Gracias!',
                         icon: 'success',
                         html:
