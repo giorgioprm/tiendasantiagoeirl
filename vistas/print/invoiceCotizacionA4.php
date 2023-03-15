@@ -300,7 +300,7 @@ echo "Ticket de baja: ".$ticket['ticket'];
         
     </tr>
     <tr>
-        <td class="v25">R.U.C/D.N.I:</td>
+        <td class="v25">R.U.C / D.N.I:</td>
         <td class="v75" colspan="3"><?php echo $rucdni ?></td>
         
     </tr>

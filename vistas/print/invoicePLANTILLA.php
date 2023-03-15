@@ -242,7 +242,7 @@
         
     </tr>
     <tr>
-        <td class="v20">R.U.C/D.N.I:</td>
+        <td class="v20">R.U.C / D.N.I:</td>
         <td class="v80" colspan="3">20601285769</td>
         
     </tr>

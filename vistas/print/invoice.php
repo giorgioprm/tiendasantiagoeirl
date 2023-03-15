@@ -50,7 +50,7 @@ if($venta['codmoneda'] == 'PEN'){
   table{
         width: 100%;
         border-collapse: collapse;
-     //background: green;
+        /* background: green; */
     }
     .head{
         
@@ -203,7 +203,7 @@ echo "Ticket de baja: ".$ticket['ticket'];
             </td>
             </tr>
              <tr class="clie"><td>CLIENTE:</td><td colspan="3"><?php echo $razons_nombre ?></td></tr>
-             <tr class="clie"><td>R.U.C/D.N.I:</td><td colspan="3"><?php echo $rucdni ?></td></tr>
+             <tr class="clie"><td>R.U.C / D.N.I:</td><td colspan="3"><?php echo $rucdni ?></td></tr>
              <tr class="clie"><td>DIRECCIÓN:</td><td colspan="3"><?php echo $cliente['direccion'] ?></td></tr>
          </table>
  

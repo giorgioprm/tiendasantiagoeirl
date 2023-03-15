@@ -718,7 +718,7 @@ use Controladores\ControladorSunat;
                 <div class="col-md-4">
                   <div class="form-group">
 
-                    <input type="text" class="form-control" name="nuevoCodigo" id="nuevoCodigo" placeholder="Código" readonly required>
+                    <input type="text" class="form-control" name="nuevoCodigo" id="nuevoCodigo" placeholder="Código" title="Código" readonly required>
 
                   </div>
                 </div>
@@ -726,7 +726,7 @@ use Controladores\ControladorSunat;
                 <div class="col-md-4">
                   <div class="form-group">
 
-                    <input type="text" class="form-control" name="nuevaSerie" id="nuevaSerie" onkeyup="this.value=Numeros(this.value)" placeholder="Serie del producto" readonly>
+                    <input type="text" class="form-control" name="nuevaSerie" id="nuevaSerie" onkeyup="this.value=Numeros(this.value)" placeholder="Serie del producto" title="Serie del producto" readonly>
 
                   </div>
                 </div>
@@ -739,7 +739,7 @@ use Controladores\ControladorSunat;
                 <div class="col-md-6">
                   <div class="form-group">
 
-                    <select class="form-control" name="tipo_afectacion" id="tipo_afectacion">
+                    <select class="form-control" name="tipo_afectacion" id="tipo_afectacion" title="Tipo de affectación">
                       <?php
                       $item = null;
                       $valor = null;
@@ -758,7 +758,7 @@ use Controladores\ControladorSunat;
                   <div class="form-group">
 
 
-                    <select class="form-control" name="unidad" id="unidad">
+                    <select class="form-control" name="unidad" id="unidad" title="Unidad de medida">
                       <?php
                       $item = null;
                       $valor = null;
@@ -784,7 +784,7 @@ use Controladores\ControladorSunat;
                 <div class="col-md-9">
                   <div class="form-group">
 
-                    <input type="text" class="form-control" name="nuevaDescripcion" id="nuevaDescripcion" placeholder="Ingresar descripción" required>
+                    <input type="text" class="form-control" name="nuevaDescripcion" id="nuevaDescripcion" placeholder="Ingresar descripción" title="Descripción" required>
 
                   </div>
                 </div>
@@ -793,7 +793,7 @@ use Controladores\ControladorSunat;
                 <div class="col-md-3">
                   <div class="form-group">
 
-                    <input type="number" class="form-control" min="0" name="nuevoStock" id="nuevoStock" onkeyup="this.value=Numeros(this.value)" placeholder="Ingresar stock" required>
+                    <input type="number" class="form-control" min="0" name="nuevoStock" id="nuevoStock" onkeyup="this.value=Numeros(this.value)" placeholder="Ingresar stock" title="Stock" required>
 
                   </div>
                 </div>
@@ -803,7 +803,7 @@ use Controladores\ControladorSunat;
                 <div class="col-md-6">
                   <div class="form-group">
 
-                    <input type="text" class="form-control" name="nuevoPrecioUnitario" id="nuevoPrecioUnitario" onkeyup="this.value=Numeros(this.value)" placeholder="Ingresar precio unitario" step="any" required>
+                    <input type="text" class="form-control" name="nuevoPrecioUnitario" id="nuevoPrecioUnitario" onkeyup="this.value=Numeros(this.value)" placeholder="Ingresar precio unitario" title="Precio unitario" step="any" required>
 
                   </div>
                 </div>
@@ -813,7 +813,7 @@ use Controladores\ControladorSunat;
 
                   <div class="form-group">
 
-                    <input type="text" class="form-control" name="nuevoValorUnitario" id="nuevoValorUnitario" placeholder="Valor unitario" step="any" readonly required>
+                    <input type="text" class="form-control" name="nuevoValorUnitario" id="nuevoValorUnitario" placeholder="Valor unitario" title="Valor unitario" step="any" readonly required>
 
                   </div>
                 </div>
@@ -825,7 +825,7 @@ use Controladores\ControladorSunat;
 
                   <div class="form-group">
 
-                    <input type="text" class="form-control" name="nuevoigv" id="nuevoigv" placeholder="IGV 18%" readonly>
+                    <input type="text" class="form-control" name="nuevoigv" id="nuevoigv" placeholder="IGV 18%" title="IGV" readonly>
 
                   </div>
                 </div>
@@ -834,7 +834,7 @@ use Controladores\ControladorSunat;
                 <div class="col-md-6">
                   <div class="form-group">
 
-                    <input type="number" class="form-control" name="nuevoPrecioCompra" id="nuevoPrecioCompra" placeholder="Precio compra" readonly>
+                    <input type="number" class="form-control" name="nuevoPrecioCompra" id="nuevoPrecioCompra" placeholder="Precio compra" title="Precio de compra" readonly>
 
                   </div>
                 </div>
@@ -851,7 +851,7 @@ use Controladores\ControladorSunat;
 
                 <p class="help-block">Peso máximo de la imagen 2MB</p>
 
-                <img src="vistas/img/productos/default/anonymous.png" class="img-thumbnail previsualizar" width="130px">
+                <img src="vistas/img/productos/default/anonymous.png" class="img-thumbnail previsualizar" title="Subir foto" width="130px">
 
               </div>
 

@@ -38,7 +38,7 @@ if($nota['tipocomp_ref'] == '01'){
    table{
         width: 100%;
         border-collapse: collapse;
-     //background: green;
+        /* background: green; */
     }
     .head{
         
@@ -170,7 +170,7 @@ if($nota['tipocomp_ref'] == '01'){
              echo  date("d-m-Y", strtotime($nota['fecha_emision']));
              ?></td></tr>
              <tr class="clie"><td>CLIENTE:</td><td><?php echo $razons_nombre ?></td></tr>
-             <tr class="clie"><td>R.U.C/D.N.I:</td><td><?php echo $rucdni ?></td></tr>
+             <tr class="clie"><td>R.U.C / D.N.I:</td><td><?php echo $rucdni ?></td></tr>
              <tr class="clie"><td>DIRECCIÓN:</td><td><?php echo $cliente['direccion'] ?></td></tr>
              <tr class="clie"><td>TIPO MONEDA:</td><td><?php echo $nombreMoneda ?></td></tr>
          </table>
