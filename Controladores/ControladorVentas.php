@@ -202,9 +202,9 @@ class ControladorVentas
 		$descuentoGlobal = $datosCarrito['descuentoG'];
 		$descuentoGlobalP = $datosCarrito['descuentoGP'];
 
-		//LOGICA IMPLEMENTADA------------- INICIO
+		//--------------------LOGICA IMPLEMENTADA------------- INICIO
 		if (is_numeric($descuentoGlobal) && $descuentoGlobal > 0) {
-			$descuento = number_format($descuentoGlobal, 2);
+			$descuentoGlobal = number_format($descuentoGlobal, 2);
 		} else {
 			$descuentoGlobal = 0;
 		}
@@ -212,21 +212,21 @@ class ControladorVentas
 		if ($descuentoGlobal > $sub_total) {
 			// Establecer el descuento como el valor del subtotal
 			$descuentoGlobal = $sub_total;
-		
+
 			// Mostrar un mensaje de error al usuario con SweetAlert
-			?>
+?>
 			<script>
-			Swal.fire({
-				icon: 'error',
-				title: 'Error',
-				text: 'El descuento no puede ser mayor que el subtotal'
-			})
+				if ($descuentoGlobal > $descuentoGlobal) {
+					maxMsg.style.display = 'block';
+				} else {
+					maxMsg.style.display = 'none';
+				}
 			</script>
-			<?php
+<?php
 			return;
 		}
-		
-		//LOGICA IMPLEMENTADA------------- FIN
+
+		//--------------------LOGICA IMPLEMENTADA------------- FIN
 
 		if ($datosCarrito['tipo_desc'] == 'S/' && $descuentoGlobal > 0 && $op_gravadas > 0) {
 			@$desc_porcentaje = ($descuentoGlobal / $op_gravadas);
@@ -670,7 +670,9 @@ class ControladorVentas
 
 			$total = $op_gravadas + $op_exoneradas + $op_inafectas + $igv + $total_icbper;
 
-			$monto_desc = round($descuentoGlobal, 2);
+			// $monto_desc = round($descuentoGlobal, 2);
+			$monto_desc = round(intval($descuentoGlobal), 2);
+
 
 			$item = 'id';
 			$valor = $doc['idSerie'];

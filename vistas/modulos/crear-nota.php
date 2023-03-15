@@ -25,8 +25,6 @@ use Controladores\ControladorSunat;
     </section>
   </section>
 
-
-
   <!-- <section class="content"> -->
   <section class="container-fluid panel-medio">
     <!-- BOX INI -->
@@ -46,7 +44,6 @@ use Controladores\ControladorSunat;
               <div class="box-header" style="border: 0px; padding:0px;">
 
               </div>
-
 
               <form role="form" method="post" class="formVenta" id="formVenta">
 
@@ -210,7 +207,6 @@ use Controladores\ControladorSunat;
                     <div class="row" style="margin-bottom: 7px; padding-bottom: 4px;">
                       <div class="col-md-6">
 
-
                         <label style="border-style:none;" id="emailtext" for=""> ¿Deseas Enviar el Comprobante Electrónico al Email del Cliente?</label>
 
                         <div class="modo-contenedor-email">
@@ -219,7 +215,6 @@ use Controladores\ControladorSunat;
                           <label for="no" id="noe">No</label>
                           <input type="radio" class="modoemail" id="no" name="modoemail" value="n" checked="checked">
                         </div>
-
 
                         <div class="email-colunma" style="margin-top:5px;">
                           <div class="form-group">
@@ -322,7 +317,7 @@ use Controladores\ControladorSunat;
                                 <tbody>
                                   <tr>
                                     <td>
-                                      <div class="box">
+                                      <div class="box" style="display: none">
                                         <div class="col col-lg-12 col-sm-12 col-xs-12">
                                           <div class="contenedor-tipo-descuento">
                                             <label for="soles" id="sol" class="">S/</label>
@@ -332,22 +327,32 @@ use Controladores\ControladorSunat;
                                           </div>
                                         </div>
                                       </div>
-
                                       <div class="form-group">
                                         <div class="input-group">
                                           <span class="input-group-addon"><i class="fas fa-money-bill-wave"></i></span>
-                                          <input type="number" class="form-control" min="0" placeholder="0.00" id="descuentoGlobalP" name=" descuentoGlobalP" value="0" placeholder="Ingrese descuento" style="display: none">
-
-                                          <input type="number" class="form-control" min="0" placeholder="0.00" id="descuentoGlobal" name=" descuentoGlobal" value="0" placeholder=" Ingrese descuento">
-
+                                          <span class="input-group-addon">&nbsp;S/</i></span>
+                                          <input type="number" class="form-control" style="display: none" min="0" placeholder="0.00" id="descuentoGlobalP" name=" descuentoGlobalP" value="" placeholder="Ingrese descuento">
+                                          <input type="number" class="form-control" min="0" maxlength="3" pattern="[0-9]+" placeholder="0.00" id="descuentoGlobal" name=" descuentoGlobal" value="" placeholder=" Ingrese descuento">
                                         </div>
+                                        <p id="maxMsg" class="alert alert-danger" style="display:none;">El descuento no puede ser mayor que el subtotal</p>
+                                        <script>
+                                          var descuentocantidadInput = document.getElementById('descuentoGlobal');
+                                          var maxMsg = document.getElementById('maxMsg');
+
+                                          descuentocantidadInput.addEventListener('input', function(event) {
+                                            if (descuentocantidadInput.value > 200) {
+                                              maxMsg.style.display = 'block';
+                                            } else {
+                                              maxMsg.style.display = 'none';
+                                            }
+                                          });
+                                        </script>
                                       </div>
                                     </td>
                                   </tr>
                                   <!-- MÉTODO DE PAGO ========] -->
                                   <tr>
                                     <th>MÉTODO DE PAGO:</th>
-
                                   </tr>
 
                                   <tr>
@@ -388,7 +393,6 @@ use Controladores\ControladorSunat;
                             <!-- FIN COMENTARIO======= -->
                             </tbody>
                             </table>
-
 
                           </div>
                           <!-- FIN DESCUENTO GLOBAL -->
@@ -439,7 +443,6 @@ use Controladores\ControladorSunat;
                                     <td>0.00</td>
                                   </tr>
 
-
                                 </tbody>
                               </table>
                             </div>
@@ -471,7 +474,6 @@ use Controladores\ControladorSunat;
                                   </div> -->
 
                       <!-- </div> -->
-
 
                     </div>
 
@@ -506,11 +508,6 @@ use Controladores\ControladorSunat;
   </section>
 
 </div>
-
-
-
-
-
 
 <!-- MODAL AGREGAR CLIENTE-->
 <!-- Modal -->
@@ -615,8 +612,6 @@ use Controladores\ControladorSunat;
 
             </div>
 
-
-
           </div>
 
         </div>
@@ -642,12 +637,9 @@ use Controladores\ControladorSunat;
 
       </form>
 
-
     </div>
   </div>
 </div>
-
-
 
 <!-- Modal AGREGAR PRODUCTOS -->
 <div class="modal fade bd-example-modal-lg" id="modalProductosVenta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -734,19 +726,16 @@ use Controladores\ControladorSunat;
                       endforeach;
                       ?>
 
-
                     </select>
 
                   </div>
                 </div>
-
 
                 <!-- ENTRADA PARA DEL CÓDIGO -->
                 <div class="col-md-4">
                   <div class="form-group">
 
                     <input type="text" class="form-control" name="nuevoCodigo" id="nuevoCodigo" placeholder="Código" readonly required>
-
 
                   </div>
                 </div>
@@ -755,7 +744,6 @@ use Controladores\ControladorSunat;
                   <div class="form-group">
 
                     <input type="text" class="form-control" name="nuevaSerie" id="nuevaSerie" placeholder="Serie del producto">
-
 
                   </div>
                 </div>
@@ -768,7 +756,6 @@ use Controladores\ControladorSunat;
                 <div class="col-md-6">
                   <div class="form-group">
 
-
                     <select class="form-control" name="tipo_afectacion" id="tipo_afectacion">
                       <?php
                       $item = null;
@@ -776,20 +763,16 @@ use Controladores\ControladorSunat;
                       $unidad_medida = ControladorSunat::ctrMostrarTipoAfectacion($item, $valor);
                       foreach ($unidad_medida as $k => $value) {
 
-
                         echo "<option value='" . $value['codigo'] . "'>" . $value['descripcion'] . "</option>";
                       }
                       ?>
                     </select>
-
 
                   </div>
                 </div>
                 <!-- ENTRADA PARA UNIDAD DE MEDIDA -->
                 <div class="col-md-6">
                   <div class="form-group">
-
-
 
                     <select class="form-control" name="unidad" id="unidad">
                       <?php
@@ -836,7 +819,6 @@ use Controladores\ControladorSunat;
                 <div class="col-md-6">
                   <div class="form-group">
 
-
                     <input type="text" class="form-control" name="nuevoPrecioUnitario" id="nuevoPrecioUnitario" placeholder="Ingresar precio unitario" step="any" required>
 
                   </div>
@@ -846,7 +828,6 @@ use Controladores\ControladorSunat;
                 <div class="col-md-6">
 
                   <div class="form-group">
-
 
                     <input type="text" class="form-control" name="nuevoValorUnitario" id="nuevoValorUnitario" placeholder="Valor unitario" step="any" readonly required>
 
@@ -860,9 +841,7 @@ use Controladores\ControladorSunat;
 
                   <div class="form-group">
 
-
                     <input type="text" class="form-control" name="nuevoigv" id="nuevoigv" placeholder="IGV 18%" readonly>
-
 
                   </div>
                 </div>
@@ -871,9 +850,7 @@ use Controladores\ControladorSunat;
                 <div class="col-md-6">
                   <div class="form-group">
 
-
                     <input type="number" class="form-control" name="nuevoPrecioCompra" id="nuevoPrecioCompra" placeholder="Precio compra" readonly>
-
 
                   </div>
                 </div>
@@ -881,12 +858,9 @@ use Controladores\ControladorSunat;
             </div>
             <div class="col-md-4">
 
-
-
               <!-- ENTRADA PARA SUBIR FOTO -->
 
               <div class="img-contenedor">
-
 
                 <label for="nuevaImagen"></label>
                 <input type="file" class="nuevaImagen" name="nuevaImagen" id="nuevaImagen">
@@ -896,8 +870,6 @@ use Controladores\ControladorSunat;
                 <img src="vistas/img/productos/default/anonymous.png" class="img-thumbnail previsualizar" width="130px">
 
               </div>
-
-
 
             </div>
           </div>
@@ -924,7 +896,6 @@ use Controladores\ControladorSunat;
         ?>
 
       </form>
-
 
     </div>
   </div>

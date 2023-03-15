@@ -324,7 +324,8 @@ class ControladorCotizaciones{
 
 			$total = $op_gravadas + $op_exoneradas + $op_inafectas + $igv + $total_icbper;
 	
-			$monto_desc = round($descuentoGlobal,2);
+			// $monto_desc = round($descuentoGlobal,2);
+			$monto_desc = round(intval($descuentoGlobal), 2);
 
 			$item = 'id';
 			$valor = $doc['idSerie'];

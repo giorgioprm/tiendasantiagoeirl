@@ -16,7 +16,7 @@ $colores = array('#08bc6f', '#03acfe', '#156b95', '#ff83b8', '#ff5a42',  '#88767
 ?>
 <div class="box box-default contenedor-pie-chart">
   <div class="box-header with-border">
-    <h3 class="box-title">LOS MÁS VENDIDOS</h3>
+    <h3 class="box-title">PROCUCTOS MÁS VENDIDOS</h3>
     <div class="box-tools pull-right">
     </div>
   </div>

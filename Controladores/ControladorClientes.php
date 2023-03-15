@@ -67,10 +67,11 @@ class ControladorClientes{
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
                         confirmButtonText: 'Cerrar'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                        window.location = 'clientes';
-                        }
+                    // })
+                    // .then((result) => {
+                    //     if (result.isConfirmed) {
+                    //     window.location = 'clientes';
+                    //     }
                     })</script>"; 
         }
     }     
@@ -125,10 +126,11 @@ class ControladorClientes{
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
                         confirmButtonText: 'Cerrar'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                        window.location = 'clientes';
-                        }
+                    // })
+                    // .then((result) => {
+                    //     if (result.isConfirmed) {
+                    //     window.location = 'clientes';
+                    //     }
                     })</script>"; 
                     }
         }

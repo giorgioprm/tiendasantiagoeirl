@@ -124,6 +124,33 @@ class ControladorCompras
 
             $icbper += $v['icbper'];
         }
+
+        //LOGICA IMPLEMENTADA------------- INICIO
+        if (is_numeric($descuentoGlobal) && $descuentoGlobal > 0) {
+            $descuento = number_format($descuentoGlobal, 2);
+        } else {
+            $descuentoGlobal = 0;
+        }
+
+        if ($descuentoGlobal > $subtotal) {
+            // Establecer el descuento como el valor del subtotal
+            $descuentoGlobal = $subtotal;
+
+            // Mostrar un mensaje de error al usuario con SweetAlert
+?>
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'El descuento no puede ser mayor que el subtotal'
+                })
+            </script>
+<?php
+            return;
+        }
+
+        //LOGICA IMPLEMENTADA------------- FIN
+
         $descuentototal = $descuentoGlobal + $desc_items;
         $subTotal = $op_gravadas + $op_exoneradas + $op_inafectas;
         $total = $op_gravadas + $op_exoneradas + $op_inafectas + $igv + $icbper;

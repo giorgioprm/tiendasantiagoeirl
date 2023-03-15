@@ -329,7 +329,7 @@ use Controladores\ControladorSunat;
                               <tbody>
                                 <tr>
                                   <td>
-                                    <div class="box">
+                                    <div class="box" style="display: none">
                                       <div class="col col-lg-12 col-sm-12 col-xs-12">
                                         <div class="contenedor-tipo-descuento">
                                           <label for="soles" id="sol" class="">S/</label>
@@ -342,9 +342,23 @@ use Controladores\ControladorSunat;
                                     <div class="form-group">
                                       <div class="input-group">
                                         <span class="input-group-addon"><i class="fas fa-money-bill-wave"></i></span>
-                                        <input type="number" class="form-control" min="0" placeholder="0.00" id="descuentoGlobalP" name=" descuentoGlobalP" value="0" placeholder="Ingrese descuento" style="display: none">
-                                        <input type="number" class="form-control" min="0" max="500" pattern="[0-9]+" placeholder="0.00" id="descuentoGlobal" name=" descuentoGlobal" value="0" placeholder=" Ingrese descuento">
+                                        <span class="input-group-addon">&nbsp;S/</i></span>
+                                        <input type="number" class="form-control" style="display: none" min="0" placeholder="0.00" id="descuentoGlobalP" name=" descuentoGlobalP" value="" placeholder="Ingrese descuento">
+                                        <input type="number" class="form-control" min="0" maxlength="3" pattern="[0-9]+" placeholder="0.00" id="descuentoGlobal" name=" descuentoGlobal" value="" placeholder=" Ingrese descuento">
                                       </div>
+                                      <p id="maxMsg" class="alert alert-danger" style="display:none;">El descuento no puede ser mayor que el subtotal</p>
+                                      <script>
+                                        var descuentocantidadInput = document.getElementById('descuentoGlobal');
+                                        var maxMsg = document.getElementById('maxMsg');
+
+                                        descuentocantidadInput.addEventListener('input', function(event) {
+                                          if (descuentocantidadInput.value > 200) {
+                                            maxMsg.style.display = 'block';
+                                          } else {
+                                            maxMsg.style.display = 'none';
+                                          }
+                                        });
+                                      </script>
                                     </div>
                                   </td>
                                 </tr>
