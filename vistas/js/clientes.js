@@ -376,3 +376,35 @@ loadEmaiChange();
 $('#modalAgregarCliente').on('hidden.bs.modal', function () {
     $('#formClientes')[0].reset();
 });
+
+$(document).on("change", "#nuevoCliente", function () {
+    $(".alert").remove();
+  
+    let cliente = $(this).val();
+    let datos = new FormData();
+    datos.append("validarCliente", cliente);
+  
+    $.ajax({
+      url: "ajax/clientes.ajax.php",
+      method: "POST",
+      data: datos,
+      cache: false,
+      contentType: false,
+      processData: false,
+      dataType: "json",
+      success: function (respuesta) {
+        if (respuesta) {
+          $("#nuevoCliente").val("");
+          $("#nuevoCliente")
+            .parent()
+            .before(
+              '<div class="alert alert-warning" style="display:none;">Este cliente ya existe!</div>'
+            );
+          $(".alert").show(500, function () {
+            $(this).delay(3000).hide(500);
+          });
+        }
+      },
+    });
+  });
+  

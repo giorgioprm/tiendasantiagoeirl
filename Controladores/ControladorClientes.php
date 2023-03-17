@@ -16,76 +16,7 @@ class ControladorClientes
         return $respuesta;
     }
 
-
     // CREAR CLIENTE
-    // public  function ctrCrearCliente()
-    // {
-
-    //     if (isset($_POST['nuevoCliente'])) {
-
-    //         if (
-    //             preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoCliente"]) &&
-    //             preg_match('/^[0-9]+$/', $_POST["nuevoDni"]) &&
-    //             preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $_POST["nuevoEmail"])
-    //         ) {
-
-    //             $tabla = "clientes";
-    //             $datos = array(
-    //                 "nombre" => $_POST['nuevoCliente'],
-    //                 "documento" => $_POST['nuevoDni'],
-    //                 "email" => $_POST['nuevoEmail'],
-    //                 "telefono" => $_POST['nuevoTelefono'],
-    //                 "direccion" => $_POST['nuevaDireccion'],
-    //                 "ruc" => $_POST['nuevoRuc'],
-    //                 "razon_social" => $_POST['nuevoRS'],
-    //                 "fecha_nacimiento" => $_POST['nuevaFechaNacimiento']
-    //             );
-
-    //             $respuesta = ModeloClientes::mdlCrearCliente($tabla, $datos);
-
-    //             if ($respuesta == 'ok') {
-    //                 echo "<script>
-    //                     Swal.fire({
-    //                         title: '¡El cliente ha sido guardado corréctamente!',
-    //                         text: '...',
-    //                         icon: 'success',
-    //                         showCancelButton: false,
-    //                         confirmButtonColor: '#3085d6',
-    //                         cancelButtonColor: '#d33',
-    //                         confirmButtonText: 'Cerrar'
-    //                     }).then((result) => {
-    //                         if (result.isConfirmed) {
-
-    //                         loadClientes(1);
-
-    //                         }
-    //                     })
-    //                     if(window.history.replaceState){
-    //                         window.history.replaceState(null,null, window.location.href);
-    //                         }
-
-    //                     </script>";
-    //             }
-    //         } else {
-    //             echo "<script>
-    //                 Swal.fire({
-    //                     title: '¡El cliente no puede ir vacío o llevar caracteres especiales!',
-    //                     text: '...',
-    //                     icon: 'error',
-    //                     showCancelButton: false,
-    //                     confirmButtonColor: '#3085d6',
-    //                     cancelButtonColor: '#d33',
-    //                     confirmButtonText: 'Cerrar'
-    //                 // })
-    //                 // .then((result) => {
-    //                 //     if (result.isConfirmed) {
-    //                 //     window.location = 'clientes';
-    //                 //     }
-    //                 })</script>";
-    //         }
-    //     }
-    // }
-
     public function ctrCrearCliente()
     {
 
@@ -171,6 +102,13 @@ class ControladorClientes
                 </script>";
                 }
             }
+        }
+
+        if (isset($_POST['validarCliente'])) {
+            $cliente = $_POST['validarCliente'];
+            $tabla = "clientes";
+            $clienteExistente = ModeloClientes::mdlMostrarClientes($tabla, "nombre", $cliente);
+            echo json_encode($clienteExistente);
         }
     }
 
