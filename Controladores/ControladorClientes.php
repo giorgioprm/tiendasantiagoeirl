@@ -17,28 +17,56 @@ class ControladorClientes
     }
 
     // CREAR CLIENTE
-    public  function ctrCrearCliente(){
-           
-        if(isset($_POST['nuevoCliente'])){
+    public  function ctrCrearCliente()
+    {
 
-            if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoCliente"]) &&
-            preg_match('/^[0-9]+$/', $_POST["nuevoDni"]) &&
-            preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $_POST["nuevoEmail"])){
+        if (isset($_POST['nuevoCliente'])) {
+
+            // Validar que no exista un cliente con el mismo DNI o correo electrónico
+            $dni = $_POST['nuevoDni'];
+            $email = $_POST['nuevoEmail'];
+            $existeDni = ModeloClientes::mdlMostrarClientes("clientes", "documento", $dni);
+            $existeEmail = ModeloClientes::mdlMostrarClientes("clientes", "email", $email);
+            if ($existeDni || $existeEmail) {
+                echo "<script>
+                    Swal.fire({
+                        title: '¡Error al guardar el cliente!',
+                        text: 'El DNI o correo electrónico ya se encuentra registrado.',
+                        icon: 'error',
+                        showCancelButton: false,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Cerrar'
+                    // }).then((result) => {
+                    //     if (result.isConfirmed) {
+                    //         window.location = 'clientes';
+                    //     }
+                    })
+                </script>";
+                return;
+            }
+            if (
+                preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoCliente"]) &&
+                preg_match('/^[0-9]+$/', $_POST["nuevoDni"]) &&
+                preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $_POST["nuevoEmail"])
+            ) {
 
                 $tabla = "clientes";
-                $datos = array("nombre" => $_POST['nuevoCliente'],
-                                "documento" => $_POST['nuevoDni'],
-                                "email" => $_POST['nuevoEmail'],
-                                "telefono" => $_POST['nuevoTelefono'],
-                                "direccion" => $_POST['nuevaDireccion'],
-                                "ruc" => $_POST['nuevoRuc'],
-                                "razon_social" => $_POST['nuevoRS'],
-                                "fecha_nacimiento" => $_POST['nuevaFechaNacimiento']);
+                $datos = array(
+                    "nombre" => $_POST['nuevoCliente'],
+                    "documento" => $_POST['nuevoDni'],
+                    "email" => $_POST['nuevoEmail'],
+                    "telefono" => $_POST['nuevoTelefono'],
+                    "direccion" => $_POST['nuevaDireccion'],
+                    "ruc" => $_POST['nuevoRuc'],
+                    "razon_social" => $_POST['nuevoRS'],
+                    "fecha_nacimiento" => $_POST['nuevaFechaNacimiento']
+                );
 
-                     $respuesta = ModeloClientes::mdlCrearCliente($tabla, $datos);
+                $respuesta = ModeloClientes::mdlCrearCliente($tabla, $datos);
 
-                     if($respuesta == 'ok'){
-                        echo "<script>
+                if ($respuesta == 'ok') {
+                    echo "<script>
                         Swal.fire({
                             title: '¡El cliente ha sido guardado corréctamente!',
                             text: '...',
@@ -58,11 +86,10 @@ class ControladorClientes
                             window.history.replaceState(null,null, window.location.href);
                             }
                         
-                        </script>"; 
-                     }
-
-        }else{
-            echo "<script>
+                        </script>";
+                }
+            } else {
+                echo "<script>
                     Swal.fire({
                         title: '¡El cliente no puede ir vacío o llevar caracteres especiales!',
                         text: '...',
@@ -75,9 +102,9 @@ class ControladorClientes
                         if (result.isConfirmed) {
                         window.location = 'clientes';
                         }
-                    })</script>"; 
+                    })</script>";
+            }
         }
-    }     
     }
 
     // EDITAR CLIENTE
@@ -177,4 +204,7 @@ class ControladorClientes
         $respuesta = ModeloClientes::mdlBuscarCliente($tabla, $valor);
         return $respuesta;
     }
+
+    //BUSCAR RUC SUNAT
+    
 }

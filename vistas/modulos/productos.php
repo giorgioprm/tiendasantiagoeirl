@@ -432,7 +432,7 @@ $empresa_igv = ControladorEmpresa::ctrEmisor();
                 <div class="col-md-4">
                   <div class="form-group">
 
-                    <input type="text" class="form-control " name="editarSerie" id="editarSerie" title="Serie" REA>
+                    <input type="text" class="form-control " name="editarSerie" id="editarSerie" title="Serie" readonly>
 
                   </div>
                 </div>

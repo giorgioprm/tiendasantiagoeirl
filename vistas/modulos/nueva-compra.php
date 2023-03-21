@@ -380,17 +380,17 @@ use Controladores\ControladorSunat;
                                   <td><input type="text" class="" name="op_gravadas" id="op_gravadas" value="0.00" readonly /></td>
                                 </tr>
                                 </tr>
-                                <tr class="">
+                                <tr class="" style="display: none;">
                                   <td>Op.Exoneradas</td>
                                   <td><input type="text" class="" name="op_exoneradas" id="op_exoneradas" value="0.00" readonly /></td>
                                 </tr>
                                 </tr>
-                                <tr class="">
+                                <tr class="" style="display: none;">
                                   <td>Op.Inafectas</td>
                                   <td><input type="text" class="" name="op_inafectas" id="op_inafectas" value="0.00" readonly /></td>
                                 </tr>
                                 </tr>
-                                <tr class="">
+                                <tr class="" style="display: none;">
                                   <td>Op.gratuitas</td>
                                   <td><input type="text" class="" name="op_gratuitas" id="op_gratuitas" value="0.00" readonly /></td>
                                 </tr>
