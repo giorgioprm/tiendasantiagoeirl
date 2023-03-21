@@ -129,7 +129,7 @@ use Controladores\ControladorClientes;
 
                 <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
 
-                <input type=" number" maxlength="9" class="form-control " name="nuevoDni" id="nuevoDni" placeholder="Ingresar DNI" title="DNI" required>
+                <input type=" number" maxlength="9" class="form-control " name="nuevoDni" id="nuevoDni" placeholder="Ingresar DNI" title="DNI">
 
                 <div class="resultadoCliente" idCliente=""><a href="#" class="btn-add"></a></div>
 
@@ -143,7 +143,7 @@ use Controladores\ControladorClientes;
 
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
 
-                <input type="text" class="form-control" name="nuevoCliente" id="nuevoCliente" placeholder="Ingresar nombre" title="Nombre" required>
+                <input type="text" class="form-control" name="nuevoCliente" id="nuevoCliente" placeholder="Ingresar nombre" title="Nombre">
 
               </div>
 
@@ -287,7 +287,7 @@ use Controladores\ControladorClientes;
 
                 <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
 
-                <input type=" number" maxlength="8" class="form-control " name="editarDni" id="editarDni" placeholder="Ingresar DNI" min="1" max="10" title="DNI" required>
+                <input type=" number" maxlength="8" class="form-control " name="editarDni" id="editarDni" placeholder="Ingresar DNI" min="1" max="10" title="DNI">
 
               </div>
 
@@ -301,7 +301,7 @@ use Controladores\ControladorClientes;
 
                 <input type="hidden" name="id" id="id">
 
-                <input type="text" class="form-control" name="editarCliente" id="editarCliente" placeholder="Ingresar nombre" title="Nombre" required>
+                <input type="text" class="form-control" name="editarCliente" id="editarCliente" placeholder="Ingresar nombre" title="Nombre">
 
               </div>
 

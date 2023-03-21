@@ -498,9 +498,22 @@ $empresa_igv = ControladorEmpresa::ctrEmisor();
                 <div class="col-md-3">
                   <div class="form-group">
 
-                    <input type="number" class="form-control " min="0" name="editarStock" id="editarStock" onkeyup="this.value=Numeros(this.value)" title="Stock" required>
+                    <input type="number" class="form-control " min="0" max="200" name="editarStock" id="editarStock" onkeyup="this.value=Numeros(this.value)" title="Stock" required>
 
                   </div>
+
+                  <script>
+                  var cantidadInput = document.getElementById('editarStock');
+                  var maxMsg = document.getElementById('maxMsg');
+
+                  cantidadInput.addEventListener('input', function(event) {
+                    if (cantidadInput.value > 200) {
+                      maxMsg.style.display = 'block';
+                    } else {
+                      maxMsg.style.display = 'none';
+                    }
+                  });
+                </script>
                 </div>
               </div>
               <!-- ENTRADA PARA PRECIO VENTA-->
@@ -598,17 +611,23 @@ $eliminarProducto->ctrEliminarProducto();
 ?>
 
 <script>
-  function Numeros(string) { //Solo numeros
+  function Numeros(string) {
     var out = '';
-    var filtro = '1234567890.'; //Caracteres validos
+    var filtro = '1234567890.'; //Caracteres válidos, incluyendo el punto decimal
 
-    //Recorrer el texto y verificar si el caracter se encuentra en la lista de validos 
-    for (var i = 0; i < string.length; i++)
-      if (filtro.indexOf(string.charAt(i)) != -1)
-        //Se añaden a la salida los caracteres validos
+    // Recorrer el texto y verificar si el caracter se encuentra en la lista de validos 
+    for (var i = 0; i < string.length; i++) {
+      if (filtro.indexOf(string.charAt(i)) != -1) {
+        // Permitir solo un punto decimal en la entrada
+        if (string.charAt(i) === '.' && out.indexOf('.') != -1) {
+          continue;
+        }
+        // Se añaden a la salida los caracteres válidos
         out += string.charAt(i);
+      }
+    }
 
-    //Retornar valor filtrado
+    // Retornar valor filtrado
     return out;
   }
 </script>
