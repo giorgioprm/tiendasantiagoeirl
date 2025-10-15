@@ -1,3 +1,6 @@
+<?php
+use Controladores\ControladorUsuarios;
+?>
 <div class="content-wrapper panel-medio-principal">
 
   <div style="padding:5px"></div>

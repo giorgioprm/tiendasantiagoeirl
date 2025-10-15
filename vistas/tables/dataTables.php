@@ -25,9 +25,9 @@ class DataTables
     $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != NULL) ? $_REQUEST['action'] : '';
     if ($action == 'ajax') {
       // escaping, additionally removing everything that could be (html/javascript-) code
-      $perfilUsuario = $_REQUEST['perfilOcultoc'];
-      $search = $_GET['search'];
-      $selectnum = $_GET['selectnum'];
+      $perfilUsuario = $_REQUEST['perfilOcultoc'] ?? '';
+      $search = $_GET['search'] ?? '';
+      $selectnum = $_GET['selectnum'] ?? 10;
       $aColumns = array('nombre', 'documento', 'ruc'); //Columnas de busqueda
       $sTable = 'clientes';
       $sWhere = "";
@@ -110,9 +110,9 @@ class DataTables
     $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != NULL) ? $_REQUEST['action'] : '';
     if ($action == 'ajax') {
       // escaping, additionally removing everything that could be (html/javascript-) code
-      $perfilUsuario = $_REQUEST['perfilOculto'];
-      $searchProducto = $_GET['searchProducto'];
-      $selectnum = $_GET['selectnum'];
+      $perfilUsuario = $_REQUEST['perfilOculto'] ?? '';
+      $searchProducto = $_GET['searchProducto'] ?? '';
+      $selectnum = $_GET['selectnum'] ?? 10;
       $aColumns = array('codigo', 'serie', 'descripcion'); //Columnas de busqueda
       $sTable = 'productos';
       $sWhere = "";
@@ -229,7 +229,9 @@ class DataTables
       $pdo =  Conexion::conectar();
       $totalRegistros   = $pdo->query("SELECT count(*) AS numrows FROM $sTable  $sWhere");
       $totalRegistros = $totalRegistros->fetch()['numrows'];
-      $tpages = ceil($totalRegistros / $per_page);
+      // $tpages = ceil($totalRegistros / $per_page);
+      $limit = $limit > 0 ? $limit : 10; // Valor por defecto
+      $tpages = $limit > 0 ? ceil($totalRegistros / $limit) : 1;
       $reload = './index.php';
       //main query to fetch the data
       $pdo =  Conexion::conectar();

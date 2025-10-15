@@ -45,9 +45,9 @@ $totalneto = $sub_total - $notac['total'];
 $totalneto = $moneda . number_format($totalneto, 2);
 // fin widgets ---------------
 ?>
-<div class="contenedor-widget" style="margin-top:15px;">
+<div class="contenedor-widget" style="margin-top:10px;">
 
-  <div class="col-md-3 col-sm-6 col-xs-12">
+  <div class="col-md-2 col-sm-6 col-xs-12">
 
     <div class="info-box">
       <span class="info-box-icon bg-fa"><i class="fass fas-money-bill"></i></span>
@@ -61,7 +61,7 @@ $totalneto = $moneda . number_format($totalneto, 2);
     <!-- /.info-box -->
   </div>
   <!-- /.col -->
-  <div class="col-md-3 col-sm-6 col-xs-12">
+  <div class="col-md-2 col-sm-6 col-xs-12">
     <div class="info-box">
       <span class="info-box-icon bg-bo"><i class="fass fas-money-bill"></i></span>
 
@@ -74,7 +74,7 @@ $totalneto = $moneda . number_format($totalneto, 2);
     <!-- /.info-box -->
   </div>
   <!-- /.col -->
-  <div class="col-md-3 col-sm-6 col-xs-12">
+  <div class="col-md-2 col-sm-6 col-xs-12">
     <div class="info-box">
       <span class="info-box-icon bg-nv"><i class="fass fas-money-bill"></i></span>
 
@@ -87,7 +87,7 @@ $totalneto = $moneda . number_format($totalneto, 2);
     <!-- /.info-box -->
   </div>
   <!-- /.col -->
-  <div class="col-md-3 col-sm-6 col-xs-12">
+  <div class="col-md-2 col-sm-6 col-xs-12">
     <div class="info-box">
       <span class="info-box-icon bg-nc"><i class="fass fas-money-bill"></i></span>
 
@@ -100,7 +100,7 @@ $totalneto = $moneda . number_format($totalneto, 2);
     <!-- /.info-box -->
   </div>
   <!-- /.col -->
-  <div class="col-md-3 col-sm-6 col-xs-12">
+  <div class="col-md-2 col-sm-6 col-xs-12">
     <div class="info-box">
       <span class="info-box-icon bg-nd"><i class="fass fas-money-bill"></i></span>
 
@@ -113,7 +113,7 @@ $totalneto = $moneda . number_format($totalneto, 2);
     <!-- /.info-box -->
   </div>
   <!-- /.col -->
-  <div class="col-md-3 col-sm-6 col-xs-12">
+  <div class="col-md-2 col-sm-6 col-xs-12">
     <div class="info-box">
       <span class="info-box-icon bg-tn"><i class="fass fas-money-bill"></i></span>
 

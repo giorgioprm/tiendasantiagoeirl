@@ -88,13 +88,13 @@
 
              <!-- Menu Body -->
              <li class="">
-               <a href="usuarios">
+               <a href="index.php?ruta=usuarios"">
                  <i class="fas fa-user fa-lg" style="color: #0e6edf"> </i> <span class="mg-menu">Mi perfil</span>
 
                </a>
              </li>
              <li class="">
-               <a href="empresa">
+               <a href="index.php?ruta=empresa">
                  <i class="fas fa-cog  fa-lg" style="color: #0e6edf"> </i> <span class="mg-menu">Configurar empresa</span>
 
                </a>
@@ -105,7 +105,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div> -->
 
-               <a href="salir" class="">
+               <a href="index.php?ruta=salir" class="">
                  <i class="fas fa-sign-out-alt fa-lg" style="color:tomato"></i><span class="mg-menu"> Salir </span>
                </a>
 
