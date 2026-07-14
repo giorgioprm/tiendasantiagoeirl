@@ -4,7 +4,7 @@ require_once "../../pdf/html2pdf.class.php";
 require_once "../../Controladores/cantidad_en_letras.php";
 
 //clases de acceso a datos
-require_once("../../vendor/autoload.php");
+require_once __DIR__ . '/../../vendor/autoload.php';
 use Conect\Conexion;
 use Controladores\ControladorClientes;
 use Controladores\ControladorProductos;

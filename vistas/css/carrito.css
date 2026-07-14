@@ -525,3 +525,94 @@ textarea {
   outline: 0;
   border-style: none;
 }
+
+/* Estilo similar al módulo de usuarios */
+.btn-nueva-compra {
+  background: #0e6edf;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.btn-nueva-compra:hover {
+  background: #0a56b0;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(14, 110, 223, 0.4);
+}
+
+.btn-nueva-compra i {
+  margin-right: 8px;
+}
+
+/* Estilos para los widgets en una línea */
+.contenedor-widget .info-box {
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.contenedor-widget .info-box:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.info-box-icon {
+  border-radius: 4px 0 0 4px !important;
+}
+
+/* Colores personalizados para cada tipo */
+.bg-fa {
+  background-color: #3c8dbc !important;
+  color: #fff !important;
+}
+.bg-bo {
+  background-color: #00a65a !important;
+  color: #fff !important;
+}
+.bg-nc {
+  background-color: #f39c12 !important;
+  color: #fff !important;
+}
+.bg-nd {
+  background-color: #dd4b39 !important;
+  color: #fff !important;
+}
+.bg-tn {
+  background-color: #605ca8 !important;
+  color: #fff !important;
+}
+
+/* Responsive - Para pantallas pequeñas */
+@media (max-width: 768px) {
+  .item-widget {
+    flex: 1 0 33.33% !important;
+    max-width: 33.33% !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .item-widget {
+    flex: 1 0 50% !important;
+    max-width: 50% !important;
+  }
+
+  .info-box-text {
+    font-size: 8px !important;
+  }
+
+  .info-box-number {
+    font-size: 11px !important;
+  }
+
+  .info-box-icon {
+    width: 35px !important;
+    height: 35px !important;
+    line-height: 35px !important;
+    font-size: 12px !important;
+  }
+}

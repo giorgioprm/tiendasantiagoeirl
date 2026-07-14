@@ -1,3 +1,7 @@
+<?php
+
+use Controladores\ControladorUsuarios;
+?>
 <div class="content-wrapper panel-medio-principal">
 
   <div style="padding:5px"></div>
@@ -7,8 +11,6 @@
 
     </section>
   </section>
-
-
 
   <!-- <section class="content"> -->
   <section class="container-fluid panel-medio">
@@ -20,7 +22,6 @@
 
         <button class="btn btn-success  pull-right btn-radius" data-toggle="modal" data-target="#modalAgregarUsuario"><i class="fas fa-plus-square"></i>Nuevo usuario <i class="fas fa-user-plus"></i>
         </button>
-
 
       </div>
       <!-- /.box-header -->
@@ -50,8 +51,6 @@
           </table>
         </div>
 
-
-
       </div>
 
     </div>
@@ -60,7 +59,6 @@
   </section>
 
 </div>
-
 
 <!-- MODAL EDITAR USUARIO -->
 <div id="modalEditarUsuario" class="modal fade modal-forms" role="dialog">
@@ -88,12 +86,6 @@
         ======================================-->
 
         <div class="modal-body">
-
-
-
-
-
-
 
         </div>
 

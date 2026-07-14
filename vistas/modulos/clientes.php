@@ -3,37 +3,19 @@
 use Controladores\ControladorClientes;
 ?>
 <div class="content-wrapper panel-medio-principal">
-
   <div style="padding:5px"></div>
-  <section class="container-fluid">
-    <section class="content-header dashboard-header">
-
-      <div class="box container-fluid" style="border:0px; margin:0px; padding:0px;">
-        <div class="col-lg-12 col-xs-12" style="border:0px; margin:0px; padding:0px; border-radius:10px;">
-
-          <div class="col-md-3 hidden-sm hidden-xs">
-            <button class=""><i class="fas fa-users"></i> Clientes</button>
-          </div>
-          <div class="col-lg-9 col-md-12 col-sm-12 btns-dash">
-            <a href="crear-factura" class="btn pull-right" style="margin-left:10px"><i class="fas fa-file-invoice"></i> Emitir factura</a>
-            <a href="crear-boleta" class="btn pull-right"><i class="fas fa-file-invoice"> </i> Emitir boleta</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </section>
-
   <!-- <section class="content"> -->
   <section class="container-fluid panel-medio">
     <!-- BOX INI -->
     <div class="box rounded">
 
       <div class="box-header ">
+        <i class="fas fa-file-invoice"></i>&nbsp;
         <h3 class="box-title">Administración de clientes</h3>
 
-        <button class="btn btn-success  pull-right btn-radius" data-toggle="modal" data-target="#modalAgregarCliente"><i class="fas fa-plus-square"></i>Nuevo cliente <i class="fa fa-th"></i>
+        <button class="btn btn-success  pull-right btn-radius" data-toggle="modal" data-target="#modalAgregarCliente">
+          <i class="fas fa-plus-square"></i>Nuevo cliente <i class="fa fa-th"></i>
         </button>
-
 
       </div>
       <!-- /.box-header -->

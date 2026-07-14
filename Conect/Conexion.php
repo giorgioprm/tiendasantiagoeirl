@@ -6,8 +6,8 @@ namespace Conect;
       
         const HOST = '127.0.0.1';
         const USER = 'root';
-        const PASSWORD = '';
-        const BDNAME = 'tiendasantiagoeirl';
+        const PASSWORD = 'root';
+        const BDNAME = 'tiendasantiagoeirl_php';
     public static function conectar() {
        
         $link = new \PDO("mysql:host=".self::HOST."; dbname=".self::BDNAME.";",

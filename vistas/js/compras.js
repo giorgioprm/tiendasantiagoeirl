@@ -18,7 +18,7 @@ $("#formCompra").on("change", "#tipoComprobante", function () {
 
 $("#formItems").on("click", "#btnAddItem", function (e) {
     e.preventDefault();
-    if($("#descripcion").val() == '' || $("#tipo_afectacion").val() == '' || $("#unidad").val() == '' || $("#codigo").val() == '' || $("#precio_unitario").val() == '' || $("#valor_unitario").val() == '' || $("#cantidad").val() == '' || $("#subtotal").val() == '' || $("#igv").val() == '' || $("#total").val() == '' || $("#descuento_item").val() == ''){
+    if ($("#descripcion").val() == '' || $("#tipo_afectacion").val() == '' || $("#unidad").val() == '' || $("#codigo").val() == '' || $("#precio_unitario").val() == '' || $("#valor_unitario").val() == '' || $("#cantidad").val() == '' || $("#subtotal").val() == '' || $("#igv").val() == '' || $("#total").val() == '' || $("#descuento_item").val() == '') {
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -30,45 +30,45 @@ $("#formItems").on("click", "#btnAddItem", function (e) {
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
-    
+
         Toast.fire({
             icon: 'warning',
             title: `<h4>Por favor, complete todos los campos</h4>`,
         })
     } else {
-    let cantidad = parseInt($("#cantidad").val());
-    if (cantidad < 0) {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 6000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
+        let cantidad = parseInt($("#cantidad").val());
+        if (cantidad < 0) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 6000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'warning',
+                title: `<h4>La cantidad del producto debe ser mayor que cero</h4>`,
+            })
+        }
+        let dataForm = $("#formItems").serialize();
+        $.ajax({
+            method: "POST",
+            url: "ajax/compras.ajax.php",
+            data: dataForm,
+            beforeSend: function () {
+
+            },
+            success: function (respuesta) {
+                //(respuesta);
+                $('.nuevoProductoC table #itemsP').html(respuesta);
             }
         })
-
-        Toast.fire({
-            icon: 'warning',
-            title: `<h4>La cantidad del producto debe ser mayor que cero</h4>`,
-        })
     }
-    let dataForm = $("#formItems").serialize();
-    $.ajax({
-        method: "POST",
-        url: "ajax/compras.ajax.php",
-        data: dataForm,
-        beforeSend: function () {
-
-        },
-        success: function (respuesta) {
-            //(respuesta);
-            $('.nuevoProductoC table #itemsP').html(respuesta);
-        }
-    })
-}
 })
 
 // ELIMINAR ITEM DEL CARRO
@@ -183,8 +183,9 @@ $(".formCompra").on("click", ".btnGuardarCompra", function (e) {
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
                         cancelButtonText: 'Cerrar',
-                    })
-                    $("#successCompra").html(respuesta);
+                    }).then(function () {
+                        window.location.href = '?ruta=reporte-compras';
+                    });
                 }
             })
         }
@@ -313,7 +314,7 @@ $(document).on("click", "#formItems .btn-add-item", function (e) {
 
 $('#modalProductosVenta').on('hidden.bs.modal', function () {
     $('#formItems')[0].reset();
-  });
+});
 
 
 

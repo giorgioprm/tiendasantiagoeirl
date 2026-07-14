@@ -5,13 +5,13 @@ date_default_timezone_set('America/Lima');
 //Import PHPMailer classes into the global namespace
 //These must be at the top of your script, not inside a function
 //Load Composer's autoloader
-require_once('vendor/autoload.php');
+require_once('/../../vendor/autoload.php');
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 
-require_once("../../vendor/autoload.php");
+require_once __DIR__ . '/../../vendor/autoload.php';
 use Conect\Conexion;
 use Controladores\ControladorClientes;
 use Controladores\ControladorProductos;

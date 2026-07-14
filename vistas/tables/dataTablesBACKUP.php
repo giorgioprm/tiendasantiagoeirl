@@ -19,7 +19,7 @@ class DataTables{
  $action = (isset($_REQUEST['action'])&& $_REQUEST['action'] !=NULL)?$_REQUEST['action']:'';
  if($action == 'ajax'){
     // escaping, additionally removing everything that could be (html/javascript-) code
-    $search = $_GET['search'];
+    $search = $_GET['search'] ?? "";
     $selectnum = $_GET['selectnum'];
     $aColumns = array('nombre', 'documento');//Columnas de busqueda
     $sTable = 'clientes';

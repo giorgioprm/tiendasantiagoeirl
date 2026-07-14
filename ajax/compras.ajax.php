@@ -24,10 +24,12 @@ class AjaxCompras
         $idEliminar = $this->idEliminarCarroC;
 
         //Como antes, usamos extract() por comodidad, pero podemos no hacerlo tranquilamente
-        $carritoC = $_SESSION['carritoC'];
+        $carritoC = isset($_SESSION['carritoC']) ? $_SESSION['carritoC'] : [];
         //Asignamos a la variable $carro los valores guardados en la sessión
-        unset($carritoC[$idEliminar]);
-        $carritoC = array_values($carritoC);
+        if (isset($carritoC[$idEliminar])) {
+            unset($carritoC[$idEliminar]);
+            $carritoC = array_values($carritoC);
+        }
         $_SESSION['carritoC'] = $carritoC;
 
         $respuesta = ControladorCompras::ctrLoadCarro(null);
@@ -44,15 +46,13 @@ class AjaxCompras
     {
         $eliminarCarro = $this->eliminarCarro;
 
-        //Como antes, usamos extract() por comodidad, pero podemos no hacerlo tranquilamente
-        $carritoC = $_SESSION['carritoC'];
-        //Asignamos a la variable $carro los valores guardados en la sessión
-        unset($carritoC);
-        //la función unset borra el elemento de un array que le pasemos por parámetro. En este
-        //caso la usamos para borrar el elemento cuyo id le pasemos a la página por la url 
-        $_SESSION['carritoC'] = $carritoC;
-        //Finalmente, actualizamos la sessión, como hicimos cuando agregamos un producto y volvemos al catálogo
-        //header("Location:catalogo.php?".SID);
+        //Eliminar toda la sesión del carrito sin generar avisos si no existe
+        if (isset($_SESSION['carritoC'])) {
+            unset($_SESSION['carritoC']);
+        }
+        $_SESSION['carritoC'] = [];
+
+        //Finalmente, actualizamos la sesión, como hicimos cuando agregamos un producto y volvemos al catálogo
         $respuesta = ControladorCompras::ctrLoadCarro(null);
     }
     public function ajaxGuardarCompra()

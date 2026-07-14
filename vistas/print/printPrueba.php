@@ -3,7 +3,7 @@ session_start();
 require_once "../../pdf/html2pdf.class.php";
 
 //clases de acceso a datos
-require_once("../../vendor/autoload.php");
+require_once __DIR__ . '/../../vendor/autoload.php';
 use Conect\Conexion;
 use Controladores\ControladorClientes;
 use Controladores\ControladorProductos;

@@ -1,263 +1,221 @@
 <?php
 session_start();
-require_once("../../vendor/autoload.php");
+require_once __DIR__ . '/../../vendor/autoload.php';
+
 use Conect\Conexion;
 use Controladores\ControladorProveedores;
 use Controladores\ControladorReportes;
 
+class DataTablesReportes
+{
+  private $pdo;
+  private $perPageDefault = 10;
+  private $adjacents = 4;
 
-class DataTablesReportes{
+  public function __construct()
+  {
+    $this->pdo = Conexion::conectar();
+  }
 
-  // DATA_TABLE CLIENTES LISTAR CLIENTES
-  public  function dtaReportesCompras(){
+  private function getPerPage($selectnum = null)
+  {
+    $perPage = (int)($selectnum ?? $this->perPageDefault);
+    return ($perPage > 0) ? $perPage : $this->perPageDefault;
+  }
 
- $action = (isset($_REQUEST['action'])&& $_REQUEST['action'] !=NULL)?$_REQUEST['action']:'';
- if($action == 'ajax'){
-    // escaping, additionally removing everything that could be (html/javascript-) code
-    $fechaini = $_GET['fechaini'];
-    $fechafin = $_GET['fechafin'];
-    $fechai = str_replace('/', '-', $fechaini);
-    $fechaInicial = date('Y-m-d', strtotime($fechai));
+  private function getSearchValue($key, $default = '')
+  {
+    return $_GET[$key] ?? $_REQUEST[$key] ?? $default;
+  }
 
-    $fechaf = str_replace('/', '-', $fechafin);
-    $fechaFinal = date('Y-m-d', strtotime($fechaf));
+  private function formatDate($date)
+  {
+    if (empty($date)) return '';
+    $date = str_replace('/', '-', $date);
+    $dateObj = date_create($date);
+    return $dateObj ? date_format($dateObj, 'Y-m-d') : '';
+  }
 
+  private function generatePagination($reload, $page, $totalPages, $adjacents)
+  {
+    include_once 'pagination-reportes-compras.php';
+    $paginador = new PaginacionRC();
+    return $paginador->paginarComprobantes($reload, $page, $totalPages, $adjacents);
+  }
 
-    $tipocomp = $_GET['tipocomp'];
-    $searchR = $_GET['searchRC'];
-    $selectnum = $_GET['selectnum'];
-    $aColumns = array('nombre', "CONCAT(serie,'-',correlativo)", 'ruc', 'documento');//Columnas de busqueda
+  public function dtaReportesCompras()
+  {
+    $action = $_REQUEST['action'] ?? '';
+    if ($action != 'ajax') return;
 
-  
+    $fechaini = $_GET['fechaini'] ?? '';
+    $fechafin = $_GET['fechafin'] ?? '';
+    $tipocomp = $_GET['tipocomp'] ?? '';
+    $search = $this->getSearchValue('searchRC');
+    $perPage = $this->getPerPage($_GET['selectnum'] ?? null);
+    $page = (int)($_REQUEST['page'] ?? 1);
+
+    $fechaInicial = $this->formatDate($fechaini);
+    $fechaFinal = $this->formatDate($fechafin);
+
+    if (empty($fechaInicial) || empty($fechaFinal)) {
+      echo "<tr><td colspan='10' style='text-align:center;'>Error: Fechas inválidas</td></tr>";
+      return;
+    }
+
     $sTable = 'compra';
-    
     $sTable2 = 'proveedores';
-    $sWhere = "";
 
-    if($tipocomp != '07' && $tipocomp != '08'){
+    $sWhere = $this->buildWhereClause($tipocomp, $search, $fechaInicial, $fechaFinal);
 
-   if (isset($searchR) && isset($tipocomp))
+    $pdo = Conexion::conectar();
 
-   {   
-     if($tipocomp == '01' || $tipocomp == '02' || $tipocomp == '03'){
-       $sWhere = "WHERE (";
-       for ( $i=0 ; $i<count($aColumns) ; $i++ )
-       {
-           $sWhere .= "tipocomp=$tipocomp AND anulado = 'n' AND (tipocomp='01' || tipocomp='02' || tipocomp='03')  AND  fecha_emision BETWEEN '$fechaInicial' AND '$fechaFinal' AND ".$aColumns[$i]." LIKE '%".$searchR."%' OR ";
-       }
-       $sWhere = substr_replace( $sWhere, "", -3 );
-       $sWhere .= ')';
-       }
-     if($tipocomp == '00'){
-       $sWhere = "WHERE (";
-       for ( $i=0 ; $i<count($aColumns) ; $i++ )
-       {
-           $sWhere .= "anulado = 'n' AND (tipocomp='01' || tipocomp='03')  AND  fecha_emision BETWEEN '$fechaInicial' AND '$fechaFinal' AND ".$aColumns[$i]." LIKE '%".$searchR."%' OR ";
-       }
-       $sWhere = substr_replace( $sWhere, "", -3 );
-       $sWhere .= ')';
-       }
-  }
+    $queryCount = "SELECT COUNT(*) AS numrows FROM $sTable t1 INNER JOIN $sTable2 t2 ON t1.codproveedor=t2.id $sWhere";
+    $totalRegistros = $pdo->query($queryCount);
 
-   if(isset($tipocomp) && $searchR == ''){
+    if (!$totalRegistros) {
+      echo "<tr><td colspan='10' style='text-align:center;'>Error en la consulta</td></tr>";
+      return;
+    }
 
-     if($tipocomp != '00'){
-     $sWhere = "WHERE tipocomp=$tipocomp AND anulado = 'n'  AND fecha_emision BETWEEN '$fechaInicial' AND '$fechaFinal'";
-     }else{
-       $sWhere = "WHERE anulado = 'n' AND (tipocomp='01' || tipocomp='03')  AND fecha_emision BETWEEN '$fechaInicial' AND '$fechaFinal'";
-     }
-   }
-  }
-  
-  else{
-    if (isset($searchR) && isset($tipocomp))
-   {
+    $totalRegistros = $totalRegistros->fetch()['numrows'] ?? 0;
+    $totalPages = ($perPage > 0) ? ceil($totalRegistros / $perPage) : 0;
+    $offset = ($page - 1) * $perPage;
 
-       $sWhere = "WHERE (";
-       for ( $i=0 ; $i<count($aColumns) ; $i++ )
-       {
-           $sWhere .= "tipocomp=$tipocomp AND fecha_emision BETWEEN '$fechaInicial' AND '$fechaFinal' AND ".$aColumns[$i]." LIKE '%".$searchR."%' OR ";
-       }
-       $sWhere = substr_replace( $sWhere, "", -3 );
-       $sWhere .= ')';
-   
+    $query = "SELECT t1.id, t2.nombre, t1.igv, t1.fecha_emision, 
+                     t1.tipocomp, t1.serie, t1.codmoneda, t1.correlativo, 
+                     t1.subtotal, t1.total, t1.serie_correlativo, t1.codproveedor, 
+                     t1.tipodoc, t1.serie_ref, t1.correlativo_ref, 
+                     t2.razon_social, t2.ruc, t2.documento 
+              FROM $sTable t1 
+              INNER JOIN $sTable2 t2 ON t1.codproveedor=t2.id 
+              $sWhere 
+              ORDER BY t1.id DESC 
+              LIMIT $offset, $perPage";
 
-  }
-  }
-   	//pagination variables
-		$page = (isset($_REQUEST['page']) && !empty($_REQUEST['page']))?$_REQUEST['page']:1;
-   include_once 'pagination-reportes-compras.php';
-    //include pagination file
-   $per_page = $selectnum; //how much records you want to show
-   $adjacents  = 4; //gap between pages after number of adjacents
-   $offset = ($page - 1) * $per_page;
-  
-   //Count the total number of row in your table*/
-   $pdo =  Conexion::conectar();
-   $totalRegistros   = $pdo->query("SELECT count(*) AS numrows FROM $sTable t1 INNER JOIN $sTable2 t2 ON t1.codproveedor=t2.id  $sWhere");
-   $totalRegistros = $totalRegistros->fetch()['numrows'];
-   $tpages = ceil($totalRegistros/$per_page);
-   $reload = './index.php';
-   //main query to fetch the data
-   $pdo =  Conexion::conectar();
+    $registros = $pdo->prepare($query);
+    $registros->execute();
+    $registros = $registros->fetchAll();
 
+    $totaligv = 0;
+    $subtotal = 0;
+    $total = 0;
 
-   
-     $registros = $pdo->prepare("SELECT t_compras.id, t_proveedor.nombre, t_compras.igv, t_compras.fecha_emision, t_compras.tipocomp, t_compras.serie, t_compras.codmoneda, t_compras.correlativo, t_compras.subtotal, t_compras.total, t_compras.serie_correlativo, t_compras.codproveedor, t_compras.tipodoc, t_compras.serie_ref, t_compras.correlativo_ref, t_proveedor.razon_social, t_proveedor.ruc, t_proveedor.documento FROM  $sTable t_compras INNER JOIN $sTable2 t_proveedor ON t_compras.codproveedor=t_proveedor.id  $sWhere ORDER BY id DESC LIMIT $offset,$per_page");
-   
-   
-   $registros->execute();
+    if ($totalRegistros > 0) {
+      foreach ($registros as $key => $value) {
+        $proveedores = ControladorProveedores::ctrMostrarProveedores('id', $value['codproveedor']);
 
-   $registros=$registros->fetchall();     
-       
-      if($totalRegistros > 0){   
-
-             foreach($registros as $key => $value):
-              $item = 'id';
-             $valor = $value['codproveedor'];
-              $proveedores = ControladorProveedores::ctrMostrarProveedores($item, $valor);
-              if($value['tipodoc'] == '6' ){
-                $verproveedor = $proveedores['razon_social'].'-'.$proveedores['ruc'];
-              }else{
-                $verproveedor = $proveedores['nombre'].'-'.$proveedores['documento'];
-              }
-
-              if($tipocomp == '07'){
-                $serieCorrelativo = "Nota de crédito N°-".$value['serie_correlativo']."<br>
-                que afecta a coprobante N°- ".$value['serie_ref']."-".$value['correlativo_ref'];
-              }
-              else if($tipocomp == '08'){
-                $serieCorrelativo = "Nota de dédito N°-".$value['serie_correlativo']."<br>
-                que afecta a coprobante N°- ".$value['serie_ref']."-".$value['correlativo_ref'];
-              }else{
-                $serieCorrelativo = $value['serie_correlativo'];
-              }
-                echo "<tr>
-                      <td>".++$key."</td>
-                      <td>".date_format(date_create($value['fecha_emision']), 'd/m/Y')."</td>
-                      <td>".$serieCorrelativo."</td>
-                      <td>".$verproveedor."</td>
-                      <td>".$value['igv']."</td>
-                      <td>".$value['subtotal']."</td>
-                      <td>".$value['total']."</td>
-                      <td style='text-align:center;'><button class='btn btn-print-compra' idCompra='".$value['id']."' data-toggle='modal' data-target='#modalImprimir'>+</button></td>
-                      <td style='text-align:center;'>
-                      <div class='dropdown'>
-                      <button class='btn btn-danger btn-xs dropdown-toggle' type='button' id='dropdownMenu1' 
-                              data-toggle='dropdown' aria-expanded='true'>
-                        <i class='fa fa-cog fa-lg'></i>
-                        <span class='caret'></span>
-                      </button>
-                      <ul class='dropdown-menu dropdown-menu-right' role='menu' aria-labelledby='dropdownMenu1' style='font-size:17px'>";
-                      if($_SESSION['perfil'] == 'Administrador'){
-                       echo "<li role='presentation'><a role='menuitem' tabindex='-1' href='#' idCompra='".$value['id']."' class='btn-anular-compra'><i class='fas fa-ban' style='color:red;'></i> Anular compra</a></li>";
-                        }
-                      echo" <li role='presentation'><a role='menuitem' tabindex='-1' href='nueva-compra'><i class='fa fa-plus'></i> Nueva compra</a></li>
-                       
-                      </ul>
-                    </div>
-                                          
-                      </td>
-                      </tr>";
-
-              $totaligv += $value['igv'];
-              $subtotal += $value['subtotal'];
-              $total += $value['total'];
-             endforeach;
-             
-
-             echo "<tr>
-                      <td colspan='4'></td>
-                      <td colspan=''>".$moneda. number_format($totaligv,2)."</td>
-                      <td colspan=''>".$moneda. number_format($subtotal,2)."</td>
-                      <td colspan=''>".$moneda. number_format($total,2)."</td>
-                  </tr>";
-
-            // widgets-----------
-              $tabla = 'compra'; 
-              $tipoc = '01';      
-               $facturas = ControladorReportes::ctrSumaCompras($tabla, $tipoc, $fechaInicial, $fechaFinal);
-              
-                 $totalf = $moneda. number_format($facturas['total'],2);
-               
-                 echo "<script>
-                      $('.t-f').html(`{$totalf}`);
-                      </script>";
-              
-              $tabla = 'compra'; 
-              $tipoc = '03';
-                   
-               $boletas = ControladorReportes::ctrSumaCompras($tabla, $tipoc, $fechaInicial, $fechaFinal);
-                $totalb = $moneda. number_format($boletas['total'],2);
-
-                   echo "<script>
-                      $('.t-b').html(`{$totalb}`);
-                      </script>";
-
-              $tabla = 'compra'; 
-              $tipoc = '07';      
-               $notac = ControladorReportes::ctrSumaCompras($tabla, $tipoc, $fechaInicial, $fechaFinal);
-                $totalnc = $moneda. number_format($notac['total'],2);
-                
-                   echo "<script>
-                      $('.t-nc').html(`{$totalnc}`);
-                      </script>";
-
-              $tabla = 'compra'; 
-              $tipoc = '08';      
-               $notad = ControladorReportes::ctrSumaCompras($tabla, $tipoc, $fechaInicial, $fechaFinal);
-                $totalnd = $moneda. number_format($notad['total'],2);
-                
-                    
-                   echo "<script>
-                      $('.t-nd').html(`{$totalnd}`);
-                      </script>";
-
-              $sub_total = ($boletas['total']+$facturas['total']+$notad['total']+$notaventas['total']);
-                  $totalneto = $moneda. number_format($sub_total - $notac['total'],2);
-                    echo "<script>
-                    $('.t-neto').html(`{$totalneto}`);
-                    </script>";
-              // fin widgets ---------------
-                  
-                   $paginador = new PaginacionRC();
-                   $paginador = $paginador->paginarComprobantes($reload, $page, $tpages, $adjacents);  
-
-              echo"<tr>                
-              <td colspan='10' style='text-align:center;'>".$paginador."</td>
-             </tr>";
-
-            }else{
-             
-
-              echo"<tr>   
-
-              <td colspan='10' style='text-align:center;'> <div class='result-report'></div></td>
-             </tr>";
-            
-              echo "<script>
-                  $('.result-report').html(`<i class='fas fa-times'></i> NO SE HA ENCONTRADO RESULTADOS`).fadeIn(500, function(){
-                    $('.result-report').delay(5000).fadeOut(500);
-                  });                        
-               </script>";
-
-               echo "<script>
-               $('.t-nc, .t-f, .t-b, .t-nv').html(`S/ 0.00`);
-               </script>";
-            }
-          }
+        if ($value['tipodoc'] == '6') {
+          $verproveedor = ($proveedores['razon_social'] ?? '') . ' - ' . ($proveedores['ruc'] ?? '');
+        } else {
+          $verproveedor = ($proveedores['nombre'] ?? '') . ' - ' . ($proveedores['documento'] ?? '');
         }
 
+        if ($tipocomp == '07') {
+          $serieCorrelativo = "Nota de crédito N°-" . $value['serie_correlativo'] . "<br>que afecta a comprobante N°- " . ($value['serie_ref'] ?? '') . "-" . ($value['correlativo_ref'] ?? '');
+        } elseif ($tipocomp == '08') {
+          $serieCorrelativo = "Nota de débito N°-" . $value['serie_correlativo'] . "<br>que afecta a comprobante N°- " . ($value['serie_ref'] ?? '') . "-" . ($value['correlativo_ref'] ?? '');
+        } else {
+          $serieCorrelativo = $value['serie_correlativo'];
+        }
 
+        echo "<tr>
+          <td>" . ++$key . "</td>
+          <td>" . date_format(date_create($value['fecha_emision']), 'd/m/Y') . "</td>
+          <td>$serieCorrelativo</td>
+          <td>" . htmlspecialchars($verproveedor) . "</td>
+          <td>" . number_format($value['igv'], 2) . "</td>
+          <td>" . number_format($value['subtotal'], 2) . "</td>
+          <td>" . number_format($value['total'], 2) . "</td>
+          <td style='text-align:center;'>
+            <button class='btn btn-print-compra' idCompra='{$value['id']}' data-toggle='modal' data-target='#modalImprimir'>+</button>
+          </td>
+          <td style='text-align:center;'>
+            <div class='dropdown'>
+              <button class='btn btn-danger btn-xs dropdown-toggle' type='button' id='dropdownMenu1' data-toggle='dropdown' aria-expanded='true'>
+                <i class='fa fa-cog fa-lg'></i>
+                <span class='caret'></span>
+              </button>
+              <ul class='dropdown-menu dropdown-menu-right' role='menu' aria-labelledby='dropdownMenu1' style='font-size:17px'>";
 
-  }
-    
+        if (($_SESSION['perfil'] ?? '') == 'Administrador') {
+          echo "<li role='presentation'><a role='menuitem' tabindex='-1' href='#' idCompra='{$value['id']}' class='btn-anular-compra'><i class='fas fa-ban' style='color:red;'></i> Anular compra</a></li>";
+        }
 
+        echo "        <li role='presentation'><a role='menuitem' tabindex='-1' href='nueva-compra'><i class='fa fa-plus'></i> Nueva compra</a></li>
+              </ul>
+            </div>
+          </td>
+        </tr>";
 
-       if(isset($_REQUEST['reportesCompras'])){
-         if($_REQUEST['reportesCompras'] == "reportesCompras"){
-        $dataReportes = new DataTablesReportes();
-        $dataReportes->dtaReportesCompras();
-       }
+        $totaligv += $value['igv'];
+        $subtotal += $value['subtotal'];
+        $total += $value['total'];
       }
-     
+
+      $moneda = 'S/ ';
+      echo "<tr>
+        <td colspan='4'></td>
+        <td>" . $moneda . number_format($totaligv, 2) . "</td>
+        <td>" . $moneda . number_format($subtotal, 2) . "</td>
+        <td>" . $moneda . number_format($total, 2) . "</td>
+      </tr>";
+
+      $reload = './index.php';
+      $paginador = $this->generatePagination($reload, $page, $totalPages, $this->adjacents);
+      echo "<tr>
+        <td colspan='10' style='text-align:center;'>$paginador</td>
+      </tr>";
+    } else {
+      echo "<tr>
+        <td colspan='10' style='text-align:center;'>
+          <div class='result-report'>
+            <i class='fas fa-times'></i> NO SE HA ENCONTRADO RESULTADOS
+          </div>
+        </td>
+      </tr>";
+    }
+  }
+
+  private function buildWhereClause($tipocomp, $search, $fechaInicial, $fechaFinal)
+  {
+    $conditions = [];
+
+    // CORREGIDO: Usar fecha_emision (coincide con la estructura de la tabla)
+    if (!empty($fechaInicial) && !empty($fechaFinal)) {
+      $conditions[] = "t1.fecha_emision BETWEEN '$fechaInicial' AND '$fechaFinal'";
+    }
+
+    if (!empty($tipocomp)) {
+      if ($tipocomp != '00' && $tipocomp != '07' && $tipocomp != '08') {
+        $conditions[] = "t1.tipocomp = '$tipocomp'";
+        $conditions[] = "t1.anulado = 'n'";
+      } elseif ($tipocomp == '00') {
+        $conditions[] = "t1.anulado = 'n'";
+        $conditions[] = "(t1.tipocomp = '01' OR t1.tipocomp = '03')";
+      } elseif ($tipocomp == '07' || $tipocomp == '08') {
+        $conditions[] = "t1.tipocomp = '$tipocomp'";
+      }
+    }
+
+    if (!empty($search)) {
+      $searchConditions = [];
+      $searchFields = ['t2.nombre', "CONCAT(t1.serie,'-',t1.correlativo)", 't2.ruc', 't2.documento'];
+      foreach ($searchFields as $field) {
+        $searchConditions[] = "$field LIKE '%" . addslashes($search) . "%'";
+      }
+      $conditions[] = "(" . implode(" OR ", $searchConditions) . ")";
+    }
+
+    if (empty($conditions)) {
+      return "";
+    }
+
+    return "WHERE " . implode(" AND ", $conditions);
+  }
+}
+
+if (isset($_REQUEST['reportesCompras']) && $_REQUEST['reportesCompras'] == "reportesCompras") {
+  $dataReportes = new DataTablesReportes();
+  $dataReportes->dtaReportesCompras();
+}

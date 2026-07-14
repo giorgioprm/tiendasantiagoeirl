@@ -871,7 +871,7 @@ background-color: rgb(248, 244, 244) !important
 /* WIDGRTS */
 .contenedor-widget {
     position: relative;
-    width: 100%;
+    width: 80%;
     display: flex;
     flex-flow: row wrap;
     justify-content: center;

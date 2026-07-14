@@ -1,6 +1,6 @@
 <?php 
 session_start();
-require_once "../../../pdf/html2pdf.class.php";
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 //clases de acceso a datos
 require_once("../../../vendor/autoload.php");

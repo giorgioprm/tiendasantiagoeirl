@@ -6,22 +6,6 @@ use Controladores\ControladorCategorias;
 <div class="content-wrapper panel-medio-principal">
 
   <div style="padding:5px"></div>
-  <section class="container-fluid">
-    <section class="content-header dashboard-header">
-      <div class="box container-fluid" style="border:0px; margin:0px; padding:0px;">
-        <div class="col-lg-12 col-xs-12" style="border:0px; margin:0px; padding:0px; border-radius:10px;">
-
-          <div class="col-md-3 hidden-sm hidden-xs">
-            <button class=""><i class="fas fa-file-invoice"></i> Categoría</button>
-          </div>
-          <div class="col-md-9  col-sm-12 btns-dash">
-            <a href="crear-factura" class="btn pull-right" style="margin-left:10px"><i class="fas fa-file-invoice"></i> Emitir factura</a>
-            <a href="crear-boleta" class="btn pull-right"><i class="fas fa-file-invoice"> </i> Emitir boleta</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </section>
 
   <!-- <section class="content"> -->
   <section class="container-fluid panel-medio">
@@ -29,7 +13,8 @@ use Controladores\ControladorCategorias;
     <div class="box rounded">
 
       <div class="box-header ">
-        <h3 class="box-title">Administración de categorias</h3>
+        <i class="fas fa-file-invoice"></i>&nbsp;
+        <h3 class="box-title">Administración de Categorias</h3>
 
         <button class="btn btn-success  pull-right btn-radius" data-toggle="modal" data-target="#modalAgregarCategoria"><i class="fas fa-plus-square"></i>Nueva categoría <i class="fa fa-th"></i>
         </button>

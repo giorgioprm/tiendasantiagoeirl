@@ -29,7 +29,8 @@ class XMLSecurityKey
     private $x509Certificate = NULL;
     /* This variable contains the certificate thunbprint if we have loaded an X509-certificate. */
     private $X509Thumbprint = NULL;
-    public function __construct($type, $params=NULL) {
+    public function __construct($type, $params = NULL)
+    {
         srand();
         switch ($type) {
             case (XMLSecurityKey::TRIPLEDES_CBC):
@@ -146,13 +147,15 @@ class XMLSecurityKey
      *
      * @return int|NULL  The number of bytes in the key.
      */
-    public function getSymmetricKeySize() {
+    public function getSymmetricKeySize()
+    {
         if (! isset($this->cryptParams['keysize'])) {
             return NULL;
         }
         return $this->cryptParams['keysize'];
     }
-    public function generateSessionKey() {
+    public function generateSessionKey()
+    {
         if (!isset($this->cryptParams['keysize'])) {
             throw new Exception('Unknown key size for type "' . $this->type . '".');
         }
@@ -181,11 +184,12 @@ class XMLSecurityKey
         $this->key = $key;
         return $key;
     }
-    public static function getRawThumbprint($cert) {
+    public static function getRawThumbprint($cert)
+    {
         $arCert = explode("\n", $cert);
         $data = '';
         $inData = FALSE;
-        foreach ($arCert AS $curData) {
+        foreach ($arCert as $curData) {
             if (! $inData) {
                 if (strncmp($curData, '-----BEGIN CERTIFICATE', 22) == 0) {
                     $inData = TRUE;
@@ -203,7 +207,8 @@ class XMLSecurityKey
         }
         return NULL;
     }
-    public function loadKey($key, $isFile=FALSE, $isCert = FALSE) {
+    public function loadKey($key, $isFile = FALSE, $isCert = FALSE)
+    {
         if ($isFile) {
             $this->key = file_get_contents($key);
         } else {
@@ -243,22 +248,24 @@ class XMLSecurityKey
             }
         }
     }
-    private function encryptMcrypt($data) {
+    private function encryptMcrypt($data)
+    {
         $td = mcrypt_module_open($this->cryptParams['cipher'], '', $this->cryptParams['mode'], '');
-        $this->iv = mcrypt_create_iv (mcrypt_enc_get_iv_size($td), MCRYPT_RAND);
+        $this->iv = mcrypt_create_iv(mcrypt_enc_get_iv_size($td), MCRYPT_RAND);
         mcrypt_generic_init($td, $this->key, $this->iv);
         if ($this->cryptParams['mode'] == MCRYPT_MODE_CBC) {
             $bs = mcrypt_enc_get_block_size($td);
-            for ($datalen0=$datalen=strlen($data); (($datalen%$bs)!=($bs-1)); $datalen++)
-                $data.=chr(rand(1, 127));
-            $data.=chr($datalen-$datalen0+1);
+            for ($datalen0 = $datalen = strlen($data); (($datalen % $bs) != ($bs - 1)); $datalen++)
+                $data .= chr(rand(1, 127));
+            $data .= chr($datalen - $datalen0 + 1);
         }
-        $encrypted_data = $this->iv.mcrypt_generic($td, $data);
+        $encrypted_data = $this->iv . mcrypt_generic($td, $data);
         mcrypt_generic_deinit($td);
         mcrypt_module_close($td);
         return $encrypted_data;
     }
-    private function decryptMcrypt($data) {
+    private function decryptMcrypt($data)
+    {
         $td = mcrypt_module_open($this->cryptParams['cipher'], '', $this->cryptParams['mode'], '');
         $iv_length = mcrypt_enc_get_iv_size($td);
         $this->iv = substr($data, 0, $iv_length);
@@ -274,7 +281,9 @@ class XMLSecurityKey
         }
         return $decrypted_data;
     }
-    private function encryptOpenSSL($data) {
+
+    private function encryptOpenSSL($data)
+    {
         if ($this->cryptParams['type'] == 'public') {
             if (! openssl_public_encrypt($data, $encrypted_data, $this->key, $this->cryptParams['padding'])) {
                 throw new Exception('Failure encrypting Data');
@@ -288,7 +297,9 @@ class XMLSecurityKey
         }
         return $encrypted_data;
     }
-    private function decryptOpenSSL($data) {
+
+    private function decryptOpenSSL($data)
+    {
         if ($this->cryptParams['type'] == 'public') {
             if (! openssl_public_decrypt($data, $decrypted, $this->key, $this->cryptParams['padding'])) {
                 throw new Exception('Failure decrypting Data');
@@ -302,25 +313,57 @@ class XMLSecurityKey
         }
         return $decrypted;
     }
-    private function signOpenSSL($data) {
-        $algo = OPENSSL_ALGO_SHA1;
+
+    private function signOpenSSL($data)
+    {
+        // Forzar SHA256 en lugar de SHA1 para compatibilidad con OpenSSL 3.x
+        $algo = OPENSSL_ALGO_SHA256;
+
         if (! empty($this->cryptParams['digest'])) {
-            $algo = $this->cryptParams['digest'];
+            // Mapeo de algoritmos antiguos a nuevos
+            $digestMap = [
+                'SHA1' => 'SHA256',
+                'sha1' => 'sha256',
+                'SHA-1' => 'SHA-256',
+                'sha-1' => 'sha-256'
+            ];
+
+            $digest = $this->cryptParams['digest'];
+            if (isset($digestMap[$digest])) {
+                $digest = $digestMap[$digest];
+            }
+
+            // Obtener la constante de OpenSSL para el algoritmo
+            $algoConst = 'OPENSSL_ALGO_' . strtoupper(str_replace('-', '', $digest));
+            if (defined($algoConst)) {
+                $algo = constant($algoConst);
+            }
         }
-        if (! openssl_sign ($data, $signature, $this->key, $algo)) {
-            throw new Exception('Failure Signing Data: ' . openssl_error_string() . ' - ' . $algo);
-            return;
+
+        $result = openssl_sign($data, $signature, $this->key, $algo);
+
+        if ($result === false) {
+            // Si falla, intentar con SHA256 directamente
+            $result = openssl_sign($data, $signature, $this->key, OPENSSL_ALGO_SHA256);
+            if ($result === false) {
+                $error = openssl_error_string();
+                throw new Exception('Failure Signing Data: ' . $error . ' - Algo: ' . $algo);
+            }
         }
+
         return $signature;
     }
-    private function verifyOpenSSL($data, $signature) {
+
+    private function verifyOpenSSL($data, $signature)
+    {
         $algo = OPENSSL_ALGO_SHA1;
         if (! empty($this->cryptParams['digest'])) {
             $algo = $this->cryptParams['digest'];
         }
-        return openssl_verify ($data, $signature, $this->key, $algo);
+        return openssl_verify($data, $signature, $this->key, $algo);
     }
-    public function encryptData($data) {
+    public function encryptData($data)
+    {
         switch ($this->cryptParams['library']) {
             case 'mcrypt':
                 return $this->encryptMcrypt($data);
@@ -330,7 +373,8 @@ class XMLSecurityKey
                 break;
         }
     }
-    public function decryptData($data) {
+    public function decryptData($data)
+    {
         switch ($this->cryptParams['library']) {
             case 'mcrypt':
                 return $this->decryptMcrypt($data);
@@ -340,66 +384,70 @@ class XMLSecurityKey
                 break;
         }
     }
-    public function signData($data) {
+    public function signData($data)
+    {
         switch ($this->cryptParams['library']) {
             case 'openssl':
                 return $this->signOpenSSL($data);
                 break;
         }
     }
-    public function verifySignature($data, $signature) {
+    public function verifySignature($data, $signature)
+    {
         switch ($this->cryptParams['library']) {
             case 'openssl':
                 return $this->verifyOpenSSL($data, $signature);
                 break;
         }
     }
-    public function getAlgorith() {
+    public function getAlgorith()
+    {
         return $this->cryptParams['method'];
     }
-    static function makeAsnSegment($type, $string) {
-        switch ($type){
+    static function makeAsnSegment($type, $string)
+    {
+        switch ($type) {
             case 0x02:
                 if (ord($string) > 0x7f)
-                    $string = chr(0).$string;
+                    $string = chr(0) . $string;
                 break;
             case 0x03:
-                $string = chr(0).$string;
+                $string = chr(0) . $string;
                 break;
         }
         $length = strlen($string);
-        if ($length < 128){
+        if ($length < 128) {
             $output = sprintf("%c%c%s", $type, $length, $string);
-        } else if ($length < 0x0100){
+        } else if ($length < 0x0100) {
             $output = sprintf("%c%c%c%s", $type, 0x81, $length, $string);
         } else if ($length < 0x010000) {
-            $output = sprintf("%c%c%c%c%s", $type, 0x82, $length/0x0100, $length%0x0100, $string);
+            $output = sprintf("%c%c%c%c%s", $type, 0x82, $length / 0x0100, $length % 0x0100, $string);
         } else {
             $output = NULL;
         }
-        return($output);
+        return ($output);
     }
     /* Modulus and Exponent must already be base64 decoded */
-    static function convertRSA($modulus, $exponent) {
+    static function convertRSA($modulus, $exponent)
+    {
         /* make an ASN publicKeyInfo */
         $exponentEncoding = XMLSecurityKey::makeAsnSegment(0x02, $exponent);
         $modulusEncoding = XMLSecurityKey::makeAsnSegment(0x02, $modulus);
-        $sequenceEncoding = XMLSecurityKey:: makeAsnSegment(0x30, $modulusEncoding.$exponentEncoding);
+        $sequenceEncoding = XMLSecurityKey::makeAsnSegment(0x30, $modulusEncoding . $exponentEncoding);
         $bitstringEncoding = XMLSecurityKey::makeAsnSegment(0x03, $sequenceEncoding);
         $rsaAlgorithmIdentifier = pack("H*", "300D06092A864886F70D0101010500");
-        $publicKeyInfo = XMLSecurityKey::makeAsnSegment (0x30, $rsaAlgorithmIdentifier.$bitstringEncoding);
+        $publicKeyInfo = XMLSecurityKey::makeAsnSegment(0x30, $rsaAlgorithmIdentifier . $bitstringEncoding);
         /* encode the publicKeyInfo in base64 and add PEM brackets */
         $publicKeyInfoBase64 = base64_encode($publicKeyInfo);
         $encoding = "-----BEGIN PUBLIC KEY-----\n";
         $offset = 0;
-        while ($segment=substr($publicKeyInfoBase64, $offset, 64)){
-            $encoding = $encoding.$segment."\n";
+        while ($segment = substr($publicKeyInfoBase64, $offset, 64)) {
+            $encoding = $encoding . $segment . "\n";
             $offset += 64;
         }
-        return $encoding."-----END PUBLIC KEY-----\n";
+        return $encoding . "-----END PUBLIC KEY-----\n";
     }
-    public function serializeKey($parent) {
-    }
+    public function serializeKey($parent) {}
     /**
      * Retrieve the X509 certificate this key represents.
      *
@@ -408,7 +456,8 @@ class XMLSecurityKey
      *
      * @return  The X509 certificate or NULL if this key doesn't represent an X509-certificate.
      */
-    public function getX509Certificate() {
+    public function getX509Certificate()
+    {
         return $this->x509Certificate;
     }
     /* Get the thumbprint of this X509 certificate.
@@ -417,7 +466,8 @@ class XMLSecurityKey
      *  The thumbprint as a lowercase 40-character hexadecimal number, or NULL
      *  if this isn't a X509 certificate.
      */
-    public function getX509Thumbprint() {
+    public function getX509Thumbprint()
+    {
         return $this->X509Thumbprint;
     }
     /**
@@ -426,7 +476,8 @@ class XMLSecurityKey
      * @param DOMElement $element  The EncryptedKey-element.
      * @return XMLSecurityKey  The new key.
      */
-    public static function fromEncryptedKeyElement(DOMElement $element) {
+    public static function fromEncryptedKeyElement(DOMElement $element)
+    {
         $objenc = new XMLSecEnc();
         $objenc->setNode($element);
         if (! $objKey = $objenc->locateKey()) {

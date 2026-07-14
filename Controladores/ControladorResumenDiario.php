@@ -35,6 +35,16 @@ class ControladorResumenDiario
         $estado = '';
         $respuesta = ModeloResumenDiario::mdlMostrarComprobantes($fecha, $tipocomp, $estado);
 
+        // Verificar modo
+        $env = getenv('APP_ENV') ?: 'development';
+        $isDevelopment = ($env == 'development');
+
+        if ($isDevelopment) {
+            // En modo desarrollo, solo registrar que se enviaría
+            error_log("Resumen diario enviado en modo desarrollo (simulado)");
+            return true;
+        }
+
         if ($respuesta == 'error' || $respuesta == null) {
             echo "<script>
         Swal.fire({

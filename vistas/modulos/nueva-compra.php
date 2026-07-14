@@ -23,28 +23,13 @@ use Controladores\ControladorSunat;
 
   ?>
 
-    <div style="padding:5px"></div>
-    <section class="container-fluid">
-      <section class="content-header dashboard-header">
-        <div class="box container-fluid" style="border:0px; margin:0px; padding:0px;">
-          <div class="col-lg-12 col-xs-12" style="border:0px; margin:0px; padding:0px;  border-radius:10px;">
-
-            <div class="col-md-3 hidden-sm hidden-xs">
-              <button class=""><i class="fas fa-file-invoice"></i> Nueva compra</button>
-            </div>
-            <div class="col-lg-9 col-md-12 col-sm-12 btns-dash">
-
-            </div>
-          </div>
-        </div>
-      </section>
-    </section>
-
     <!-- <section class="content"> -->
     <section class="container-fluid panel-medio">
       <!-- BOX INI -->
       <div class="box rounded">
-
+        <div class="box-header">
+          <h3 class="box-title">Administración de compras</h3>
+        </div>
         <div class="box-header" style="border: 0px; padding-top:5px;">
           <!-- <h3 class="box-title">Crear venta</h3> -->
 

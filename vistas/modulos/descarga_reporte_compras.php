@@ -12,6 +12,7 @@
 // require_once "../../modelos/resumen-diario.modelo.php";
 // require_once "../../modelos/nota-credito.modelo.php";
 // require_once "../../modelos/reporte-ventas.modelo.php";
-require_once("../../vendor/autoload.php");
+require_once __DIR__ . '/../../vendor/autoload.php';
+require __DIR__ . '/Controladores/ControladorReportes.php';
 use Controladores\ControladorReportes;
-$ojReporte = ControladorReportes::ctrDescargaReporteComprasExcel();
+ControladorReportes::ctrDescargaReporteComprasExcel();

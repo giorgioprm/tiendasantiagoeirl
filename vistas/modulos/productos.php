@@ -12,23 +12,6 @@ $empresa_igv = ControladorEmpresa::ctrEmisor();
 
   <input type="hidden" id="empresa_igv" name="empresa_igv" value="<?php echo $empresa_igv['afectoigv'] ?>">
   <div style="padding:5px"></div>
-  <section class="container-fluid">
-    <section class="content-header dashboard-header">
-
-      <div class="box container-fluid" style="border:0px; margin:0px; padding:0px;">
-        <div class="col-lg-12 col-xs-12" style="border:0px; margin:0px; padding:0px; border-radius:10px;">
-
-          <div class="col-md-3 hidden-sm hidden-xs">
-            <button class=""><i class="fas fa-box-open"></i> Productos</button>
-          </div>
-          <div class="col-lg-9 col-md-12 col-sm-12 btns-dash">
-            <a href="crear-factura" class="btn pull-right" style="margin-left:10px"><i class="fas fa-file-invoice"></i> Emitir factura</a>
-            <a href="crear-boleta" class="btn pull-right"><i class="fas fa-file-invoice"> </i> Emitir boleta</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </section>
 
   <!-- <section class="content"> -->
   <section class="container-fluid panel-medio">
@@ -36,6 +19,7 @@ $empresa_igv = ControladorEmpresa::ctrEmisor();
     <div class="box rounded">
 
       <div class="box-header ">
+        <i class="fas fa-file-invoice"></i>&nbsp;
         <h3 class="box-title">Administración de productos</h3>
 
         <button class="btn btn-success  pull-right btn-radius" data-toggle="modal" data-target="#modalAgregarProducto"><i class="fas fa-plus-square"></i>Nuevo producto &nbsp;<i class="fa fa-th"></i>
@@ -235,7 +219,7 @@ $empresa_igv = ControladorEmpresa::ctrEmisor();
                 <div class="col-md-3">
                   <div class="form-group">
 
-                    <input type="number" class="form-control" min="1" max="200" name="nuevoStock" id="nuevoStock" onkeyup="this.value=Numeros(this.value)" placeholder="Ingresar stock" title="Stock" required>
+                    <input type="number" class="form-control" min="1" max="200" name="nuevoStock" id="nuevoStock" onkeyup="this.value=NumerosMenor200(this.value)" placeholder="Ingresar stock" title="Stock" required>
                     <p id="maxMsg" class="alert alert-danger" style="display:none;">La cantidad no puede ser mayor que 200</p>
                   </div>
                 </div>
@@ -257,7 +241,7 @@ $empresa_igv = ControladorEmpresa::ctrEmisor();
                 <div class="col-md-6">
                   <div class="form-group">
 
-                    <input type="text" class="form-control" name="nuevoPrecioUnitario" id="nuevoPrecioUnitario" maxlength="4" min="1" max="200" step="0.01" placeholder="Ingresar precio unitario" title="Precio unitario" oninput="validarPrecio(this);" required>
+                    <input type="text" class="form-control" name="nuevoPrecioUnitario" id="nuevoPrecioUnitario" minlength="1" maxlength="5" step="0.01" placeholder="Ingresar precio unitario" title="Precio unitario" oninput="validarPrecio(this); validarPrecioMax(this)" required>
                     <p id="maxMsg1" class="alert alert-danger" style="display:none;">El precio no debe ser mayor que 200 soles</p>
                     <script>
                       function validarPrecio(input) {
@@ -271,16 +255,21 @@ $empresa_igv = ControladorEmpresa::ctrEmisor();
                         }
                       }
 
-                      var preciounitario = document.getElementById('nuevoPrecioUnitario');
-                      var maxMsg1 = document.getElementById('maxMsg1');
+                      function validarPrecioMax(input) {
+                        var maxMsg1 = document.getElementById('maxMsg1');
 
-                      preciounitario.addEventListener('input', function(event) {
-                        if (preciounitario.value > 200) {
+                        // Obtener el valor del campo de entrada
+                        var precio = parseFloat(input.value);
+
+                        // Verificar si el valor es mayor a 200
+                        if (precio > 200) {
+                          // Si es mayor, mostrar el mensaje de error y establecer el valor en 200
                           maxMsg1.style.display = 'block';
+                          input.value = "200";
                         } else {
                           maxMsg1.style.display = 'none';
                         }
-                      });
+                      }
                     </script>
 
                   </div>
@@ -498,22 +487,22 @@ $empresa_igv = ControladorEmpresa::ctrEmisor();
                 <div class="col-md-3">
                   <div class="form-group">
 
-                    <input type="number" class="form-control " min="0" max="200" name="editarStock" id="editarStock" onkeyup="this.value=Numeros(this.value)" title="Stock" required>
+                    <input type="number" class="form-control " min="0" name="editarStock" id="editarStock" onkeyup="this.value=NumerosMenor200(this.value)" title="Stock" required>
 
                   </div>
-
                   <script>
-                  var cantidadInput = document.getElementById('editarStock');
-                  var maxMsg = document.getElementById('maxMsg');
+                    var editarStock = document.getElementById('editarStock');
+                    var maxMsg = document.getElementById('maxMsg');
 
-                  cantidadInput.addEventListener('input', function(event) {
-                    if (cantidadInput.value > 200) {
-                      maxMsg.style.display = 'block';
-                    } else {
-                      maxMsg.style.display = 'none';
-                    }
-                  });
-                </script>
+                    editarStock.addEventListener('input', function(event) {
+                      if (editarStock.value > 200) {
+                        maxMsg.style.display = 'block';
+                      } else {
+                        maxMsg.style.display = 'none';
+                      }
+                    });
+                  </script>
+
                 </div>
               </div>
               <!-- ENTRADA PARA PRECIO VENTA-->
@@ -521,9 +510,32 @@ $empresa_igv = ControladorEmpresa::ctrEmisor();
                 <div class="col-md-6">
                   <div class="form-group">
 
-                    <input type="text" class="form-control" name="editarPrecioUnitario" id="editarPrecioUnitario" onkeyup="this.value=Numeros(this.value)" placeholder="Ingresar precio de venta" title="Precio de venta" step="any" required>
+                    <input type="text" class="form-control" name="editarPrecioUnitario" id="editarPrecioUnitario" minlength="1" maxlength="5" onkeyup="this.value=Numeros(this.value)" placeholder="Ingresar precio de venta" title="Precio de venta" step="any" required>
 
                   </div>
+                  <script>
+                    function validarPrecio(input) {
+                      // Obtener el valor del campo de entrada
+                      var precio = parseFloat(input.value);
+
+                      // Verificar si el valor es negativo
+                      if (precio < 0) {
+                        // Si es negativo, establecer el valor en uno
+                        input.value = "1";
+                      }
+                    }
+
+                    var editarPrecioUnitario = document.getElementById('editarPrecioUnitario');
+                    var maxMsg1 = document.getElementById('maxMsg1');
+
+                    editarPrecioUnitario.addEventListener('input', function(event) {
+                      if (editarPrecioUnitario.value > 200) {
+                        maxMsg1.style.display = 'block';
+                      } else {
+                        maxMsg1.style.display = 'none';
+                      }
+                    });
+                  </script>
                 </div>
 
                 <!-- ENTRADA PARA PRECIO COMPRA -->
@@ -611,20 +623,40 @@ $eliminarProducto->ctrEliminarProducto();
 ?>
 
 <script>
-  function Numeros(string) {
+  function Numeros(string) { //Solo numeros
     var out = '';
-    var filtro = '1234567890.'; //Caracteres válidos, incluyendo el punto decimal
+    var filtro = '1234567890.'; //Caracteres validos
+
+    //Recorrer el texto y verificar si el caracter se encuentra en la lista de validos 
+    for (var i = 0; i < string.length; i++)
+      if (filtro.indexOf(string.charAt(i)) != -1)
+        //Se añaden a la salida los caracteres validos
+        out += string.charAt(i);
+
+    //Retornar valor filtrado
+    return out;
+  }
+
+  function NumerosMenor200(string) {
+    var out = '';
+    var filtro = '1234567890'; //Caracteres validos
+    var num = '';
 
     // Recorrer el texto y verificar si el caracter se encuentra en la lista de validos 
     for (var i = 0; i < string.length; i++) {
-      if (filtro.indexOf(string.charAt(i)) != -1) {
-        // Permitir solo un punto decimal en la entrada
-        if (string.charAt(i) === '.' && out.indexOf('.') != -1) {
-          continue;
-        }
-        // Se añaden a la salida los caracteres válidos
-        out += string.charAt(i);
+      var c = string.charAt(i);
+
+      if (filtro.indexOf(c) != -1) {
+        // Se añaden a la salida los caracteres validos
+        out += c;
+        num += c;
       }
+    }
+
+    // Verificar que el número resultante sea menor o igual que 200
+    var parsedNum = parseFloat(num);
+    if (isNaN(parsedNum) || parsedNum > 200) {
+      out = '';
     }
 
     // Retornar valor filtrado

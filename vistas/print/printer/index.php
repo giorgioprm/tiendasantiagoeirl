@@ -1,9 +1,10 @@
-<?php 
+<?php
 session_start();
-require_once (dirname (__FILE__) ."/../../../pdf/html2pdf.class.php");
-require_once (dirname (__FILE__) ."/../../../Controladores/cantidad_en_letras.php");
+require_once(dirname(__FILE__) . "/../../../pdf/html2pdf.class.php");
+require_once(dirname(__FILE__) . "/../../../Controladores/cantidad_en_letras.php");
 //clases de acceso a datos
-require_once(dirname (__FILE__) ."/../../../vendor/autoload.php");
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
 use Conect\Conexion;
 use Controladores\ControladorClientes;
 use Controladores\ControladorProductos;
@@ -17,11 +18,11 @@ use Controladores\ControladorUsuarios;
 
 
 
-if(!empty($_REQUEST['a4'])){
- $tipoPrint = $_REQUEST['a4'];
+if (!empty($_REQUEST['a4'])) {
+    $tipoPrint = $_REQUEST['a4'];
 }
-if(!empty($_REQUEST['tk'])){
- $tipoPrint = $_REQUEST['tk'];
+if (!empty($_REQUEST['tk'])) {
+    $tipoPrint = $_REQUEST['tk'];
 }
 
 $empresa = ControladorEmpresa::ctrEmisor();
@@ -39,7 +40,7 @@ $item = "id";
 $valor = $venta['codcliente'];
 $cliente = ControladorClientes::ctrMostrarClientes($item, $valor);
 
-$emisor= ControladorEmpresa::ctrEmisor();
+$emisor = ControladorEmpresa::ctrEmisor();
 
 $item = "idventa";
 $valor = $venta['id'];
@@ -63,20 +64,19 @@ $vendedor = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
 
 
 ob_start();
-if($tipoPrint == 'A4'){
+if ($tipoPrint == 'A4') {
     require_once("../invoiceA4.php");
     $nombrexml = $ruc . '-' . 1 . '-' . $serie . '-' . $correlativo;
     $html = ob_get_clean();
-    $html2pdf = new Html2Pdf('P', 'a4', 'fr', true, 'UTF-8', 0);  
+    $html2pdf = new Html2Pdf('P', 'a4', 'fr', true, 'UTF-8', 0);
 }
-if($tipoPrint == 'TK'){
-require_once("../invoice-ticket.php");
- $nombrexml = $ruc . '-' . 1 . '-' . $serie . '-' . $correlativo;
-$html = ob_get_clean();
-$html2pdf = new Html2Pdf('P', array(77.5, 300), 'fr', true, 'UTF-8', 0);
+if ($tipoPrint == 'TK') {
+    require_once("../invoice-ticket.php");
+    $nombrexml = $ruc . '-' . 1 . '-' . $serie . '-' . $correlativo;
+    $html = ob_get_clean();
+    $html2pdf = new Html2Pdf('P', array(77.5, 300), 'fr', true, 'UTF-8', 0);
 }
 $html2pdf->pdf->SetDisplayMode('fullpage');
 $html2pdf->setTestTdInOnePage(true);
 $html2pdf->writeHTML($html);
-$html2pdf->output($nombrexml.'.pdf', 'I');
-?>
+$html2pdf->output($nombrexml . '.pdf', 'I');

@@ -2,7 +2,7 @@
 session_start();
 require_once (dirname (__FILE__) ."/../../../pdf/html2pdf.class.php");
 
-require_once(dirname (__FILE__) ."/../../../vendor/autoload.php");
+require_once(dirname (__FILE__) .'/../../vendor/autoload.php');
 use Conect\Conexion;
 use Controladores\ControladorClientes;
 use Controladores\ControladorProductos;

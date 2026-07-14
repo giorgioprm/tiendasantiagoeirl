@@ -1,6 +1,6 @@
 <?php 
 session_start();
-require_once "../../../pdf/html2pdf.class.php";
+require_once __DIR__ . '/../../vendor/autoload.php';
 date_default_timezone_set('America/Lima');
 //Import PHPMailer classes into the global namespace
 //These must be at the top of your script, not inside a function

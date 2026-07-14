@@ -1,26 +1,22 @@
 {
-    "name": "gvi/tiendasantiagoeirl",
-    "autoload": {
-        "psr-4": {
-            "Gvi\\tiendasantiagoeirl\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "GPRM2525",
-            "email": "gpaoloruitonm@gmail.com"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "Conect\\":"Conect",
-            "Controladores\\":"Controladores",
-            "Modelos\\":"Modelos",
-            "api\\":"api"
-
-
-        }
-
-    },
-    "require": {}
+  "name": "gvi/tiendasantiagoeirl-php",
+  "autoload": {
+    "psr-4": {
+      "Conect\\": "Conect",
+      "Controladores\\": "Controladores",
+      "Modelos\\": "Modelos",
+      "api\\": "api"
+    }
+  },
+  "authors": [
+    {
+      "name": "giorgioprm",
+      "email": "gpaoloruitonm@gmail.com"
+    }
+  ],
+  "require": {
+    "tecnickcom/tcpdf": "^6.6",
+    "spipu/html2pdf": "^5.2",
+    "dompdf/dompdf": "^2.0"
+  }
 }

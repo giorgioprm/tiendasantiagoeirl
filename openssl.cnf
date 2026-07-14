@@ -1,0 +1,11 @@
+openssl_conf = openssl_init
+
+[openssl_init]
+alg_section = evp_properties
+
+[evp_properties]
+default = default_sect
+activate = 1
+
+[default_sect]
+cipher_list = DEFAULT@SECLEVEL=0

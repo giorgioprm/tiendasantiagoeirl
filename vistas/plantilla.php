@@ -26,8 +26,7 @@ $tiem = time();
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="icon" type="image/png" sizes="76x76" href="vistas/img/logo/<?php $logo = (isset($emisor['logo'])) ? $emisor['logo'] : 'logo.png';
-                                                                        echo $logo;
-                                                                        ?>">
+                                                                        echo $logo; ?>">
   <!-- Compiled and minified CSS -->
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
   <!-- Bootstrap 3.3.7 -->
@@ -35,7 +34,7 @@ $tiem = time();
   <!-- Font Awesome -->
   <link href="vistas/pack/bower_components/toggle/css/bootstrap-toggle.min.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="vistas/pack/bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="vistas/pack/bower_components/fontawesome-free/css/fontawesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="vistas/pack/bower_components/Ionicons/css/ionicons.min.css">
 
@@ -217,6 +216,7 @@ $tiem = time();
         $_GET["ruta"] == "crear-nota" ||
         $_GET["ruta"] == "crear-cotizacion" ||
         $_GET["ruta"] == "crear-guia" ||
+        $_GET["ruta"] == "compras" ||
         $_GET["ruta"] == "nueva-compra" ||
         $_GET["ruta"] == "reportes" ||
         $_GET["ruta"] == "empresa" ||
@@ -257,7 +257,7 @@ $tiem = time();
 
 
   <div class="connection"></div>
- <input type="hidden" class="" id="tipo_cambio" name="tipo_cambio" value="">
+  <input type="hidden" class="" id="tipo_cambio" name="tipo_cambio" value="">
   <input type="hidden" class="" id="fecha" name="fecha" value="<?php echo date("Y-m-d") ?>">
   <!-- End custom js for this page-->
   <script src="vistas/js/plantilla.js"></script>
@@ -300,7 +300,7 @@ $tiem = time();
       $(".reload-all").hide();
     })
   </script>
- 
+
 </body>
 
 </html>

@@ -8,12 +8,12 @@
            <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
            <cbc:CustomizationID>2.0</cbc:CustomizationID>
            <cbc:ID>B001-2</cbc:ID>
-           <cbc:IssueDate>2023-02-06</cbc:IssueDate>
+           <cbc:IssueDate>2026-07-14</cbc:IssueDate>
            <cbc:IssueTime>00:00:00</cbc:IssueTime>
-           <cbc:DueDate>2023-02-06</cbc:DueDate>
+           <cbc:DueDate>2026-07-14</cbc:DueDate>
            <cbc:InvoiceTypeCode listID="0101">03</cbc:InvoiceTypeCode>
 
-           <cbc:Note languageLocaleID="1000"><![CDATA[VEINTE   CON 00/100 SOLES]]></cbc:Note><cbc:DocumentCurrencyCode>PEN</cbc:DocumentCurrencyCode>
+           <cbc:Note languageLocaleID="1000"><![CDATA[CUARENTA Y SIETE MIL OCHOCIENTOS OCHENTA   CON 00/100 SOLES]]></cbc:Note><cbc:DocumentCurrencyCode>PEN</cbc:DocumentCurrencyCode>
            <cac:Signature>
               <cbc:ID>20430573018</cbc:ID>
               <cbc:Note><![CDATA[Tienda Santiago EIRL]]></cbc:Note>
@@ -45,14 +45,14 @@
                        <cbc:ID>150136</cbc:ID>
                        <cbc:AddressTypeCode>0000</cbc:AddressTypeCode>
                        <cbc:CitySubdivisionName>NONE</cbc:CitySubdivisionName>
-                       <cbc:CityName>Lima</cbc:CityName>
-                       <cbc:CountrySubentity>Lima</cbc:CountrySubentity>
-                       <cbc:District>El Agustino</cbc:District>
+                       <cbc:CityName>LIMA </cbc:CityName>
+                       <cbc:CountrySubentity>LIMA</cbc:CountrySubentity>
+                       <cbc:District>SAN MIGUEL</cbc:District>
                        <cac:AddressLine>
-                          <cbc:Line><![CDATA[Avenida Ucayali, Mza. E, Lote 14]]></cbc:Line>
+                          <cbc:Line><![CDATA[CAL. TACNA NRO. 336 URB. SAN MIGUEL LIMA - LIMA  - SAN MIGUEL]]></cbc:Line>
                        </cac:AddressLine>
                        <cac:Country>
-                          <cbc:IdentificationCode>Perú</cbc:IdentificationCode>
+                          <cbc:IdentificationCode>PE</cbc:IdentificationCode>
                        </cac:Country>
                     </cac:RegistrationAddress>
                  </cac:PartyLegalEntity>
@@ -61,13 +61,13 @@
            <cac:AccountingCustomerParty>
               <cac:Party>
                  <cac:PartyIdentification>
-                    <cbc:ID schemeID="1">25531552</cbc:ID>
+                    <cbc:ID schemeID="1">43057301</cbc:ID>
                  </cac:PartyIdentification>
                  <cac:PartyLegalEntity>
-                    <cbc:RegistrationName><![CDATA[ALEJANDRA DOROTEA ESPEJO DE DONAYRE]]></cbc:RegistrationName>
+                    <cbc:RegistrationName><![CDATA[GIORGIO PAOLO RUITON MAURICCI]]></cbc:RegistrationName>
                     <cac:RegistrationAddress>
                        <cac:AddressLine>
-                          <cbc:Line><![CDATA[av romero 123]]></cbc:Line>
+                          <cbc:Line><![CDATA[Av. La Marina 2323]]></cbc:Line>
                        </cac:AddressLine>
                        <cac:Country>
                           <cbc:IdentificationCode>PE</cbc:IdentificationCode>
@@ -79,9 +79,9 @@
                <cbc:ID>FormaPago</cbc:ID>
                <cbc:PaymentMeansID>Contado</cbc:PaymentMeansID>
            </cac:PaymentTerms><cac:TaxTotal>
-              <cbc:TaxAmount currencyID="PEN">3.05</cbc:TaxAmount><cac:TaxSubtotal>
-                 <cbc:TaxableAmount currencyID="PEN">16.95</cbc:TaxableAmount>
-                 <cbc:TaxAmount currencyID="PEN">3.05</cbc:TaxAmount>
+              <cbc:TaxAmount currencyID="PEN">7303.73</cbc:TaxAmount><cac:TaxSubtotal>
+                 <cbc:TaxableAmount currencyID="PEN">40576.27</cbc:TaxableAmount>
+                 <cbc:TaxAmount currencyID="PEN">7303.73</cbc:TaxAmount>
                  <cac:TaxCategory>
                     <cac:TaxScheme>
                        <cbc:ID>1000</cbc:ID>
@@ -91,23 +91,23 @@
                  </cac:TaxCategory>
               </cac:TaxSubtotal></cac:TaxTotal>
            <cac:LegalMonetaryTotal>
-              <cbc:LineExtensionAmount currencyID="PEN">16.95</cbc:LineExtensionAmount>
-              <cbc:TaxInclusiveAmount currencyID="PEN">20</cbc:TaxInclusiveAmount>
-              <cbc:PayableAmount currencyID="PEN">20</cbc:PayableAmount>
+              <cbc:LineExtensionAmount currencyID="PEN">40576.27</cbc:LineExtensionAmount>
+              <cbc:TaxInclusiveAmount currencyID="PEN">47880</cbc:TaxInclusiveAmount>
+              <cbc:PayableAmount currencyID="PEN">47880</cbc:PayableAmount>
            </cac:LegalMonetaryTotal><cac:InvoiceLine>
                   <cbc:ID>1</cbc:ID>
-                  <cbc:InvoicedQuantity unitCode="BO">4</cbc:InvoicedQuantity>
-                  <cbc:LineExtensionAmount currencyID="PEN">16.95</cbc:LineExtensionAmount>
+                  <cbc:InvoicedQuantity unitCode="NIU">4</cbc:InvoicedQuantity>
+                  <cbc:LineExtensionAmount currencyID="PEN">13966.1</cbc:LineExtensionAmount>
                   <cac:PricingReference>
                      <cac:AlternativeConditionPrice>
-                        <cbc:PriceAmount currencyID="PEN">5</cbc:PriceAmount>
+                        <cbc:PriceAmount currencyID="PEN">4120</cbc:PriceAmount>
                         <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
                      </cac:AlternativeConditionPrice>
                   </cac:PricingReference><cac:TaxTotal>
-                     <cbc:TaxAmount currencyID="PEN">3.05</cbc:TaxAmount>
+                     <cbc:TaxAmount currencyID="PEN">2513.9</cbc:TaxAmount>
                      <cac:TaxSubtotal>
-                        <cbc:TaxableAmount currencyID="PEN">16.95</cbc:TaxableAmount>
-                        <cbc:TaxAmount currencyID="PEN">3.05</cbc:TaxAmount>
+                        <cbc:TaxableAmount currencyID="PEN">13966.1</cbc:TaxableAmount>
+                        <cbc:TaxAmount currencyID="PEN">2513.9</cbc:TaxAmount>
                         <cac:TaxCategory>
                            <cbc:Percent>18</cbc:Percent>
                            <cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
@@ -119,12 +119,111 @@
                         </cac:TaxCategory>
                      </cac:TaxSubtotal></cac:TaxTotal>
                   <cac:Item>
-                     <cbc:Description><![CDATA[Agua Mineral San Miguel sin Gas 2.5L Botella 2un]]></cbc:Description>
+                     <cbc:Description><![CDATA[Laptop Lenovo i8]]></cbc:Description>
+                     <cac:SellersItemIdentification>
+                        <cbc:ID>203</cbc:ID>
+                     </cac:SellersItemIdentification>
+                  </cac:Item>
+                  <cac:Price>
+                     <cbc:PriceAmount currencyID="PEN">3491.53</cbc:PriceAmount>
+                  </cac:Price>
+               </cac:InvoiceLine><cac:InvoiceLine>
+                  <cbc:ID>2</cbc:ID>
+                  <cbc:InvoicedQuantity unitCode="NIU">4</cbc:InvoicedQuantity>
+                  <cbc:LineExtensionAmount currencyID="PEN">14576.27</cbc:LineExtensionAmount>
+                  <cac:PricingReference>
+                     <cac:AlternativeConditionPrice>
+                        <cbc:PriceAmount currencyID="PEN">4300</cbc:PriceAmount>
+                        <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+                     </cac:AlternativeConditionPrice>
+                  </cac:PricingReference><cac:TaxTotal>
+                     <cbc:TaxAmount currencyID="PEN">2623.73</cbc:TaxAmount>
+                     <cac:TaxSubtotal>
+                        <cbc:TaxableAmount currencyID="PEN">14576.27</cbc:TaxableAmount>
+                        <cbc:TaxAmount currencyID="PEN">2623.73</cbc:TaxAmount>
+                        <cac:TaxCategory>
+                           <cbc:Percent>18</cbc:Percent>
+                           <cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+                           <cac:TaxScheme>
+                              <cbc:ID>1000</cbc:ID>
+                              <cbc:Name>IGV</cbc:Name>
+                              <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+                           </cac:TaxScheme>
+                        </cac:TaxCategory>
+                     </cac:TaxSubtotal></cac:TaxTotal>
+                  <cac:Item>
+                     <cbc:Description><![CDATA[Laptop DELL ]]></cbc:Description>
                      <cac:SellersItemIdentification>
                         <cbc:ID>202</cbc:ID>
                      </cac:SellersItemIdentification>
                   </cac:Item>
                   <cac:Price>
-                     <cbc:PriceAmount currencyID="PEN">4.24</cbc:PriceAmount>
+                     <cbc:PriceAmount currencyID="PEN">3644.07</cbc:PriceAmount>
+                  </cac:Price>
+               </cac:InvoiceLine><cac:InvoiceLine>
+                  <cbc:ID>3</cbc:ID>
+                  <cbc:InvoicedQuantity unitCode="ZZ">4</cbc:InvoicedQuantity>
+                  <cbc:LineExtensionAmount currencyID="PEN">1016.95</cbc:LineExtensionAmount>
+                  <cac:PricingReference>
+                     <cac:AlternativeConditionPrice>
+                        <cbc:PriceAmount currencyID="PEN">300</cbc:PriceAmount>
+                        <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+                     </cac:AlternativeConditionPrice>
+                  </cac:PricingReference><cac:TaxTotal>
+                     <cbc:TaxAmount currencyID="PEN">183.05</cbc:TaxAmount>
+                     <cac:TaxSubtotal>
+                        <cbc:TaxableAmount currencyID="PEN">1016.95</cbc:TaxableAmount>
+                        <cbc:TaxAmount currencyID="PEN">183.05</cbc:TaxAmount>
+                        <cac:TaxCategory>
+                           <cbc:Percent>18</cbc:Percent>
+                           <cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+                           <cac:TaxScheme>
+                              <cbc:ID>1000</cbc:ID>
+                              <cbc:Name>IGV</cbc:Name>
+                              <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+                           </cac:TaxScheme>
+                        </cac:TaxCategory>
+                     </cac:TaxSubtotal></cac:TaxTotal>
+                  <cac:Item>
+                     <cbc:Description><![CDATA[WORKSHOP PROGRMACIÓN DE SISTEMA DE FACTURACIÓN]]></cbc:Description>
+                     <cac:SellersItemIdentification>
+                        <cbc:ID>102</cbc:ID>
+                     </cac:SellersItemIdentification>
+                  </cac:Item>
+                  <cac:Price>
+                     <cbc:PriceAmount currencyID="PEN">254.24</cbc:PriceAmount>
+                  </cac:Price>
+               </cac:InvoiceLine><cac:InvoiceLine>
+                  <cbc:ID>4</cbc:ID>
+                  <cbc:InvoicedQuantity unitCode="NIU">4</cbc:InvoicedQuantity>
+                  <cbc:LineExtensionAmount currencyID="PEN">11016.95</cbc:LineExtensionAmount>
+                  <cac:PricingReference>
+                     <cac:AlternativeConditionPrice>
+                        <cbc:PriceAmount currencyID="PEN">3250</cbc:PriceAmount>
+                        <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+                     </cac:AlternativeConditionPrice>
+                  </cac:PricingReference><cac:TaxTotal>
+                     <cbc:TaxAmount currencyID="PEN">1983.05</cbc:TaxAmount>
+                     <cac:TaxSubtotal>
+                        <cbc:TaxableAmount currencyID="PEN">11016.95</cbc:TaxableAmount>
+                        <cbc:TaxAmount currencyID="PEN">1983.05</cbc:TaxAmount>
+                        <cac:TaxCategory>
+                           <cbc:Percent>18</cbc:Percent>
+                           <cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+                           <cac:TaxScheme>
+                              <cbc:ID>1000</cbc:ID>
+                              <cbc:Name>IGV</cbc:Name>
+                              <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+                           </cac:TaxScheme>
+                        </cac:TaxCategory>
+                     </cac:TaxSubtotal></cac:TaxTotal>
+                  <cac:Item>
+                     <cbc:Description><![CDATA[Laptop Lenovo V15 IIL, 15.6" HD, Core i7, 8GB RAM, 1TB]]></cbc:Description>
+                     <cac:SellersItemIdentification>
+                        <cbc:ID>201</cbc:ID>
+                     </cac:SellersItemIdentification>
+                  </cac:Item>
+                  <cac:Price>
+                     <cbc:PriceAmount currencyID="PEN">2754.24</cbc:PriceAmount>
                   </cac:Price>
                </cac:InvoiceLine></Invoice>

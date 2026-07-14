@@ -15,8 +15,6 @@ use Controladores\ControladorSunat;
             <button class=""><i class="fas fa-file-invoice"></i> Nueva nota de débito</button>
           </div>
           <div class="col-md-9  col-sm-12 btns-dash">
-            <a href="crear-factura" class="btn pull-right" style="margin-left:10px"><i class="fas fa-file-invoice"></i> Emitir factura</a>
-            <a href="crear-boleta" class="btn pull-right"><i class="fas fa-file-invoice"> </i> Emitir boleta</a>
           </div>
         </div>
       </div>

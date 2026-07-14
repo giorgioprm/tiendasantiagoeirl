@@ -24,7 +24,7 @@
      </button>
      <!-- <button class="btn btn-danger btn-menup dia" onclick="changep(1)" idp="claro"></button>
      <button class="btn btn-danger btn-menup noche" onclick="changep(2)" idp="oscuro"></button> -->
-     <button class="btn btn-primary" id="tipocambio"></button>
+     <!-- <button class="btn btn-primary" id="tipocambio"></button> -->
      <div class="navbar-custom-menu">
        <ul class="nav navbar-nav">
 
@@ -67,7 +67,7 @@
                   </li> -->
                </ul>
              </li>
-             <li class="footer"><a href="ventas">Ver todos</a></li>
+             <li class="footer"><a href="?ruta=ventas">Ver todos</a></li>
            </ul>
          </li>
          <!-- fin notification ===================== -->
@@ -82,19 +82,19 @@
                 echo '<img src="vistas/img/man_default.svg" class="user-image" alt="User Image">';
               }
               ?>
-             <span class="hidden-xs">Usuario</span>
+             <span class="hidden-xs"><?php echo $_SESSION['nombre']; ?> - Usuario</span>
            </a>
            <ul class="dropdown-menu menu-user" style="width: 200px; color:black;">
 
              <!-- Menu Body -->
              <li class="">
-               <a href="usuarios">
+               <a href="?ruta=usuarios">
                  <i class="fas fa-user fa-lg" style="color: #0e6edf"> </i> <span class="mg-menu">Mi perfil</span>
 
                </a>
              </li>
              <li class="">
-               <a href="empresa">
+               <a href="?ruta=empresa">
                  <i class="fas fa-cog  fa-lg" style="color: #0e6edf"> </i> <span class="mg-menu">Configurar empresa</span>
 
                </a>
@@ -105,7 +105,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div> -->
 
-               <a href="salir" class="">
+               <a href="?ruta=salir" class="">
                  <i class="fas fa-sign-out-alt fa-lg" style="color:tomato"></i><span class="mg-menu"> Salir </span>
                </a>
 

@@ -20,24 +20,6 @@ use Controladores\ControladorUsuarios;
 
   ?>
     <div style="padding:5px"></div>
-    <section class="container-fluid">
-      <section class="content-header dashboard-header">
-        <div class="box container-fluid" style="border:0px; margin:0px; padding:0px;">
-          <div class="col-lg-12 col-xs-12" style="border:0px; margin:0px; padding:0px; border-radius:10px;">
-
-            <div class="col-md-3 hidden-sm hidden-xs">
-              <button class=""><i class="fas fa-file-invoice"></i> Usuarios</button>
-            </div>
-            <div class="col-md-9  col-sm-12 btns-dash">
-              <a href="crear-factura" class="btn pull-right" style="margin-left:10px"><i class="fas fa-file-invoice"></i> Emitir factura</a>
-              <a href="crear-boleta" class="btn pull-right"><i class="fas fa-file-invoice"> </i> Emitir boleta</a>
-            </div>
-          </div>
-        </div>
-      </section>
-    </section>
-
-
 
     <!-- <section class="content"> -->
     <section class="container-fluid panel-medio">
@@ -45,7 +27,8 @@ use Controladores\ControladorUsuarios;
       <div class="box rounded">
 
         <div class="box-header ">
-          <h3 class="box-title">Administración de usuarios</h3>
+          <i class="fas fa-file-invoice"></i>&nbsp;
+          <h3 class="box-title">Administración de Usuarios</h3>
 
           <?php
           if ($_SESSION['perfil'] == 'Administrador') {
@@ -245,7 +228,7 @@ use Controladores\ControladorUsuarios;
 
               <div class="form-group">
                 <div class="input-group">
-                  <input type="text" class="form-control " name="nuevoDni" id="nuevoDni" placeholder="Ingresar DNI" title="DNI" >
+                  <input type="text" class="form-control " name="nuevoDni" id="nuevoDni" placeholder="Ingresar DNI" title="DNI">
                   <span class="input-group-addon btn buscarRuc"><i class="fa fa-search"></i></span>
                   <div class="resultadoCliente" idCliente=""><a href="#" class="btn-add"></a></div>
 
@@ -254,7 +237,7 @@ use Controladores\ControladorUsuarios;
 
               <div class="form-group">
                 <div class="input-group">
-                  <input type="text" class="form-control " name="nuevoNombre" id="nuevoNombre" placeholder="Ingresar nombre" title="Nombre" >
+                  <input type="text" class="form-control " name="nuevoNombre" id="nuevoNombre" placeholder="Ingresar nombre" title="Nombre">
                   <span class="input-group-addon btn btn-secondary" onclick="limpiarInputs()"><i class="fas fa-eraser"></i></span>
                 </div>
               </div>
@@ -270,14 +253,14 @@ use Controladores\ControladorUsuarios;
 
               <div class="form-group">
 
-                <input type="text" class="form-control " name="nuevoEmail" id="nuevoEmail" placeholder="Ingresar correo electrónico" title="Correo electrónico" >
+                <input type="text" class="form-control " name="nuevoEmail" id="nuevoEmail" placeholder="Ingresar correo electrónico" title="Correo electrónico">
 
               </div>
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
 
-                    <input type="text" class="form-control nuevoUser" name="nuevoUsuario" id="nuevoUsuario" placeholder="Ingresar usuario" title="Usuario" >
+                    <input type="text" class="form-control nuevoUser" name="nuevoUsuario" id="nuevoUsuario" placeholder="Ingresar usuario" title="Usuario">
 
                   </div>
                 </div>
@@ -285,7 +268,7 @@ use Controladores\ControladorUsuarios;
                   <!-- ENTRADA PARA LA CONTRASEÑA -->
                   <div class="form-group">
 
-                    <input type="password" class="form-control " name="nuevoPassword" id="nuevoPassword" placeholder="Ingresar contraseña" title="Contraseña" >
+                    <input type="password" class="form-control " name="nuevoPassword" id="nuevoPassword" placeholder="Ingresar contraseña" title="Contraseña">
 
                   </div>
                 </div>

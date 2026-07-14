@@ -22,8 +22,21 @@ class ApiFacturacion
 	public $code;
 	public $token;
 
+	/**
+	 * Simple logger to avoid undefined method errors.
+	 * Logs message to PHP error log.
+	 */
+	protected function log($message)
+	{
+		error_log((string) $message);
+	}
+
 	public function EnviarComprobanteElectronico($emisor, $nombre, $ruta_archivo_xml, $ruta_archivo_cdr, $rutacertificado = null)
 	{
+		// Verificar si estamos en modo desarrollo
+		$env = getenv('APP_ENV') ?: 'development';
+		$isDevelopment = ($env == 'development');
+
 		if ($emisor['modo'] == 'n') {
 			$usuario_sol = $emisor['usuario_prueba'];
 			$clave_sol = $emisor['clave_prueba'];
@@ -37,6 +50,16 @@ class ApiFacturacion
 			$certificado = $emisor['certificado'];
 			$wsS = 'https://e-factura.sunat.gob.pe/ol-ti-itcpfegem/billService?wsdl';
 			$pass_certificado = $emisor['clave_certificado'];
+		}
+
+		if (!$isDevelopment) {
+			// Solo firmar en producción
+			$firma = new Signature();
+			$firma->signature_xml('0', $ruta_archivo_xml . $nombre . '.XML', '../api/certificado/certificado_prueba.pfx', 'ceti');
+		} else {
+			// En desarrollo, guardamos el XML sin firmar
+			// Podemos agregar un marcador para saber que es desarrollo
+			$this->log('Modo desarrollo: XML sin firmar');
 		}
 
 		$objfirma = new Signature();

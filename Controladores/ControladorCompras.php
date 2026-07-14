@@ -126,7 +126,7 @@ class ControladorCompras
         }
 
         $descuentoGlobalC = $datosCarrito['descuentoG'];
-		$descuentoGlobalCP = $datosCarrito['descuentoGP'];
+        $descuentoGlobalCP = $datosCarrito['descuentoGP'];
         //LOGICA IMPLEMENTADA------------- INICIO
         if (is_numeric($descuentoGlobalC) && $descuentoGlobalC > 0) {
             $descuento = number_format($descuentoGlobalC, 2);
@@ -350,8 +350,8 @@ class ControladorCompras
 				  $('#serieDoc, #correlativoDoc').val('');
                   $('#rucActivo').hide();
 			</script>";
-                    unset($carritoC);
-                    $_SESSION['carritoC'] = $carritoC;
+                    // Clear carrito from session
+                    unset($_SESSION['carritoC']);
                 } else {
 
                     echo "<script>
