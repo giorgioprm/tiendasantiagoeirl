@@ -106,10 +106,6 @@ class DataTables
     $action = $_REQUEST['action'] ?? '';
     if ($action != 'ajax') return;
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 63f707401775e318dbf26b8f095fdfa9d5b44b33
     $perfilUsuario = $_REQUEST['perfilOcultoc'] ?? '';
     $search = $this->getSearchValue('search');
     $perPage = $this->getPerPage($_GET['selectnum'] ?? null);
@@ -143,9 +139,7 @@ class DataTables
 
       if ($perfilUsuario == 'Administrador') {
         echo "<button class='btn btn-danger btnEliminarCliente' idCliente='{$value['id']}'><i class='fas fa-trash-alt'></i></button>";
-<<<<<<< HEAD
-=======
-=======
+
     $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != NULL) ? $_REQUEST['action'] : '';
     if ($action == 'ajax') {
       // escaping, additionally removing everything that could be (html/javascript-) code
@@ -162,8 +156,6 @@ class DataTables
         }
         $sWhere = substr_replace($sWhere, "", -3);
         $sWhere .= ')';
->>>>>>> 9439536e0268cfd2c3cc7bc7bc06083e7ba7a236
->>>>>>> 63f707401775e318dbf26b8f095fdfa9d5b44b33
       }
 
       echo "    </div>
@@ -184,17 +176,11 @@ class DataTables
     $action = $_REQUEST['action'] ?? '';
     if ($action != 'ajax') return;
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 63f707401775e318dbf26b8f095fdfa9d5b44b33
     $perfilUsuario = $_REQUEST['perfilOculto'] ?? '';
     $search = $this->getSearchValue('searchProducto');
     $perPage = $this->getPerPage($_GET['selectnum'] ?? null);
     $page = (int)($_REQUEST['page'] ?? 1);
-<<<<<<< HEAD
-=======
-=======
+
     $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != NULL) ? $_REQUEST['action'] : '';
     if ($action == 'ajax') {
       // escaping, additionally removing everything that could be (html/javascript-) code
@@ -212,8 +198,6 @@ class DataTables
         $sWhere = substr_replace($sWhere, "", -3);
         $sWhere .= ')';
       }
->>>>>>> 9439536e0268cfd2c3cc7bc7bc06083e7ba7a236
->>>>>>> 63f707401775e318dbf26b8f095fdfa9d5b44b33
 
     $columns = ['codigo', 'serie', 'descripcion'];
     $table = 'productos';
@@ -246,16 +230,12 @@ class DataTables
         echo "<button class='btn btn-danger btnEliminarProducto' idProducto='{$value['id']}' codigo='{$value['codigo']}' imagen='{$value['imagen']}'><i class='fas fa-trash-alt'></i></button>";
       }
 
-<<<<<<< HEAD
       echo "    </div>
                 </td>
             </tr>";
-=======
-<<<<<<< HEAD
       echo "    </div>
                 </td>
             </tr>";
-=======
       //Count the total number of row in your table*/
       $pdo =  Conexion::conectar();
       $totalRegistros   = $pdo->query("SELECT count(*) AS numrows FROM $sTable  $sWhere");
@@ -273,7 +253,6 @@ class DataTables
 
       $registros = $registros->fetchall();
 
-
       foreach ($registros as $key => $value) :
 
         $item = 'id';
@@ -289,26 +268,18 @@ class DataTables
 
         echo '<td>' . $categoria['categoria'] . '</td>
            <td> <button class="btn-primary stock' . $value['id'] . ' btn-stock"  stock="' . $value["stock"] . '">' . $value['stock'] . '</button></td>
-         
            <td>
-       
            <input type="number" class="number cantidad-stock" name="cantidad" id="cantidad' . $value['id'] . '"  idProducto="' . $value["id"] . '" min="1" value="" onkeyup="this.value=Numeros(this.value)">
            </td>
-
            <td> ' . $value['precio_unitario'] . '</td>           
-
            <td class="btn-prod">
            <div class="btn-group"  style="; !important; justify-content: center;">       
            <button class="btn btn-primary btn-sm agregarProducto" descripcionP="' . $value["descripcion"] . '" idProducto="' . $value["id"] . '" ><i class="fa fa-plus"></i></button>  
-          </div> 
-            
-
-
+          </div>
            </td>
            <td class="btn-prod">
            <div class="btn-group">   
-           <button class="btn btn-primary btn-sm vermasProductos btn-close" idProducto="' . $value["id"] . '"><i class="fas fa-tools"></i></button>     
-                 
+           <button class="btn btn-primary btn-sm vermasProductos btn-close" idProducto="' . $value["id"] . '"><i class="fas fa-tools"></i></button>      
             </div>
     
             </td>            
@@ -385,21 +356,14 @@ class DataTables
          </div>
          </div>
          </div>
-         
-         
          </td>
-         
          </tr>';
       endforeach;
-
-
       $paginador = new Paginacion();
       $paginador = $paginador->paginarProductosVentas($reload, $page, $tpages, $adjacents);
       echo "<tr>
                      <td colspan='10' style='text-align:center;'>" . $paginador . "</td>
                     </tr>";
->>>>>>> 9439536e0268cfd2c3cc7bc7bc06083e7ba7a236
->>>>>>> 63f707401775e318dbf26b8f095fdfa9d5b44b33
     }
 
     $reload = './index.php';
