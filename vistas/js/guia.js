@@ -13,6 +13,7 @@ $(document).ready(function () {
   if (document.getElementById("tipoDocTransporte")) {
     document.getElementById("tipoDocTransporte").value = "1";
   }
+  }
 });
 
 $(".resultado-ubigeos-partida").hide();
