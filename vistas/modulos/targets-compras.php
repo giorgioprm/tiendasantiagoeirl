@@ -1,14 +1,8 @@
 <?php
-<<<<<<< HEAD
+
 require_once __DIR__ . '/../../vendor/autoload.php';
-=======
-<<<<<<< HEAD
-require_once __DIR__ . '/../../vendor/autoload.php';
-=======
 require_once("../../vendor/autoload.php");
 
->>>>>>> 9439536e0268cfd2c3cc7bc7bc06083e7ba7a236
->>>>>>> 63f707401775e318dbf26b8f095fdfa9d5b44b33
 use Controladores\ControladorReportes;
 // widgets-----------
 $moneda = 'S/ ';
@@ -24,20 +18,15 @@ $tipoc = '01';
 $facturas = ControladorReportes::ctrSumaFacturas($tabla, $tipoc, $fechaInicial, $fechaFinal);
 $totalf = $moneda . number_format($facturas['total'], 2);
 
-
-
 $tabla = 'compra';
 $tipoc = '03';
 $boletas = ControladorReportes::ctrSumaFacturas($tabla, $tipoc, $fechaInicial, $fechaFinal);
 $totalb = $moneda . number_format($boletas['total'], 2);
 
-
-
 $tabla = 'compra';
 $tipoc = '07';
 $notac = ControladorReportes::ctrSumaNotas($tabla, $tipoc, $fechaInicial, $fechaFinal);
 $totalnc = $moneda . number_format($notac['total'], 2);
-
 
 $tabla = 'compra';
 $tipoc = '08';
@@ -50,12 +39,9 @@ $totalneto = number_format($totalneto, 2);
 // fin widgets ---------------
 ?>
 <div class="contenedor-widget" style="margin-top:15px;">
-
   <div class="col-md-3 col-sm-6 col-xs-12">
-
     <div class="info-box">
       <span class="info-box-icon bg-fa"><i class="fass fas-money-bill"></i></span>
-
       <div class="info-box-content">
         <span class="info-box-text">FACTURAS</span>
         <span class="info-box-number t-f"><?php echo $totalf ?></span>
@@ -68,7 +54,6 @@ $totalneto = number_format($totalneto, 2);
   <div class="col-md-3 col-sm-6 col-xs-12">
     <div class="info-box">
       <span class="info-box-icon bg-bo"><i class="fass fas-money-bill"></i></span>
-
       <div class="info-box-content">
         <span class="info-box-text">BOLETAS</span>
         <span class="info-box-number t-b"><?php echo $totalb ?></span>
@@ -78,12 +63,10 @@ $totalneto = number_format($totalneto, 2);
     <!-- /.info-box -->
   </div>
   <!-- /.col -->
-
   <!-- /.col -->
   <div class="col-md-3 col-sm-6 col-xs-12">
     <div class="info-box">
       <span class="info-box-icon bg-nc"><i class="fass fas-money-bill"></i></span>
-
       <div class="info-box-content">
         <span class="info-box-text">NOTAS DE CRÉDITO</span>
         <span class="info-box-number t-nc"><?php echo $totalnc ?></span>
@@ -118,5 +101,4 @@ $totalneto = number_format($totalneto, 2);
     </div>
     <!-- /.info-box -->
   </div>
-
 </div>

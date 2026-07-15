@@ -7,7 +7,7 @@ function cerrarSession() {
     url: "ajax/usuarios.ajax.php",
     method: "POST",
     data: datos,
-    beforeSend: function () {},
+    beforeSend: function () { },
     success: function (respuesta) {
       if (respuesta == "ok") {
         window.location = "salir";
@@ -16,9 +16,11 @@ function cerrarSession() {
   });
 }
 //LOGIN USUARIOS
+//LOGIN USUARIOS
 $("#logUser").click(function (e) {
   e.preventDefault();
   var conectar = $("#conectado").val();
+
   if (conectar == "ok") {
     grecaptcha.ready(function () {
       grecaptcha
@@ -27,9 +29,7 @@ $("#logUser").click(function (e) {
         })
         .then(function (token) {
           $("#form-login").prepend(
-            '<input type="hidden" name="token" id="token" value="' +
-              token +
-              '" >'
+            '<input type="hidden" name="token" id="token" value="' + token + '" >'
           );
           $("#form-login").prepend(
             '<input type="hidden" name="action" id="action" value="validarUsuario" >'
@@ -51,19 +51,49 @@ $("#logUser").click(function (e) {
             url: "ajax/usuarios.ajax.php",
             method: "POST",
             data: datos,
-
-            beforeSend: function () {},
-            success: function (respuesta) {
-              //(respuesta);
-              $("#resultLogin")
-                .html(respuesta)
-                .show(500, function () {
-                  $(this).delay(3000).hide(500);
-                });
+            dataType: "json",
+            beforeSend: function () {
+              $("#resultLogin").html(
+                '<img src="vistas/img/reload1.svg" width="50px" style="display:block; margin:0 auto;">'
+              );
             },
+            success: function (respuesta) {
+              console.log("Respuesta del servidor:", respuesta);
+
+              if (respuesta.status == "success") {
+                $("#resultLogin").html(
+                  '<div class="alert alert-success">✅ Login exitoso. Redireccionando...</div>'
+                );
+                window.location.href = "?ruta=" + respuesta.redirect;
+              } else {
+                $("#resultLogin").html(
+                  '<div class="alert alert-danger">❌ ' + (respuesta.message || 'Error desconocido') + '</div>'
+                );
+                if (typeof grecaptcha !== 'undefined') {
+                  grecaptcha.reset();
+                }
+              }
+            },
+            error: function (xhr, status, error) {
+              console.error("Error en AJAX:", error);
+              console.log("Respuesta del servidor (texto):", xhr.responseText);
+
+              // Intentar parsear la respuesta manualmente
+              try {
+                var respuesta = JSON.parse(xhr.responseText);
+                $("#resultLogin").html(
+                  '<div class="alert alert-danger">❌ ' + (respuesta.message || 'Error desconocido') + '</div>'
+                );
+              } catch (e) {
+                // Si no es JSON, mostrar el texto como está
+                $("#resultLogin").html(
+                  '<div class="alert alert-danger">❌ Error del servidor<br><small>' + xhr.responseText.substring(0, 200) + '</small></div>'
+                );
+              }
+            }
           });
         });
-    }); //FIN RECAPTCHA
+    });
   } else {
     var ingUsuario = $("#ingUsuario").val();
     var ingPassword = $("#ingPassword").val();
@@ -78,16 +108,41 @@ $("#logUser").click(function (e) {
       url: "ajax/usuarios.ajax.php",
       method: "POST",
       data: datos,
-
-      beforeSend: function () {},
-      success: function (respuesta) {
-        //(respuesta);
-        $("#resultLogin")
-          .html(respuesta)
-          .show(500, function () {
-            $(this).delay(3000).hide(500);
-          });
+      dataType: "json",
+      beforeSend: function () {
+        $("#resultLogin").html(
+          '<img src="vistas/img/reload1.svg" width="50px" style="display:block; margin:0 auto;">'
+        );
       },
+      success: function (respuesta) {
+        console.log("Respuesta del servidor:", respuesta);
+
+        if (respuesta.status == "success") {
+          $("#resultLogin").html(
+            '<div class="alert alert-success">✅ Login exitoso. Redireccionando...</div>'
+          );
+          window.location.href = "?ruta=" + respuesta.redirect;
+        } else {
+          $("#resultLogin").html(
+            '<div class="alert alert-danger">❌ ' + (respuesta.message || 'Error desconocido') + '</div>'
+          );
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error en AJAX:", error);
+        console.log("Respuesta del servidor (texto):", xhr.responseText);
+
+        try {
+          var respuesta = JSON.parse(xhr.responseText);
+          $("#resultLogin").html(
+            '<div class="alert alert-danger">❌ ' + (respuesta.message || 'Error desconocido') + '</div>'
+          );
+        } catch (e) {
+          $("#resultLogin").html(
+            '<div class="alert alert-danger">❌ Error del servidor<br><small>' + xhr.responseText.substring(0, 200) + '</small></div>'
+          );
+        }
+      }
     });
   }
 });

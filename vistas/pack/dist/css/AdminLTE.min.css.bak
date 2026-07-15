@@ -94,7 +94,7 @@ body {
 .main-footer {
   background: #FFFFFF;
   padding: 15px;
-  color: #444;
+  color: #FFFFFF;
   border-top: 1px solid #d2d6de;
 }
 .fixed .main-header,
@@ -158,14 +158,15 @@ h6,
   font-family: "Source Sans Pro", sans-serif;
 }
 a {
-  color: #337ab7;
+  /* color: #337ab7; */
+  color: #FFFFFF;
 }
 a:hover,
 a:active,
 a:focus {
   outline: none;
   text-decoration: none;
-  color: #23527c;
+  color: #c2c2c2;
 }
 .page-header {
   margin: 10px 0 20px 0;
@@ -403,18 +404,10 @@ a:focus {
   min-height: 100%;
   width: 230px;
   z-index: 810;
-  -webkit-transition:
-    -webkit-transform 0.3s ease-in-out,
-    width 0.3s ease-in-out;
-  -moz-transition:
-    -moz-transform 0.3s ease-in-out,
-    width 0.3s ease-in-out;
-  -o-transition:
-    -o-transform 0.3s ease-in-out,
-    width 0.3s ease-in-out;
-  transition:
-    transform 0.3s ease-in-out,
-    width 0.3s ease-in-out;
+  -webkit-transition: -webkit-transform 0.3s ease-in-out, width 0.3s ease-in-out;
+  -moz-transition: -moz-transform 0.3s ease-in-out, width 0.3s ease-in-out;
+  -o-transition: -o-transform 0.3s ease-in-out, width 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
 }
 @media (max-width: 767px) {
   .main-sidebar {
@@ -2060,7 +2053,7 @@ a:focus {
   clear: both;
 }
 .box-header {
-  color: #444;
+  color: #FFFFFF;
   display: block;
   padding: 10px;
   position: relative;

@@ -20,7 +20,6 @@ body {
   padding-left: 30px !important;
   font-size: 1.5em !important;
   border-bottom: 1px solid rgb(224, 224, 224);
-  background-color: #0e6edf;
 }
 
 .panel-medio .box-header .box-title {
@@ -856,26 +855,17 @@ background-color: rgb(248, 244, 244) !important
 
 /* WIDGRTS */
 .contenedor-widget {
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 63f707401775e318dbf26b8f095fdfa9d5b44b33
     position: relative;
     width: 80%;
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
 
-<<<<<<< HEAD
-=======
-=======
   position: relative;
   width: 100%;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
->>>>>>> 9439536e0268cfd2c3cc7bc7bc06083e7ba7a236
->>>>>>> 63f707401775e318dbf26b8f095fdfa9d5b44b33
 }
 
 .contenedor-widget .info-box {
@@ -1297,7 +1287,7 @@ background-color: rgb(248, 244, 244) !important
   text-align: center !important;
 }
 
-/* ESTADOS SUNAT============ */
+/* ESTADOS SUNAT */
 
 .contenedor-estados-sunat {
   display: flex;

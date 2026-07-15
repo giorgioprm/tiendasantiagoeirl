@@ -6,7 +6,6 @@ use Controladores\ControladorUsuarios;
 <div class="content-wrapper panel-medio-principal">
   <?php
   if ($_SESSION['perfil'] == 'Vendedor' || $_SESSION['perfil'] == 'Especial') {
-
     echo '
       <section class="container-fluid panel-medio">
       <div class="box alert-dangers text-center">
@@ -16,19 +15,12 @@ use Controladores\ControladorUsuarios;
      </div>
      </div>';
   } else {
-
-
   ?>
     <div style="padding:5px"></div>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
     <section class="container-fluid">
       <section class="content-header dashboard-header">
         <div class="box container-fluid" style="border:0px; margin:0px; padding:0px;">
           <div class="col-lg-12 col-xs-12" style="border:0px; margin:0px; padding:0px; border-radius:10px;">
-
             <div class="col-md-3 hidden-sm hidden-xs">
               <button class=""><i class="fas fa-file-invoice"></i> Usuarios</button>
             </div>
@@ -40,34 +32,27 @@ use Controladores\ControladorUsuarios;
         </div>
       </section>
     </section>
->>>>>>> 9439536e0268cfd2c3cc7bc7bc06083e7ba7a236
->>>>>>> 63f707401775e318dbf26b8f095fdfa9d5b44b33
 
     <!-- <section class="content"> -->
     <section class="container-fluid panel-medio">
       <!-- BOX INI -->
       <div class="box rounded">
-
         <div class="box-header ">
           <i class="fas fa-file-invoice"></i>&nbsp;
           <h3 class="box-title">Administración de Usuarios</h3>
-
           <?php
           if ($_SESSION['perfil'] == 'Administrador') {
           ?>
             <button class="btn btn-success  pull-right btn-radius" data-toggle="modal" data-target="#modalAgregarUsuario"><i class="fas fa-plus-square"></i>Nuevo usuario <i class="fas fa-user-plus"></i>
             </button>
           <?php } ?>
-
         </div>
         <!-- /.box-header -->
         <div class="box-body table-user">
           <input type="hidden" id="perfilOculto" value="<?php echo $_SESSION['perfil'] ?>">
           <!-- table-bordered table-striped  -->
           <div class="table-responsive">
-
             <table class="table dt-responsive tablas tbl-t" width="100%">
-
               <thead>
                 <tr>
                   <th style="width:10px;">#</th>
@@ -80,7 +65,6 @@ use Controladores\ControladorUsuarios;
                   <th width="100px">Acciones</th>
                 </tr>
               </thead>
-
               <tbody>
                 <?php
                 if ($_SESSION['perfil'] != 'Administrador') {
@@ -92,12 +76,10 @@ use Controladores\ControladorUsuarios;
                   if ($usuarios != null) {
                     $value = $usuarios;
                 ?>
-
                     <tr>
                       <td>1</td>
                       <td><?php echo $value['nombre']; ?></td>
                       <td><?php echo $value['usuario']; ?></td>
-
                       <?php
                       if (isset($value['foto']) && $value['foto'] != '') {
                         echo '<td><img src="' . $value['foto'] . '" alt="" class="img-thumbnail" width="40px"></td>';
@@ -105,9 +87,7 @@ use Controladores\ControladorUsuarios;
                         echo '<td><img src="vistas/img/usuarios/default/man_default.svg" alt="" class="img-thumbnail" width="40px"></td>';
                       }
                       ?>
-
                       <td><?php echo $value['perfil']; ?></td>
-
                       <td>
                         <div class="modo-contenedor-selva">
                           <input type="checkbox" data-toggle="toggle" data-on="Activado" data-off="Desactivado"
@@ -119,7 +99,6 @@ use Controladores\ControladorUsuarios;
                             <?php if ($value['estado'] != 0) { ?>checked<?php } ?>>
                         </div>
                       </td>
-
                       <td>
                         <?php
                         if (isset($value['ultimo_login']) && $value['ultimo_login'] != null && $value['ultimo_login'] != '0000-00-00 00:00:00') {
@@ -148,7 +127,6 @@ use Controladores\ControladorUsuarios;
                         </div>
                       </td>
                     </tr>
-
                     <?php
                   } else {
                     echo '<tr><td colspan="8" class="text-center">No se encontró información del usuario</td></tr>';
@@ -167,7 +145,6 @@ use Controladores\ControladorUsuarios;
                         <td><?php echo ++$key; ?></td>
                         <td><?php echo $value['nombre']; ?></td>
                         <td><?php echo $value['usuario']; ?></td>
-
                         <?php
                         if (isset($value['foto']) && $value['foto'] != '') {
                           echo '<td><img src="' . $value['foto'] . '" alt="" class="img-thumbnail" width="40px"></td>';
@@ -175,9 +152,7 @@ use Controladores\ControladorUsuarios;
                           echo '<td><img src="vistas/img/usuarios/default/man_default.svg" alt="" class="img-thumbnail" width="40px"></td>';
                         }
                         ?>
-
                         <td><?php echo $value['perfil']; ?></td>
-
                         <td>
                           <div class="modo-contenedor-selva">
                             <input type="checkbox" data-toggle="toggle" data-on="Activado" data-off="Desactivado"
@@ -189,7 +164,6 @@ use Controladores\ControladorUsuarios;
                               <?php if ($value['estado'] != 0) { ?>checked<?php } ?>>
                           </div>
                         </td>
-
                         <td>
                           <?php
                           if (isset($value['ultimo_login']) && $value['ultimo_login'] != null && $value['ultimo_login'] != '0000-00-00 00:00:00') {
@@ -218,7 +192,6 @@ use Controladores\ControladorUsuarios;
                           </div>
                         </td>
                       </tr>
-
                 <?php
                     endforeach;
                   } else {
@@ -229,16 +202,12 @@ use Controladores\ControladorUsuarios;
               </tbody>
             </table>
           </div>
-
         </div>
-
       </div>
       <!-- BOX FIN -->
       <!-- /.box-footer -->
     </section>
-
   <?php } ?>
-
 </div>
 
 <!-- MODAL AGREGAR USUARIO -->
@@ -250,39 +219,22 @@ use Controladores\ControladorUsuarios;
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">AGREGAR USUARIO</h4>
         </div>
-
         <div class="modal-body">
           <div class="box-body">
             <div class="col-md-8">
               <div id="respuestaAjax"></div>
-
               <div class="form-group">
                 <div class="input-group">
-<<<<<<< HEAD
                   <input type="text" class="form-control " name="nuevoDni" id="nuevoDni" placeholder="Ingresar DNI" title="DNI">
-=======
-<<<<<<< HEAD
-                  <input type="text" class="form-control " name="nuevoDni" id="nuevoDni" placeholder="Ingresar DNI" title="DNI">
-=======
                   <input type="text" class="form-control" name="nuevoDni" id="nuevoDni" placeholder="Ingresar DNI" title="DNI">
->>>>>>> 9439536e0268cfd2c3cc7bc7bc06083e7ba7a236
->>>>>>> 63f707401775e318dbf26b8f095fdfa9d5b44b33
                   <span class="input-group-addon btn buscarRuc"><i class="fa fa-search"></i></span>
                   <div class="resultadoCliente" idCliente=""><a href="#" class="btn-add"></a></div>
                 </div>
               </div>
-
               <div class="form-group">
                 <div class="input-group">
-<<<<<<< HEAD
                   <input type="text" class="form-control " name="nuevoNombre" id="nuevoNombre" placeholder="Ingresar nombre" title="Nombre">
-=======
-<<<<<<< HEAD
-                  <input type="text" class="form-control " name="nuevoNombre" id="nuevoNombre" placeholder="Ingresar nombre" title="Nombre">
-=======
                   <input type="text" class="form-control" name="nuevoNombre" id="nuevoNombre" placeholder="Ingresar nombre" title="Nombre">
->>>>>>> 9439536e0268cfd2c3cc7bc7bc06083e7ba7a236
->>>>>>> 63f707401775e318dbf26b8f095fdfa9d5b44b33
                   <span class="input-group-addon btn btn-secondary" onclick="limpiarInputs()"><i class="fas fa-eraser"></i></span>
                 </div>
               </div>
@@ -293,60 +245,24 @@ use Controladores\ControladorUsuarios;
                   document.getElementById("nuevoNombre").value = "";
                 }
               </script>
-
               <div class="form-group">
-<<<<<<< HEAD
-
                 <input type="text" class="form-control " name="nuevoEmail" id="nuevoEmail" placeholder="Ingresar correo electrónico" title="Correo electrónico">
-
-=======
-<<<<<<< HEAD
-
-                <input type="text" class="form-control " name="nuevoEmail" id="nuevoEmail" placeholder="Ingresar correo electrónico" title="Correo electrónico">
-
-=======
                 <input type="text" class="form-control" name="nuevoEmail" id="nuevoEmail" placeholder="Ingresar correo electrónico" title="Correo electrónico">
->>>>>>> 9439536e0268cfd2c3cc7bc7bc06083e7ba7a236
->>>>>>> 63f707401775e318dbf26b8f095fdfa9d5b44b33
               </div>
-
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-<<<<<<< HEAD
-
                     <input type="text" class="form-control nuevoUser" name="nuevoUsuario" id="nuevoUsuario" placeholder="Ingresar usuario" title="Usuario">
-
-=======
-<<<<<<< HEAD
-
                     <input type="text" class="form-control nuevoUser" name="nuevoUsuario" id="nuevoUsuario" placeholder="Ingresar usuario" title="Usuario">
-
-=======
-                    <input type="text" class="form-control nuevoUser" name="nuevoUsuario" id="nuevoUsuario" placeholder="Ingresar usuario" title="Usuario">
->>>>>>> 9439536e0268cfd2c3cc7bc7bc06083e7ba7a236
->>>>>>> 63f707401775e318dbf26b8f095fdfa9d5b44b33
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-<<<<<<< HEAD
-
                     <input type="password" class="form-control " name="nuevoPassword" id="nuevoPassword" placeholder="Ingresar contraseña" title="Contraseña">
-
-=======
-<<<<<<< HEAD
-
-                    <input type="password" class="form-control " name="nuevoPassword" id="nuevoPassword" placeholder="Ingresar contraseña" title="Contraseña">
-
-=======
                     <input type="password" class="form-control" name="nuevoPassword" id="nuevoPassword" placeholder="Ingresar contraseña" title="Contraseña">
->>>>>>> 9439536e0268cfd2c3cc7bc7bc06083e7ba7a236
->>>>>>> 63f707401775e318dbf26b8f095fdfa9d5b44b33
                   </div>
                 </div>
               </div>
-
               <div class="form-group">
                 <select class="form-control" name="nuevoPerfil" id="nuevoPerfil" title="Perfil">
                   <option value="">Selecionar perfil</option>
@@ -366,7 +282,6 @@ use Controladores\ControladorUsuarios;
                 <input type="hidden" name="fotoActual" id="fotoActual">
               </div>
             </div>
-
             <script>
               var input = document.getElementById('editarFoto');
               input.addEventListener('change', function() {
@@ -391,7 +306,6 @@ use Controladores\ControladorUsuarios;
             </script>
           </div>
         </div>
-
         <div class="modal-footer">
           <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="far fa-times-circle fa-lg"></i> Salir</button>
           <button type="submit" class="btn btn-primary btnusuario">Guardar</button>
@@ -410,7 +324,6 @@ use Controladores\ControladorUsuarios;
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">EDITAR USUARIO</h4>
         </div>
-
         <div class="modal-body">
           <div class="box-body">
             <div class="col-md-8">
@@ -436,7 +349,6 @@ use Controladores\ControladorUsuarios;
                   </div>
                 </div>
               </div>
-
               <div class="form-group">
                 <?php if ($_SESSION['perfil'] == 'Administrador') { ?>
                   <select class="form-control" name="editarPerfil">
@@ -451,7 +363,6 @@ use Controladores\ControladorUsuarios;
                 <?php } ?>
               </div>
             </div>
-
             <div class="col-md-4">
               <div class="img-contenedor">
                 <label for="editarFoto"></label>
@@ -464,7 +375,6 @@ use Controladores\ControladorUsuarios;
           </div>
           <p style="text-align: center;">* El campo usuario no podra editarse posterior al registro</p>
         </div>
-
         <div class="modal-footer">
           <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="far fa-times-circle fa-lg"></i> Salir</button>
           <button type="submit" class="btn btn-primary">Modificar usuario</button>

@@ -1,146 +1,84 @@
- <?php
+<?php
 
-  use Controladores\ControladorEmpresa;
+use Controladores\ControladorEmpresa;
 
-  $emisor = ControladorEmpresa::ctrEmisor();
+$emisor = ControladorEmpresa::ctrEmisor();
+?>
 
-  ?>
+<header class="main-header cabecera-m">
+  <!-- Logo -->
+  <a href="?ruta=inicio" class="logo" style="background-color: #0e6edf;">
+    <span class="logo-mini">
+      <img src="vistas/img/logo/<?php echo $emisor['logo'] ?? 'logo.png'; ?>" alt="" width="50px">
+    </span>
+    <span class="logo-lg" style="background-color: #0e6edf;">
+      <b><?php echo $emisor['nombre_comercial'] ?? 'SISTEMA'; ?></b>
+    </span>
+  </a>
 
- <header class="main-header cabecera-m">
+  <!-- Header Navbar -->
+  <nav class="navbar navbar-static-top cabecera-m">
+    <!-- Sidebar toggle button -->
+    <button class="btn btn-success btn-menup" data-toggle="push-menu" role="button">
+      <i class="fas fa-align-justify fa-lg"></i>
+    </button>
 
-   <!-- Logo -->
-   <a href="inicio" class="logo" style="background-color: #0e6edf;">
-     <!-- mini logo for sidebar mini 50x50 pixels -->
-     <!-- <span class="logo-mini"><b>B</b>MM</span> -->
-     <span class="logo-mini"><img src="vistas/img/logo/<?php echo $emisor['logo'] ?>" alt="" width="50px"></span>
-     <!-- logo for regular state and mobile devices -->
-     <span class="logo-lg" style="background-color: #0e6edf;"><b><?php echo $emisor['nombre_comercial'] ?></b></span>
-   </a>
-   <!-- Header Navbar: style can be found in header.less -->
-   <nav class="navbar navbar-static-top cabecera-m">
-     <!-- Sidebar toggle button-->
-     <button class="btn btn-success  btn-menup" data-toggle="push-menu" role="button">
-       <i class="fas fa-align-justify fa-lg"></i>
-     </button>
-     <!-- <button class="btn btn-danger btn-menup dia" onclick="changep(1)" idp="claro"></button>
-     <button class="btn btn-danger btn-menup noche" onclick="changep(2)" idp="oscuro"></button> -->
-     <!-- <button class="btn btn-primary" id="tipocambio"></button> -->
-     <div class="navbar-custom-menu">
-       <ul class="nav navbar-nav">
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+        <!-- Notificaciones -->
+        <li class="dropdown notifications-menu">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="far fa-bell"></i>
+            <span class="label label-warning no-enviados"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="header no-enviados-text"></li>
+            <li>
+              <ul class="menu">
+                <li>
+                  <a href="#">
+                    <i class="fa fa-users text-aqua"></i>
+                    <span class="no-enviados-items"></span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="footer"><a href="?ruta=ventas">Ver todos</a></li>
+          </ul>
+        </li>
 
-         <li class="dropdown notifications-menu">
-           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-             <i class="far fa-bell"></i>
-             <span class="label label-warning no-enviados"></span>
-           </a>
-           <ul class="dropdown-menu">
-             <li class="header no-enviados-text"></li>
-             <li>
-               <!-- inner menu: contains the actual data -->
-               <ul class="menu">
-                 <li>
-                   <a href="#">
-                     <i class="fa fa-users text-aqua "></i>
-                     <span class="no-enviados-items"></span>
-                   </a>
-                 </li>
-                 <!-- <li>
-                    <a href="#">
-                      <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
-                      page and may cause design problems
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-red"></i> 5 new members joined
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-user text-red"></i> You changed your username
-                    </a>
-                  </li> -->
-               </ul>
-             </li>
-             <li class="footer"><a href="?ruta=ventas">Ver todos</a></li>
-           </ul>
-         </li>
-         <!-- fin notification ===================== -->
-
-         <!-- User Account: style can be found in dropdown.less -->
-         <li class="dropdown user user-menu">
-           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-             <!-- <img src="vistas/img/man_default.svg" class="user-image" alt="User Image"> -->
-             <?php if ($_SESSION['foto'] != '') {
-                echo '<img src="' . $_SESSION['foto'] . '" class="user-image" alt="User Image">';
-              } else {
-                echo '<img src="vistas/img/man_default.svg" class="user-image" alt="User Image">';
-              }
-              ?>
-             <span class="hidden-xs"><?php echo $_SESSION['nombre']; ?> - Usuario</span>
-           </a>
-           <ul class="dropdown-menu menu-user" style="width: 200px; color:black;">
-
-             <!-- Menu Body -->
-             <li class="">
-<<<<<<< HEAD
-               <a href="?ruta=usuarios">
-=======
-<<<<<<< HEAD
-               <a href="?ruta=usuarios">
-=======
-               <a href="index.php?ruta=usuarios"">
->>>>>>> 9439536e0268cfd2c3cc7bc7bc06083e7ba7a236
->>>>>>> 63f707401775e318dbf26b8f095fdfa9d5b44b33
-                 <i class="fas fa-user fa-lg" style="color: #0e6edf"> </i> <span class="mg-menu">Mi perfil</span>
-
-               </a>
-             </li>
-             <li class="">
-<<<<<<< HEAD
-               <a href="?ruta=empresa">
-=======
-<<<<<<< HEAD
-               <a href="?ruta=empresa">
-=======
-               <a href="index.php?ruta=empresa">
->>>>>>> 9439536e0268cfd2c3cc7bc7bc06083e7ba7a236
->>>>>>> 63f707401775e318dbf26b8f095fdfa9d5b44b33
-                 <i class="fas fa-cog  fa-lg" style="color: #0e6edf"> </i> <span class="mg-menu">Configurar empresa</span>
-
-               </a>
-             </li>
-             <!-- Menu Footer-->
-             <li class="">
-               <!-- <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div> -->
-
-<<<<<<< HEAD
-               <a href="?ruta=salir" class="">
-=======
-<<<<<<< HEAD
-               <a href="?ruta=salir" class="">
-=======
-               <a href="index.php?ruta=salir" class="">
->>>>>>> 9439536e0268cfd2c3cc7bc7bc06083e7ba7a236
->>>>>>> 63f707401775e318dbf26b8f095fdfa9d5b44b33
-                 <i class="fas fa-sign-out-alt fa-lg" style="color:tomato"></i><span class="mg-menu"> Salir </span>
-               </a>
-
-             </li>
-           </ul>
-         </li>
-         <!-- Control Sidebar Toggle Button -->
-         <!-- <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li> -->
-       </ul>
-     </div>
-   </nav>
- </header>
+        <!-- User Account -->
+        <li class="dropdown user user-menu">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <?php if (!empty($_SESSION['foto'])): ?>
+              <img src="<?php echo $_SESSION['foto']; ?>" class="user-image" alt="User Image">
+            <?php else: ?>
+              <img src="vistas/img/man_default.svg" class="user-image" alt="User Image">
+            <?php endif; ?>
+            <span class="hidden-xs"><?php echo $_SESSION['nombre'] ?? 'Usuario'; ?></span>
+          </a>
+          <ul class="dropdown-menu menu-user" style="width: 200px; color:black;">
+            <li>
+              <a href="?ruta=usuarios">
+                <i class="fas fa-user fa-lg" style="color: #0e6edf;"></i>
+                <span class="mg-menu">Mi perfil</span>
+              </a>
+            </li>
+            <li>
+              <a href="?ruta=empresa">
+                <i class="fas fa-cog fa-lg" style="color: #0e6edf;"></i>
+                <span class="mg-menu">Configurar empresa</span>
+              </a>
+            </li>
+            <li>
+              <a href="?ruta=salir">
+                <i class="fas fa-sign-out-alt fa-lg" style="color:tomato;"></i>
+                <span class="mg-menu">Salir</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>

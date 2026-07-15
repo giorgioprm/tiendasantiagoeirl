@@ -257,6 +257,7 @@ $tiem = time();
 
 
   <div class="connection"></div>
+  <input type="hidden" id="conectado" name="conectado" value="ok">
   <input type="hidden" class="" id="tipo_cambio" name="tipo_cambio" value="">
   <input type="hidden" class="" id="fecha" name="fecha" value="<?php echo date("Y-m-d") ?>">
   <!-- End custom js for this page-->
@@ -284,8 +285,6 @@ $tiem = time();
   <script>
     $(document).ready(function() {
       $(".reload-all").hide();
-
-
     })
 
     function change(a) {
@@ -296,19 +295,11 @@ $tiem = time();
         css.setAttribute("href", "vistas/css/plantilla2.css");
     }
     loadGuiasR(1)
-
     $(document).on('click', ".reload-all", function() {
       $(".reload-all").hide();
     })
   </script>
-<<<<<<< HEAD
- 
-=======
-<<<<<<< HEAD
 
-=======
->>>>>>> 9439536e0268cfd2c3cc7bc7bc06083e7ba7a236
->>>>>>> 63f707401775e318dbf26b8f095fdfa9d5b44b33
 </body>
 
 </html>

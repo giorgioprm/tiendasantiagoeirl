@@ -4,10 +4,6 @@ use Controladores\ControladorClientes;
 ?>
 <div class="content-wrapper panel-medio-principal">
   <div style="padding:5px"></div>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
   <section class="container-fluid">
     <section class="content-header dashboard-header">
 
@@ -23,9 +19,6 @@ use Controladores\ControladorClientes;
       </div>
     </section>
   </section>
-
->>>>>>> 9439536e0268cfd2c3cc7bc7bc06083e7ba7a236
->>>>>>> 63f707401775e318dbf26b8f095fdfa9d5b44b33
   <!-- <section class="content"> -->
   <section class="container-fluid panel-medio">
     <!-- BOX INI -->
@@ -107,9 +100,7 @@ use Controladores\ControladorClientes;
 
       <form role="form" method="post" id="formClientes" autocomplete="off">
 
-        <!--=====================================
-        CABEZA DEL MODAL
-        ======================================-->
+        <!-- CABEZA DEL MODAL -->
 
         <div class="modal-header" style="background:#0e6edf; color:white">
 
@@ -119,9 +110,7 @@ use Controladores\ControladorClientes;
 
         </div>
 
-        <!--=====================================
-        CUERPO DEL MODAL
-        ======================================-->
+        <!-- CUERPO DEL MODAL -->
 
         <div class="modal-body">
 
@@ -229,10 +218,7 @@ use Controladores\ControladorClientes;
 
         </div>
 
-        <!--=====================================
-        PIE DEL MODAL
-        ======================================-->
-
+        <!-- PIE DEL MODAL -->
         <div class="modal-footer">
 
           <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="far fa-times-circle fa-lg"></i> Salir</button>
@@ -264,9 +250,7 @@ use Controladores\ControladorClientes;
 
       <form role="form" method="post">
 
-        <!--=====================================
-        CABEZA DEL MODAL
-        ======================================-->
+        <!-- CABEZA DEL MODAL -->
 
         <div class="modal-header" style="background:#0e6edf; color:white">
 
@@ -276,9 +260,7 @@ use Controladores\ControladorClientes;
 
         </div>
 
-        <!--=====================================
-        CUERPO DEL MODAL
-        ======================================-->
+        <!-- CUERPO DEL MODAL -->
 
         <div class="modal-body">
 
@@ -387,9 +369,7 @@ use Controladores\ControladorClientes;
 
         </div>
 
-        <!--=====================================
-        PIE DEL MODAL
-        ======================================-->
+        <!-- PIE DEL MODAL -->
 
         <div class="modal-footer">
 
