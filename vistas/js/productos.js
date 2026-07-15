@@ -1,21 +1,65 @@
-// $(document).ready(function(){
+// Agregar esta función al inicio del archivo productos.js
+function generarCodigoYSerie() {
+    const ahora = new Date();
+    const año = ahora.getFullYear().toString().slice(-2);
+    const categoria = $("#nuevaCategoria").val() || '01'; // ID de categoría o '01' por defecto
+    const random = Math.floor(Math.random() * 90 + 10); // 10-99
 
-// document.addEventListener('DOMContentLoaded', function() {
+    // Código: CAT-AÑO-RANDOM (ej: 01-24-57)
+    let codigo = `C${categoria}-${año}-${random}`;
 
-//     var elems = document.querySelectorAll('select');
-//     var instances = M.FormSelect.init(elems, options);
-//   });
+    // Serie: S-AÑO-TIMESTAMP-CORTO (ej: S24-8A3F)
+    let serie = `S${año}-${Math.random().toString(36).substr(2, 4).toUpperCase()}`;
 
-//     $('select').formSelect();
-//   });
+    $("#nuevoCodigo").val(codigo);
+    $("#nuevaSerie").val(serie);
+
+    return { codigo: codigo, serie: serie };
+}
+
+// Modificar el evento click del botón
 $(".btn-nuevo-producto").on("click", function (e) {
     e.preventDefault();
-    let datos = $("#formProductos").serialize();
-    let foto = new FormData($("#formProductos")[0]);
-    if ($("#nuevaCategoria").val() == '' || $("#nuevoCodigo").val() == '' ||
-        $("#nuevaSerie").val() == '' || $("#tipo_afectacion").val() == '' || $("#unidad").val() == ''
-        || $("#nuevaDescripcion").val() == '' || $("#nuevoStock").val() == '' || $("#nuevoPrecioUnitario").val() == ''
-        || $("#nuevoValorUnitario").val() == '' || $("#nuevoigv").val() == '' || $("#nuevoPrecioCompra").val() == '') {
+
+    // Generar código y serie automáticamente si están vacíos
+    if ($("#nuevoCodigo").val() == '' || $("#nuevaSerie").val() == '') {
+        generarCodigoYSerie();
+    }
+
+    // Calcular precios
+    calcularPrecios();
+
+    let formData = new FormData($("#formProductos")[0]);
+
+    // Validación (puedes quitar nuevoCodigo y nuevaSerie de la validación)
+    if ($("#nuevaCategoria").val() == '' ||
+        $("#nuevaDescripcion").val() == '' ||
+        $("#nuevoStock").val() == '' ||
+        $("#nuevoPrecioUnitario").val() == '') {
+
+        // Tu código de alerta...
+    } else {
+        // Tu código AJAX...
+    }
+});
+
+$(".btn-nuevo-producto").on("click", function (e) {
+    e.preventDefault();
+
+    // Calcular los valores antes de enviar
+    calcularPrecios();
+
+    let formData = new FormData($("#formProductos")[0]);
+
+    // Validar campos requeridos
+    if ($("#nuevaCategoria").val() == '' ||
+        $("#nuevaDescripcion").val() == '' ||
+        $("#nuevoStock").val() == '' ||
+        $("#nuevoPrecioUnitario").val() == '' ||
+        $("#nuevoValorUnitario").val() == '' ||
+        $("#nuevoigv").val() == '' ||
+        $("#nuevoPrecioCompra").val() == '') {
+
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -27,32 +71,30 @@ $(".btn-nuevo-producto").on("click", function (e) {
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
-
         Toast.fire({
             icon: 'warning',
-            title: `<h4>Por favor, complete todos los campos</h4>`,
+            title: 'Por favor, complete todos los campos requeridos',
         })
     } else {
         $.ajax({
             method: "POST",
             url: 'ajax/productos.ajax.php',
-            data: (datos, foto),
+            data: formData,
             cache: false,
             contentType: false,
             processData: false,
             beforeSend: function () {
-                $(".reload-all").fadeIn(50).html("<img src='vistas/img/reload1.svg' width='80px'>");
+                $(".reload-all").fadeIn(50).html("");
             },
             success: function (respuesta) {
                 console.log(respuesta);
                 $(".reload-all").fadeOut(50);
                 $(".modal-backdrop, #modalAgregarProducto").hide();
+
                 if (respuesta == 'ok') {
                     const Toast = Swal.mixin({
                         toast: true,
                         position: 'top-end',
-                        // width: 600,
-                        // padding: '3em',
                         showConfirmButton: false,
                         timer: 5500,
                         timerProgressBar: true,
@@ -61,40 +103,63 @@ $(".btn-nuevo-producto").on("click", function (e) {
                             toast.addEventListener('mouseleave', Swal.resumeTimer)
                         }
                     })
-
                     Toast.fire({
                         icon: 'success',
-                        title: `<h5>AGREGADO CORRÉCTAMENTE</h5>`,
-                        html: `<div style="font-size: 1.5em; color: #2B5DD2;"><i class="fas fa-shopping-cart"></i> SE AGREGÓ EL PRODUCTO O SERVICIO</div`,
-
+                        title: 'AGREGADO CORRECTAMENTE',
+                        html: 'SE AGREGÓ EL PRODUCTO O SERVICIO'
                     })
-                    loadProductos(1);
-                    $('#formProductos').each(function () {
-                        this.reset();
-
-                    })
+                    // Recargar la tabla de productos
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
                 } else {
                     Swal.fire({
                         icon: 'error',
-                        title: 'Error...',
-                        text: 'LLENE TODOS LOS CAMPOS'
-                        //footer: '<a href>Why do I have this issue?</a>'
+                        title: 'Error',
+                        text: 'Hubo un problema al guardar el producto: ' + respuesta
                     })
                 }
-
+            },
+            error: function (xhr, status, error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error de conexión',
+                    text: 'No se pudo conectar con el servidor'
+                })
             }
         })
     }
-})
-//  GENERAR CÓDIGO DEL PRODUCTO
+});
+
+// Función para calcular precios y asegurar que los campos tengan valores
+function calcularPrecios() {
+    // Asegurarse de que los campos hidden tengan valores
+    let valorUnitario = $("#nuevoValorUnitario").val();
+    let igv = $("#nuevoigv").val();
+    let precioCompra = $("#nuevoPrecioCompra").val();
+
+    // Si están vacíos, calcularlos
+    if (!valorUnitario || !igv || !precioCompra) {
+        // Tu lógica de cálculo aquí
+        let precioUnitario = parseFloat($("#nuevoPrecioUnitario").val()) || 0;
+
+        // Ejemplo de cálculo (ajusta según tu lógica)
+        let igvCalculado = precioUnitario * 0.18;
+        let valorUnitarioCalculado = precioUnitario - igvCalculado;
+        let precioCompraCalculado = valorUnitarioCalculado;
+
+        $("#nuevoValorUnitario").val(valorUnitarioCalculado.toFixed(2));
+        $("#nuevoigv").val(igvCalculado.toFixed(2));
+        $("#nuevoPrecioCompra").val(precioCompraCalculado.toFixed(2));
+    }
+}
+
 $("#nuevaCategoria").change(function () {
-    let idCategoria = $(this).val()+100;
-    let fechaActual = obtenerFechaActualEnFormatoDeseado(); // Reemplaza con tu función para obtener la fecha actual en el formato deseado
-    let nuevaSerie = idCategoria + "-"+ fechaActual;
-    $("#nuevaSerie").val(nuevaSerie);
+    let idCategoria = $(this).val();
 
     let datos = new FormData();
     datos.append('idCategoria', idCategoria);
+
     $.ajax({
         url: 'ajax/productos.ajax.php',
         method: 'POST',
@@ -103,32 +168,38 @@ $("#nuevaCategoria").change(function () {
         contentType: false,
         processData: false,
         dataType: 'json',
-
         success: function (respuesta) {
+            let fechaActual = obtenerFechaActualEnFormatoDeseado();
 
             if (!respuesta) {
+                // Si no hay productos en esta categoría, empezar con 1
+                let nuevoCodigo = idCategoria + "1";
+                let nuevaSerie = nuevoCodigo + fechaActual;
 
-                let nuevoCodigo = idCategoria + '01';
                 $("#nuevoCodigo").val(nuevoCodigo);
-
+                $("#nuevaSerie").val(nuevaSerie);
             } else {
+                // Si ya existen productos, obtener el último código y sumar 1
+                let ultimoCodigo = respuesta["codigo"];
+                // Extraer solo el número del código (remover el prefijo de categoría)
+                let numeroProducto = parseInt(ultimoCodigo.replace(idCategoria, ''));
+                let nuevoNumero = numeroProducto + 1;
 
-                let nuevoCodigo = (Number(respuesta["codigo"]) + 1);
+                let nuevoCodigo = idCategoria + nuevoNumero;
+                let nuevaSerie = nuevoCodigo + fechaActual;
+
                 $("#nuevoCodigo").val(nuevoCodigo);
+                $("#nuevaSerie").val(nuevaSerie);
             }
-
-
         }
     })
 })
 
+// FUNCION PARA OBTENER LA FECHA ACTUAL - AÑO
 function obtenerFechaActualEnFormatoDeseado() {
     let fechaActual = new Date();
-    let anio = fechaActual.getFullYear().toString().substr(-4);
-    // let mes = ("0" + (fechaActual.getMonth() + 1)).slice(-2);
-    // let dia = ("0" + fechaActual.getDate()).slice(-2);
+    let anio = fechaActual.getFullYear().toString();
     return anio;
-    // + mes + dia;
 }
 
 // AGREGANDO PRECIO DE VENTA
@@ -184,16 +255,6 @@ $("#editarAfectacion").on('change', function () {
     changeEditarPrecios();
 })
 
-// $('.porcentaje').on('ifUnchecked', function (){
-//     $("#nuevoPrecioVenta").prop('readonly', false);
-//     $("#editarPrecioVenta").prop('readonly', false);
-// })   
-// $('.porcentaje').on('ifChecked', function (){
-//     $("#nuevoPrecioVenta").prop('readonly', true);
-//     $("#editarPrecioVenta").prop('readonly', true);
-// })   
-
-
 // SUBIENDO LA FOTO DEL PRODUCTO
 $(".nuevaImagen").change(function () {
     let imagen = this.files[0];
@@ -226,6 +287,7 @@ $(".nuevaImagen").change(function () {
         })
     }
 })
+
 // EDITAR PRODUCTO
 $(document).on("click", ".btnEditarProducto", function () {
     let idProducto = $(this).attr("idProducto");
@@ -361,6 +423,7 @@ $(document).on("click", ".btnEliminarProducto", function () {
     })
 
 })
+
 // LISTAR PRODUCTOS CON BUSCADOR
 let perfilOculto = $('#perfilOculto').val();
 function loadProductos(page) {
@@ -544,9 +607,6 @@ $(document).on("change keyup", ".cantidad-stock", function () {
 // REPONER STOCK ======================
 $(document).on('click', '.btn-reponer-stock', function () {
     let idVenta = $(this).attr('idVenta');
-
-
-
 })
 
 
@@ -554,4 +614,4 @@ $(document).on('click', '.btn-reponer-stock', function () {
 
 $('#modalAgregarProducto').on('hidden.bs.modal', function () {
     $('#formProductos')[0].reset();
-  });
+});

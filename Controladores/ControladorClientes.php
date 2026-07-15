@@ -198,7 +198,7 @@ class ControladorClientes
         return $respuesta;
     }
 
-    public static function ctrBucarCliente($valor)
+    public static function ctrBuscarCliente($valor)
     {
         $tabla = "clientes";
         $respuesta = ModeloClientes::mdlBuscarCliente($tabla, $valor);

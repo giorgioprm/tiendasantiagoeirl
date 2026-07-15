@@ -14,9 +14,11 @@ foreach ($productos as $k => $v) {
 
 $colores = array('#08bc6f', '#03acfe', '#156b95', '#ff83b8', '#ff5a42',  '#887675', '#ff5832', '#cd925a', 'orange', 'gold');
 ?>
-<div class="box box-default contenedor-pie-chart">
-  <div class="box-header with-border">
-    <h3 class="box-title"><a href="productos">PRODUCTOS MÁS VENDIDOS</a></h3>
+<div class="box box-default contenedor-productosmasvendidos" style="display: flex; flex-direction: column;">
+  <div class="box-header with-border" style="flex-shrink: 0;">
+    <h3 class="box-title" style="margin: 0;">
+      <a href="index.php?ruta=productos">Productos más Vendidos</a>
+    </h3>
     <div class="box-tools pull-right">
     </div>
   </div>
@@ -25,7 +27,7 @@ $colores = array('#08bc6f', '#03acfe', '#156b95', '#ff83b8', '#ff5a42',  '#88767
     <div class="row">
       <div class="col-md-7">
         <div class="chart-responsive">
-          <canvas id="pieChart" height="210"></canvas>
+          <canvas id="pieChart" height="180"></canvas>
         </div>
         <!-- ./chart-responsive -->
       </div>

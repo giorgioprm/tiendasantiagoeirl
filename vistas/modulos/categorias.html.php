@@ -1,8 +1,8 @@
 <div class="content-wrapper panel-medio-principal">
 
-<div style="padding:5px"></div>
-<section class="container-fluid">
-<section class="content-header dashboard-header">
+  <div style="padding:5px"></div>
+  <section class="container-fluid">
+    <section class="content-header dashboard-header">
       <h1>
         Dashboard
         <small>Control panel</small>
@@ -12,28 +12,28 @@
         <li class="active">Dashboard</li>
       </ol>
     </section>
-</section>
+  </section>
 
 
 
-<!-- <section class="content"> -->
-      <section class="container-fluid panel-medio">
-          <!-- BOX INI -->
-          <div class="box rounded">
+  <!-- <section class="content"> -->
+  <section class="container-fluid panel-medio">
+    <!-- BOX INI -->
+    <div class="box rounded">
 
-                <div class="box-header ">
-              <h3 class="box-title">Administración de categorias</h3>
+      <div class="box-header ">
+        <h3 class="box-title">Administración de categorias</h3>
 
-              <button class="btn btn-success  pull-right btn-radius" data-toggle="modal" data-target="#modalAgregarCategoria"><i class="fas fa-plus-square"></i>Nueva categoría <i class="fa fa-th"></i>            
-            </button>
-            
-           
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body table-user">         
+        <button class="btn btn-success  pull-right btn-radius" data-toggle="modal" data-target="#modalAgregarCategoria"><i class="fas fa-plus-square"></i>Nueva categoría <i class="fa fa-th"></i>
+        </button>
 
-            <!-- table-bordered table-striped  -->
-         <table class="table table-bordered dt-responsive tablas" width="100%">
+
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body table-user">
+
+        <!-- table-bordered table-striped  -->
+        <table class="table table-bordered dt-responsive tablas" width="100%">
 
           <thead>
             <tr>
@@ -44,23 +44,23 @@
           </thead>
 
           <tbody>
-          <?php
-               $item = null;
-               $valor = null;
-              $usuarios = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
-              
-              foreach($usuarios as $key => $value):
-              
-          ?>
+            <?php
+            $item = null;
+            $valor = null;
+            $usuarios = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
+
+            foreach ($usuarios as $key => $value):
+
+            ?>
               <tr>
                 <td><?php echo ++$key; ?></td>
                 <td><?php echo $value['nombre']; ?></td>
-                          <td>
+                <td>
                   <div class="btn-group">
 
-                <button class="btn btn-warning btnEditarUsuario"  data-toggle="modal" data-target="#modalEditarCategoria"><i class="fas fa-user-edit"></i></button>
+                    <button class="btn btn-warning btnEditarUsuario" data-toggle="modal" data-target="#modalEditarCategoria"><i class="fas fa-user-edit"></i></button>
 
-                <button class="btn btn-danger btnEliminarCategoria" ><i class="fas fa-trash-alt"></i></button>
+                    <button class="btn btn-danger btnEliminarCategoria"><i class="fas fa-trash-alt"></i></button>
 
 
                   </div>
@@ -70,35 +70,35 @@
 
               </tr>
 
-              <?php 
-              endforeach;
-              
-              ?>                 
+            <?php
+            endforeach;
+
+            ?>
           </tbody>
 
-      </table>
+        </table>
 
 
-              
 
-            </div>
 
-            </div>
-            <!-- BOX FIN -->
-            <!-- /.box-footer -->
-          </section>
-          
-            </div>
+      </div>
 
-            <!-- MODAL AGREGAR CATEGORIAS-->
-  <!-- Modal -->
+    </div>
+    <!-- BOX FIN -->
+    <!-- /.box-footer -->
+  </section>
+
+</div>
+
+<!-- MODAL AGREGAR CATEGORIAS-->
+<!-- Modal -->
 <div id="modalAgregarCategoria" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
-    <div class="modal-content">      
+    <div class="modal-content">
 
-    <form role="form" method="post">
+      <form role="form" method="post">
 
         <!--=====================================
         CABEZA DEL MODAL
@@ -121,13 +121,13 @@
           <div class="box-body">
 
             <!-- ENTRADA PARA EL NOMBRE -->
-            <div id="respuestaAjax"></div> 
+            <div id="respuestaAjax"></div>
 
             <div class="form-group">
-              
+
               <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-th"></i></span> 
+
+                <span class="input-group-addon"><i class="fa fa-th"></i></span>
 
                 <input type="text" class="form-control input-lg" name="nuevaCategoria" id="nuevaCategoria" placeholder="Ingresar categoría" required>
 
@@ -135,7 +135,7 @@
 
             </div>
 
-           
+
 
           </div>
 
@@ -155,21 +155,21 @@
 
         <?php
 
-          $crearUsuario = new ControladorUsuarios();
-          $crearUsuario -> ctrCrearUsuario();
+        $crearUsuario = new ControladorUsuarios();
+        $crearUsuario->ctrCrearUsuario();
 
         ?>
 
       </form>
 
 
-</div>
+    </div>
   </div>
 </div>
 
 <!-- MODAL EDITAR USUARIO -->
 <div id="modalEditarCategoria" class="modal fade" role="dialog">
-  
+
   <div class="modal-dialog">
 
     <div class="modal-content">
@@ -197,12 +197,12 @@
           <div class="box-body">
 
             <!-- ENTRADA PARA EL NOMBRE -->
-            
+
             <div class="form-group">
-              
+
               <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-th"></i></span> 
+
+                <span class="input-group-addon"><i class="fa fa-th"></i></span>
 
                 <input type="text" class="form-control input-lg" id="editarCategoria" name="editarCategoria" value="" required>
 
@@ -226,12 +226,12 @@
 
         </div>
 
-     <?php
+        <?php
 
-          // $editarUsuario = new ControladorUsuarios();
-          // $editarUsuario -> ctrEditarUsuario();
+        // $editarUsuario = new ControladorUsuarios();
+        // $editarUsuario -> ctrEditarUsuario();
 
-        ?> 
+        ?>
 
       </form>
 
@@ -241,7 +241,7 @@
 
 </div>
 
-<?php 
+<?php
 // $borrarUsuarios =  ControladorUsuarios::ctrBorrarUsuario();
 
 

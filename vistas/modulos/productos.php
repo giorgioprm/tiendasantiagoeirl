@@ -144,17 +144,14 @@ $empresa_igv = ControladorEmpresa::ctrEmisor();
                 <!-- ENTRADA PARA DEL CÓDIGO -->
                 <div class="col-md-4">
                   <div class="form-group">
-
-                    <input type="text" class="form-control" name="nuevoCodigo" id="nuevoCodigo" placeholder="Código" title="Código" readonly required>
-
+                    <input type="text" class="form-control" name="nuevoCodigo" id="nuevoCodigo" placeholder="Código Autogenerado" title="Código del producto" readonly>
                   </div>
                 </div>
-                <!-- ENTRADA PARA DEL CÓDIGO -->
+
+                <!-- ENTRADA PARA LA SERIE -->
                 <div class="col-md-4">
                   <div class="form-group">
-
-                    <input type="text" class="form-control" name="nuevaSerie" id="nuevaSerie" placeholder="Serie del producto" title="Serie del producto" readonly required>
-
+                    <input type="text" class="form-control" name="nuevaSerie" id="nuevaSerie" placeholder="Serie Autogenerada" title="Serie del producto" readonly>
                   </div>
                 </div>
               </div>
@@ -390,9 +387,9 @@ $empresa_igv = ControladorEmpresa::ctrEmisor();
                   <!-- ENTRADA PARA LA DESCRIPCIÓN -->
                   <div class="form-group">
 
-                    <select class="form-control " name="editarCategoria" title="Categoría" readonly required>
+                    <select class="form-control" id="editarCategoria" name="editarCategoria" title="Categoría" readonly required>
 
-                      <option value="" id="editarCategoria"></option>
+                      <!-- <option value="" id="editarCategoria"></option> -->
                       <!-- <option value="">Selecionar categoría</option> -->
                       <?php
                       $item = null;

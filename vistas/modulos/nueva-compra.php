@@ -164,7 +164,7 @@ use Controladores\ControladorSunat;
                         <div class="form-group">
                           <div class="input-group">
                             <div id="rucActivo"></div>
-                            <input type="text" class="form-control" id="docIdentidad" name="docIdentidad" placeholder="Ingrese número de documento" title="Número de documento">
+                            <input type="text" class="form-control" id="docIdentidad" onkeyup="this.value=Numeros(this.value)" name="docIdentidad" placeholder="Ingrese número de documento" title="Número de documento">
                             <span class="input-group-addon btn buscarRucP"><i class="fa fa-search"></i></span>
                             <div id="reloadC"></div>
                             <div class="resultadoProveedor" idCliente=""><a href="#" class="btn-add-p"></a></div>

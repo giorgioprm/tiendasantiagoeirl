@@ -108,120 +108,100 @@ class ModeloClientes
         return $content;
     }
 
-
-
-    //BUSCAR RUC SUNAT
+    // BUSCAR RUC Y DNI SUNAT - RENIEC PARA CLIENTES
     public static function mdlBuscarRuc($numDoc, $tipoDoc)
     {
+        // Tu token de apiperu.dev - REEMPLAZA CON TU TOKEN REAL
+        // $token = "TU_TOKEN_DE_APIPERU_DEV";
+        $token = "60f198fc53c48b7f8da7762d8ef4493b1029ddcf23abf38d35df0e3bc942a9b7";
 
-        if ($tipoDoc == 6) {
+        // Limpiar el número de documento
+        $numDoc = trim($numDoc);
 
-            // Descargar padron reducido: http://www.sunat.gob.pe/descargaPRR/mrc137_padron_reducido.html
-            // Resultado al descomprimir: padron_reducido_ruc.txt 
-            $numDoc = $numDoc;
-
-            $token =  '97aec307dcc31dd529127753f38db369';
-
-            $curl = curl_init();
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://api.apifacturacion.com/ruc/' . $numDoc,
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_POST => true,
-                CURLOPT_POSTFIELDS  => array('token' => $token),
-                CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_CAINFO => dirname(__FILE__) . "/../api/cacert.pem" //Comentar si sube a un hosting 
-                //para ejecutar los procesos de forma local en windows
-                //enlace de descarga del cacert.pem https://curl.haxx.se/docs/caextract.html
-            ));
-
-            $response = curl_exec($curl);
-
-            curl_close($curl);
-
-            $empresa = json_decode($response);
-
-            if (isset($empresa->ruc)) {
-                $datos = array(
-                    'ruc' => $empresa->ruc,
-                    'razon_social' => $empresa->razon_social,
-                    'estado' => $empresa->estado,
-                    'condicion' => $empresa->condicion,
-                    'direccion' => $empresa->direccion,
-                    'ubigeo' => $empresa->ubigeo,
-                    'departamento' => $empresa->departamento,
-                    'provincia' => $empresa->provincia,
-                    'distrito' => $empresa->distrito,
-                    'token' => $empresa->token
-
-                );
-
-                echo json_encode($datos);
-            } else {
-                echo json_encode('error');
-            }
+        if ($tipoDoc == 6 && strlen($numDoc) == 11) { // RUC (11 dígitos)
+            return self::consultarRucApiPeru($numDoc, $token);
+        } else if ($tipoDoc == 1 && strlen($numDoc) == 8) { // DNI (8 dígitos)
+            return self::consultarDniApiPeru($numDoc, $token);
         }
 
-
-        if ($tipoDoc == 1) {
-
-            $numDoc = $numDoc;
-
-            $token =  '97aec307dcc31dd529127753f38db369';
-
-            $curl = curl_init();
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://api.apifacturacion.com/dni/' . $numDoc,
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_POST => true,
-                CURLOPT_POSTFIELDS  => array('token' => $token),
-                CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_CAINFO => dirname(__FILE__) . "/../api/cacert.pem" //Comentar si sube a un hosting 
-                //para ejecutar los procesos de forma local en windows
-                //enlace de descarga del cacert.pem https://curl.haxx.se/docs/caextract.html
-
-            ));
-
-            $response = curl_exec($curl);
-
-            curl_close($curl);
-
-            $empresa = json_decode($response);
-
-            if (isset($empresa->dni)) {
-                $datos = array(
-                    'ruc' => $empresa->dni,
-                    'razon_social' => $empresa->cliente,
-                    'nombres' => $empresa->nombres,
-                    'apellidos' => $empresa->apellidos
-
-                );
-
-                echo json_encode($datos);
-            } else {
-                echo json_encode('error');
-            }
-        }
+        return 'error';
     }
 
-    // BUSCAR CLIENTE EN LA EMISIÓN DE COMPROBANTES
-    public static function mdlBuscarCliente($tabla, $valor)
+    // CONSULTAR RUC CON APIPERU.DEV
+    private static function consultarRucApiPeru($ruc, $token)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla  WHERE (nombre LIKE :valor OR documento LIKE :valor) OR (razon_social LIKE :valor OR ruc LIKE :valor) LIMIT 50");
-        $parametros = array(':valor' => '%' . $valor . '%');
+        $url = "https://apiperu.dev/api/ruc/" . $ruc;
 
-        $stmt->execute($parametros);
-        return $stmt->fetchall();
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            "Authorization: Bearer " . $token
+        ));
+
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($httpCode == 200 && $response != false) {
+            $data = json_decode($response, true);
+
+            if (isset($data['success']) && $data['success'] === true && isset($data['data'])) {
+                $datos = $data['data'];
+
+                return array(
+                    'ruc' => $ruc,
+                    'razon_social' => $datos['nombre_o_razon_social'],
+                    'direccion' => $datos['direccion_completa'],
+                    'estado' => $datos['estado'],
+                    'ubigeo' => isset($datos['ubigeo']) ? $datos['ubigeo'] : '',
+                    'telefono' => isset($datos['telefono']) ? $datos['telefono'] : ''
+                );
+            }
+        }
+
+        return 'error';
+        return ModeloProveedores::mdlBuscarRuc($numDoc, $tipoDoc);
+    }
+
+    // CONSULTAR DNI CON APIPERU.DEV
+    private static function consultarDniApiPeru($dni, $token)
+    {
+        $url = "https://apiperu.dev/api/dni/" . $dni;
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            "Authorization: Bearer " . $token
+        ));
+
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($httpCode == 200 && $response != false) {
+            $data = json_decode($response, true);
+
+            if (isset($data['success']) && $data['success'] === true && isset($data['data'])) {
+                $datos = $data['data'];
+
+                return array(
+                    'documento' => $dni,
+                    'nombre' => $datos['nombre_completo'],
+                    'nombres' => $datos['nombres'],
+                    'apellido_paterno' => $datos['apellido_paterno'],
+                    'apellido_materno' => $datos['apellido_materno'],
+                    'direccion' => '', // RENIEC no proporciona dirección
+                    'estado' => 'ACTIVO'
+                );
+            }
+        }
+
+        return 'error';
     }
 }

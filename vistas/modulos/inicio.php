@@ -20,9 +20,9 @@
   <!-- <section class="content"> -->
   <section class="container-fluid panel-medio">
     <!-- BOX INI -->
-    <div class="box rounded " style="margin:0px; padding:0px;">
-
-      <div class="box-header box-header-calendar">
+    <div class="box rounded" style="margin:0px; padding:0px;">
+      <div class="box-header with-border" style="flex-shrink: 0;">
+        <h3 class="box-title"><a href="ventas">Resumen de Ventas</a></h3>
 
         <!-- row fechas -->
         <div class="row fechas-reportes ini-calendar-hide">
@@ -42,7 +42,7 @@
           <!-- fin row fechas -->
 
                          
-              <div class=" box-tools pull-right" style="position: relative">
+              <div class=" box-tools pull-right hidden" style="position: relative">
               <?php
               $fecha1 = date('Y-m') . '-01';
               $fecha2 = date('Y-m-d');
@@ -89,7 +89,7 @@
                 <div class="box box-primary">
                   <div class="box-header with-border">
 
-                    <h3 class="box-title"><a href="ventas">GRÁFICO DE VENTAS</a></h3>
+                    <h3 class="box-title"><a href="ventas">Gráfico de Ventas</a></h3>
 
                   </div>
                   <div class="box-body chart-responsive chart-responsive-ventas">

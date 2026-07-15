@@ -6,7 +6,7 @@ use Modelos\ModeloProductos;
 
 class ControladorProductos
 {
-    // MOSTRAR ProductoS|
+    // MOSTRAR PRODUCTOS
     public static function ctrMostrarProductos($item, $valor)
     {
 
@@ -14,22 +14,24 @@ class ControladorProductos
         $respuesta = ModeloProductos::mdlMostrarProductos($tabla, $item, $valor);
         return $respuesta;
     }
-    // MOSTRAR ProductoS|
+
+    // MOSTRAR PRODUCTOS MAS VENDIDOS
     public static function ctrMostrarProductosMasVendidos($item, $valor, $orden)
     {
-
         $tabla = 'productos';
         $respuesta = ModeloProductos::mdlMostrarProductosMasVendidos($tabla, $item, $valor, $orden);
         return $respuesta;
     }
+
     // LISTAR UNIDADES DE MEDIDA
     public static function ctrMostrarUnidade($item, $valor)
     {
-
         $tabla = 'unidad';
         $respuesta = ModeloProductos::mdlMostrarProductos($tabla, $item, $valor);
         return $respuesta;
     }
+
+    // LISTAR CATEGORIAS
     public static function ctrMostrarCategorias($item, $valor)
     {
 
@@ -37,55 +39,58 @@ class ControladorProductos
         $respuesta = ModeloProductos::mdlMostrarProductos($tabla, $item, $valor);
         return $respuesta;
     }
+
     // CREAR PRODUCTO
     public static function ctrCrearProducto($productos, $file)
     {
+        // Validar campos mínimos requeridos
+        if (
+            !isset($productos['nuevaDescripcion']) ||
+            !isset($productos['nuevoPrecioUnitario']) ||
+            !isset($productos['nuevaCategoria'])
+        ) {
 
-        // Validating if the product already exists in the database
-        $productoExistente = ModeloProductos::mdlMostrarProductos("id_categoria", $productos['nuevaCategoria'], "codigo", $productos['nuevoCodigo']);
+            return 'error_campos_faltantes';
+        }
+
+        // Generar código y serie si están vacíos
+        if (empty($productos['nuevoCodigo'])) {
+            $productos['nuevoCodigo'] = 'PROD-' . time() . rand(100, 999);
+        }
+
+        if (empty($productos['nuevaSerie'])) {
+            $productos['nuevaSerie'] = 'SER-' . time() . rand(100, 999);
+        }
+
+        // Validar si el producto ya existe
+        $productoExistente = ModeloProductos::mdlMostrarProductos('productos', 'codigo', $productos['nuevoCodigo']);
 
         if (!empty($productoExistente)) {
-            echo "<script>
-            Swal.fire({
-                title: '¡Error al crear producto!',
-                text: 'El producto ya existe en la base de datos.',
-                icon: 'error',
-                showCancelButton: false,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Cerrar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location = 'productos';
-                }
-            })</script>";
-            return;
+            return 'error_producto_existente';
         }
 
         if (isset($productos['nuevaDescripcion'])) {
-
             if (
                 preg_match('/^[0-9.]+$/', $productos['nuevoPrecioCompra']) &&
                 preg_match('/^[0-9.]+$/', $productos['nuevoPrecioUnitario'])
             ) {
-
-                //  VALIDAR IMAGEN   
+                // VALIDAR IMAGEN - Manejar caso sin imagen
                 $rutabd = "vistas/img/productos/default/anonymous.png";
-                if (isset($file["nuevaImagen"]["tmp_name"]) && !empty($file["nuevaImagen"]["tmp_name"])) {
 
+                if (isset($file["nuevaImagen"]["error"]) && $file["nuevaImagen"]["error"] == 0) {
+                    // Solo procesar imagen si se subió correctamente
                     list($ancho, $alto) = getimagesize($file["nuevaImagen"]["tmp_name"]);
                     $nuevoAncho = 500;
                     $nuevoAlto = 500;
 
-                    //CARPETA DONDE SE GUARDARÁ LA IMAGEN
+                    // CARPETA DONDE SE GUARDARÁ LA IMAGEN
                     $directorio = dirname(__FILE__) . "/../vistas/img/productos/" . $productos['nuevoCodigo'];
-                    // mkdir($directorio, 0755);
+
                     if (!file_exists($directorio)) {
                         mkdir($directorio, 0755, true);
                     }
 
                     if ($file["nuevaImagen"]["type"] == "image/jpeg") {
-
                         $aleatorio = mt_rand(100, 999);
                         $ruta = dirname(__FILE__) . "/../vistas/img/productos/" . $productos['nuevoCodigo'] . "/" . $aleatorio . ".jpeg";
                         $rutabd = "vistas/img/productos/" . $productos['nuevoCodigo'] . "/" . $aleatorio . ".jpeg";
@@ -95,8 +100,8 @@ class ControladorProductos
                         imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
                         imagejpeg($destino, $ruta);
                     }
-                    if ($file["nuevaImagen"]["type"] == "image/png") {
 
+                    if ($file["nuevaImagen"]["type"] == "image/png") {
                         $aleatorio = mt_rand(100, 999);
                         $ruta = dirname(__FILE__) . "/../vistas/img/productos/" . $productos['nuevoCodigo'] . "/" . $aleatorio . ".png";
                         $rutabd = "vistas/img/productos/" . $productos['nuevoCodigo'] . "/" . $aleatorio . ".png";
@@ -108,7 +113,6 @@ class ControladorProductos
                     }
                 }
 
-                //$ruta = "vistas/img/productos/default/anonymous.png";
                 $tabla = "productos";
                 $datos = array(
                     "id_categoria" => $productos['nuevaCategoria'],
@@ -127,26 +131,15 @@ class ControladorProductos
                 );
 
                 $respuesta = ModeloProductos::mdlCrearProducto($tabla, $datos);
-
                 return $respuesta;
             } else {
-                echo "<script>
-                        Swal.fire({
-                            title: '¡El producto no puede ir vacío o llevar caracteres especiales!',
-                            text: '...',
-                            icon: 'error',
-                            showCancelButton: false,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Cerrar'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                            window.location = 'productos';
-                            }
-                        })</script>";
+                return 'error_formato_precio';
             }
         }
+
+        return 'error_datos_incompletos';
     }
+
     // EDITAR PRODUCTO
     public  function ctrEditarProducto()
     {

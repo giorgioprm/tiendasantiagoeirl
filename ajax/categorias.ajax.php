@@ -1,11 +1,15 @@
 <?php
 require_once "../vendor/autoload.php";
+
 use Controladores\ControladorCategorias;
-class AjaxCategorias{
-// EDITAR CATEGORIA
+
+class AjaxCategorias
+{
+    // EDITAR CATEGORIA
 
     public $idCategotia;
-    public function ajaxEditarCategoria(){
+    public function ajaxEditarCategoria()
+    {
 
         $item = 'id';
         $valor = $this->idCategoria;
@@ -14,9 +18,10 @@ class AjaxCategorias{
 
         echo json_encode($respuesta);
     }
-    
+
     public $idEliminar;
-    public function ajaxEliminarCategoria(){
+    public function ajaxEliminarCategoria()
+    {
 
         $datos = $this->idEliminar;
 
@@ -24,10 +29,11 @@ class AjaxCategorias{
     }
     // VALIDAR NO REPETIR CATEGORÍA
     public $validarCategoria;
-    public function ajaxValidarCategoria(){
+    public function ajaxValidarCategoria()
+    {
 
         $item = 'categoria';
-        $valor= $this->validarCategoria;
+        $valor = $this->validarCategoria;
         $respuesta = ControladorCategorias::ctrMostrarCategorias($item, $valor);
 
         echo json_encode($respuesta);
@@ -35,23 +41,23 @@ class AjaxCategorias{
 }
 
 // OBJETO EDITAR CATEGORIA
-if(isset($_POST['idCategoria'])){
+if (isset($_POST['idCategoria'])) {
 
     $categoria = new AjaxCategorias();
     $categoria->idCategoria = $_POST['idCategoria'];
     $categoria->ajaxEditarCategoria();
 }
 // OBJETO ELIMINAR CATEGORIA
-if(isset($_POST['idEliminar'])){
+if (isset($_POST['idEliminar'])) {
 
     $categoriaD = new AjaxCategorias();
     $categoriaD->idEliminar = $_POST['idEliminar'];
     $categoriaD->ajaxEliminarCategoria();
 }
 // VALIDAR CATEGORÍA
-if(isset($_POST['validarCategoria'])){
+if (isset($_POST['validarCategoria'])) {
 
     $validar = new AjaxCategorias();
-    $validar -> validarCategoria = $_POST['validarCategoria'];
+    $validar->validarCategoria = $_POST['validarCategoria'];
     $validar->ajaxValidarCategoria();
 }
